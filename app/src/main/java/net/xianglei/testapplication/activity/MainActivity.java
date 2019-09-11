@@ -3,6 +3,7 @@ package net.xianglei.testapplication.activity;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import net.xianglei.testapplication.R;
@@ -33,15 +34,11 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_test)
     public void test() {
 
-        new ccc().zzz();
     }
 
     @OnClick(R.id.btn_get_address_list)
     public void getAddressLit() {
-        if(ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-            String addressList = JsonUtil.toJson(AddressListUtil.getContacts(this));
-            LogUtil.d(addressList);
-        }
+        startActivity(GetAddressListAndPermissionActivity.class);
     }
     @OnClick(R.id.btn_scroll_conflict)
     public void startScrollConflictActivity() {
