@@ -33,6 +33,12 @@
             android:layout_height="wrap_content"
             android:text="可放大缩小imageview"/>
 
+        <Button
+            android:id="@+id/btn_recycler_divide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="recyclerView分割线"/>
+
 
 
     </LinearLayout>

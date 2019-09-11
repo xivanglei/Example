@@ -51,6 +51,10 @@ public class MainActivity extends SimpleActivity {
     public void startImageViewTouchPage() {
         startActivity(ImageViewTouchActivity.class);
     }
+    @OnClick(R.id.btn_recycler_divide)
+    public void startRecyclerDividePage() {
+        startActivity(RecyclerDivideActivity.class);
+    }
 
 
 
