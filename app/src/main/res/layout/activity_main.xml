@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试"/>
+
+        <Button
+            android:id="@+id/btn_get_address_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="获取手机通讯录列表"/>
+
+        <Button
+            android:id="@+id/btn_scroll_conflict"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="解决滑动冲突demo"/>
+
+        <Button
+            android:id="@+id/btn_imageview_touch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="可放大缩小imageview"/>
+
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="heychatColorStatusbar">@color/color_white</color>
+    <color name="heychatColorPrimary">#0495FF</color>
+    <color name="heychatColorPrimaryDark">#0495FF</color>
+    <color name="heychatColorAccent">#0495FF</color>
+    <color name="tv_b1b1b1">#B1B1B1</color>
+    <color name="tv_ff2e22">#FF2E22</color>
+    <color name="tv_242424">#242424</color>
+    <color name="tv_848484">#848484</color>
+    <color name="tv_424242">#424242</color>
+    <color name="color_f1f1f1">#F1F1F1</color>
+    <color name="color_ff0063">#FF0063</color>
+    <color name="color_cfcfcf">#CFCFCF</color>
+    <color name="color_f9f9f9">#F9F9F9</color>
+    <color name="color_4d00">#4d000000</color>
+    <color name="color_1a70ffa5">#1A70FFA5</color>
+    <color name="color_1aff2e22">#1AFF2E22</color>
+    <color name="cl_aa">#ff2e22</color>
+
+
+    <color name="color_b1b1b1">#b1b1b1</color>
+    <color name="base_color">#FFF639</color>
+    <color name="bc_15color">#26FFF639</color>
+    <color name="color_e1e1e1">#e1e1e1</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="green">#00FF00</color>
+    <color name="yellow">#FFF000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="color_fcfcfc">#fcfcfc</color>
+
+    <color name="heychat_color_highlight">#FFF639</color>
+    <color name="heychat_contact_pressed_bg_color">#FAFAFA</color>
+
+    <color name="color_white">#ffffff</color>
+    <color name="heychatColorControlNormal">#F1F1F1</color>
+    <color name="heychatColorControlActive">#848484</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_aaaaaa">#aaaaaa</color>
+    <color name="heychat_color_high_light">#FFF639</color>
+    <color name="heychat_input_warning">#FF2E22</color>
+    <color name="heychat_input_common">#CFCFCF</color>
+
+    <color name="heychat_user_profile_primary_color">@color/heychat_color_high_light</color>
+    <color name="title_main_font_color">#848484</color>
+    <color name="heychat_common_divider_color">#FAFAFA</color>
+    <color name="heychat_common_exit_btn_color">#FF2E22</color>
+    <color name="heychat_setting_sub_tv_color">#B1B1B1</color>
+    <color name="heychat_conversation_pre_color_mine">#0D9BFF</color>
+    <color name="heychat_conversation_pre_color_others">#FF0063</color>
+    <color name="heychat_color_gray">#E1E1E1</color>
+    <color name="heychat_cancel_hint">#848484</color>
+    <color name="heychat_cancel_hint_sure">#FF2E22</color>
+    <color name="heychat_cancel_mask">#F0FFFFFF</color>
+    <color name="heychat_transparent">#00000000</color>
+    <color name="heychat_progressBg">#B2000000</color>
+    <color name="date_picker_text_light">@color/tv_242424</color>
+    <color name="date_picker_text_dark">@color/tv_b1b1b1</color>
+    <color name="date_picker_divider">#F1F1F1</color>
+    <color name="date_picker_title_bg">#E1E1E1</color>
+    <color name="heychat_voice_wave_view_send_bg">#F1F1F1</color>
+    <color name="heychat_voice_wave_view_send_line">#0495FF</color>
+    <color name="heychat_choose_friends_mentions">#0495FF</color>
+
+    <color name="heychat_voice_wave_view_send_listened_bg">#F1F1F1</color>
+    <color name="heychat_voice_wave_view_send_unlistened_bg">#0495FF</color>
+    <color name="heychat_voice_wave_view_send_listening_bg">#660495FF</color>
+    <color name="heychat_voice_wave_view_send_listend_line">#0495FF</color>
+
+
+    <color name="heychat_voice_wave_view_received_listened_bg">#F1F1F1</color>
+    <color name="heychat_voice_wave_view_received_unlistened_bg">#FF0063</color>
+    <color name="heychat_voice_wave_view_received_listening_bg">#B2FF0063</color>
+    <color name="heychat_voice_wave_view_recive_listend_line">#FF0063</color>
+
+
+    <color name="heychat_conversation_color_unread">#FF0063</color>
+    <color name="heychat_conversation_color_common">#848484</color>
+    <color name="heychat_conversation_color_sending">#0495FF</color>
+    <color name="heychat_conversation_color_failed">#FF2E22</color>
+
+    <color name="heychat_conversation_common_txt_color">#242424</color>
+    <color name="heychat_conversation_common_txt_color_gray">#B1B1B1</color>
+    <color name="heychat_dialog_activity_transparent_bg">#00000000</color>
+
+
+
+</resources>
