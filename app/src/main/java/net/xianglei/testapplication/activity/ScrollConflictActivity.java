@@ -15,6 +15,7 @@ import net.xianglei.testapplication.base.SimpleActivity;
 import net.xianglei.testapplication.widget.ObservableScrollView;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 实现吸顶效果
@@ -94,5 +95,10 @@ public class ScrollConflictActivity extends SimpleActivity {
             }
         });
 
+    }
+
+    @OnClick(R.id.tv_group_and_friend)
+    public void scroll() {
+        rv_recycler.scrollToPosition(0);
     }
 }
