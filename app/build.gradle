@@ -36,4 +36,5 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     implementation rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+
 }
