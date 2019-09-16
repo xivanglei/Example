@@ -45,6 +45,24 @@
             android:layout_height="wrap_content"
             android:text="recyclerView分割线"/>
 
+        <Button
+            android:id="@+id/btn_flexible_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下拉放大刷新布局"/>
+
+        <Button
+            android:id="@+id/btn_small_pinned_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="通过itemDecorator固定内容中的head"/>
+
+        <Button
+            android:id="@+id/btn_bt_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="变态的recyclerView"/>
+
 
 
     </LinearLayout>

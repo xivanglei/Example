@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<net.xianglei.testapplication.widget.flexiblelayout.FlexibleLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/flexible_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FlexibleLayoutActivity">
+    tools:context=".activity.BTRecyclerActivity">
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</net.xianglei.testapplication.widget.flexiblelayout.FlexibleLayout>
+</FrameLayout>

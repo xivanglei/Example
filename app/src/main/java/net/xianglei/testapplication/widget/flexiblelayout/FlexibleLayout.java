@@ -48,6 +48,11 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
     private int mHeaderWidth = 0;
 
     /**
+     * topMargin
+     */
+    private int mTopMargin = 0;
+
+    /**
      * 头部size ready
      */
     private boolean mHeaderSizeReady;
@@ -206,12 +211,12 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
 
     @Override
     public void changeHeader(int offsetY) {
-        PullAnimatorUtil.pullAnimator(mHeaderView, mHeaderHeight, mHeaderWidth, offsetY, mMaxPullHeight);
+        PullAnimatorUtil.pullAnimator(mHeaderView, mHeaderHeight, mHeaderWidth, offsetY, mMaxPullHeight, mTopMargin);
     }
 
     @Override
     public void resetHeader() {
-        PullAnimatorUtil.resetAnimator(mHeaderView, mHeaderHeight, mHeaderWidth);
+        PullAnimatorUtil.resetAnimator(mHeaderView, mHeaderHeight, mHeaderWidth, mTopMargin);
     }
 
     @Override
@@ -287,6 +292,9 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
             public void run() {
                 mHeaderHeight = mHeaderView.getHeight();
                 mHeaderWidth = mHeaderView.getWidth();
+                if(mHeaderView.getLayoutParams() instanceof FrameLayout.LayoutParams) {
+                    mTopMargin = ((LayoutParams)mHeaderView.getLayoutParams()).topMargin;
+                }
                 mHeaderSizeReady = true;
             }
         });

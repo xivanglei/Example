@@ -30,24 +30,10 @@ public class MainActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
-        aa = encode();
     }
 
     @OnClick(R.id.btn_test2)
     public void test2() {
-        decode();
-    }
-
-    private String encode() {
-        String password = "heychat1223";
-        String result = AESHelper.encrypt("{sss}\"\"slkj__kdj", password);
-            LogUtil.d(result);
-        return result;
-    }
-
-    private void decode() {
-        String result = AESHelper.decrypt(aa,"heychat1223" );
-        LogUtil.d(result);
     }
 
     @OnClick(R.id.btn_get_address_list)
@@ -65,6 +51,18 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_recycler_divide)
     public void startRecyclerDividePage() {
         startActivity(RecyclerDivideActivity.class);
+    }
+    @OnClick(R.id.btn_flexible_layout)
+    public void startFlexibleLayoutActivity() {
+        startActivity(FlexibleLayoutActivity.class);
+    }
+    @OnClick(R.id.btn_small_pinned_head)
+    public void startSmallPinnedHeadActivity() {
+        startActivity(SmallPinnedHeaderActivity.class);
+    }
+    @OnClick(R.id.btn_bt_recycler)
+    public void startBTRecyclerActivity() {
+        startActivity(BTRecyclerActivity.class);
     }
 
 
