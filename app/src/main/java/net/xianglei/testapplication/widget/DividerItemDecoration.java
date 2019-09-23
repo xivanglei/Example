@@ -24,6 +24,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;                                                      //画图样式
     private int mOrientation;
     private int mLineWidth;
+    private int mMarginLeft;
+    private int mMarginRight;
 
     public DividerItemDecoration(Context context, int orientation) {
         this(context, orientation, Color.parseColor("#f9f9f9"));
@@ -36,6 +38,15 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     public DividerItemDecoration(Context context, int orientation, int color, int lineWidth) {
         mDivider = new ColorDrawable(color);                                           //获取样式
         mLineWidth = lineWidth;
+        //设置先的透明度 0-255
+        setOrientation(orientation);
+    }
+
+    public DividerItemDecoration(Context context, int orientation, int color, int lineWidth, int marginLeft, int marginRight) {
+        mDivider = new ColorDrawable(color);                                           //获取样式
+        mLineWidth = lineWidth;
+        mMarginLeft = marginLeft;
+        marginRight = mMarginRight;
         //设置先的透明度 0-255
         setOrientation(orientation);
     }

@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import net.xianglei.testapplication.R;
+import net.xianglei.testapplication.utils.LogUtil;
 import net.xianglei.testapplication.widget.flexiblelayout.callback.OnPullListener;
 import net.xianglei.testapplication.widget.flexiblelayout.callback.OnReadyPullListener;
 import net.xianglei.testapplication.widget.flexiblelayout.callback.OnRefreshListener;
@@ -108,6 +109,13 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
     private float mInitialY, mInitialX;
 
     /**
+     * 记录当前活动的手指id
+     */
+    private int mActivePointerId;
+
+    private int mDiffY = 0;
+
+    /**
      * 下拉监听
      */
     private OnPullListener mOnPullListener;
@@ -137,22 +145,25 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        log("onInterceptTouchEvent");
+//        LogUtil.d("onInterceptTouchEvent");
         if (isEnable && isHeaderReady() && isReady()) {
-            switch (ev.getAction()) {
+            switch (ev.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN:
-                    log("onInterceptTouchEvent DOWN");
-                    mInitialX = ev.getX();
-                    mInitialY = ev.getY();
+                    mActivePointerId = ev.getPointerId(0);
+                    LogUtil.d(mActivePointerId);
+                    mInitialX = ev.getX(0);
+                    mInitialY = ev.getY(0);
                     mIsBeingDragged = false;
+                    mDiffY = 0;
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    log("onInterceptTouchEvent MOVE");
-                    float diffY = ev.getY() - mInitialY;
-                    float diffX = ev.getX() - mInitialX;
+//                    log("onInterceptTouchEvent MOVE");
+                    final int pointerIndex = ev.findPointerIndex(mActivePointerId);
+                    float diffY = ev.getY(pointerIndex) - mInitialY;
+                    float diffX = ev.getX(pointerIndex) - mInitialX;
                     if (diffY > 0 && diffY / Math.abs(diffX) > 2) {
                         mIsBeingDragged = true;
-                        log("onInterceptTouchEvent return true");
+//                        log("onInterceptTouchEvent return true");
                         return true;
                     }
                     break;
@@ -166,24 +177,46 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        log("onTouchEvent");
+//        log("onTouchEvent");
         if (isEnable && isHeaderReady() && isReady()) {
-            switch (ev.getAction()) {
+            switch (ev.getActionMasked()) {
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    LogUtil.d("其他手指按下了");
+                    mActivePointerId = ev.getPointerId(ev.getActionIndex());
+                    LogUtil.d(mActivePointerId);
+                    mInitialX = ev.getX(ev.getActionIndex());
+                    mInitialY = ev.getY(ev.getActionIndex());
+                    break;
                 case MotionEvent.ACTION_MOVE:
                     if (mIsBeingDragged) {
-                        float diffY = ev.getY() - mInitialY;
-                        changeHeader((int) diffY);
-                        changeRefreshView((int) diffY);
+                        final int pointerIndex = ev.findPointerIndex(mActivePointerId);
+                        mDiffY += (ev.getY(pointerIndex) - mInitialY);
+                        mInitialY = ev.getY(pointerIndex);
+                        changeHeader((int) mDiffY);
+                        changeRefreshView((int) mDiffY);
                         if (mOnPullListener != null) {
-                            mOnPullListener.onPull((int) diffY);
+                            mOnPullListener.onPull((int) mDiffY);
                         }
-                        log("onTouchEvent return true");
+//                        log("onTouchEvent return true");
                         //return true;
                     }
                     break;
                 case MotionEvent.ACTION_CANCEL:
+                    LogUtil.d("取消了");
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    LogUtil.d("其他手指抬起了");
+                    if(mActivePointerId == ev.getPointerId(ev.getActionIndex())) {
+                        final int newPointerIndex = ev.getActionIndex() == 0 ? 1 : 0;
+                        mActivePointerId = ev.getPointerId(newPointerIndex);
+                        mInitialX = ev.getX(newPointerIndex);
+                        mInitialY = ev.getY(newPointerIndex);
+                    }
+                    break;
                 case MotionEvent.ACTION_UP:
+                    LogUtil.d("抬起了");
                     if (mIsBeingDragged) {
+                        mIsBeingDragged = false;
                         resetHeader();
                         if (mOnPullListener != null) {
                             mOnPullListener.onRelease();
@@ -216,6 +249,7 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
 
     @Override
     public void resetHeader() {
+        LogUtil.d("触发了动画");
         PullAnimatorUtil.resetAnimator(mHeaderView, mHeaderHeight, mHeaderWidth, mTopMargin);
     }
 
@@ -406,7 +440,7 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
     }
 
     private void log(String str) {
-        //Log.i("FlexibleView", str);
+        LogUtil.d(str);
     }
 
     class RefreshAnimatorListener extends AnimatorListenerAdapter {

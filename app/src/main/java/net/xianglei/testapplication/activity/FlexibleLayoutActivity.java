@@ -1,5 +1,6 @@
 package net.xianglei.testapplication.activity;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,8 +13,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.BaseAdapter;
 import net.xianglei.testapplication.base.SimpleActivity;
+import net.xianglei.testapplication.widget.CustomLinearLayoutManager;
 import net.xianglei.testapplication.widget.flexiblelayout.FlexibleLayout;
 import net.xianglei.testapplication.widget.flexiblelayout.callback.OnReadyPullListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -37,6 +42,7 @@ public class FlexibleLayoutActivity extends SimpleActivity {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
                 helper.setText(R.id.tv_option, item);
+
             }
         };
         View header = LayoutInflater.from(this).inflate(R.layout.head_flexible, null);
@@ -74,5 +80,13 @@ public class FlexibleLayoutActivity extends SimpleActivity {
                 }
             }).start();
         });
+    }
+
+    private List<String> getStrList() {
+        List<String> list = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            list.add("项目" + i);
+        }
+        return list;
     }
 }

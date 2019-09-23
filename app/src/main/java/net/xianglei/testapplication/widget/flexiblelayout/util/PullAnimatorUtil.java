@@ -30,13 +30,13 @@ public class PullAnimatorUtil {
         int pullOffset = (int) Math.pow(offsetY, 0.9);
         if(pullOffset <= Math.abs(headTopMargin)) {
             int margin = Math.min(pullOffset + headTopMargin, 0);
-            LogUtil.d(margin);
+//            LogUtil.d(margin);
             ((FrameLayout.LayoutParams) headerView.getLayoutParams()).topMargin = margin;
             headerView.requestLayout();
             return;
         }
         pullOffset += headTopMargin;
-        LogUtil.d(pullOffset);
+//        LogUtil.d(pullOffset);
         int newHeight = Math.min(maxHeight + headerHeight, pullOffset + headerHeight);
         int newWidth = (int) ((((float) newHeight / headerHeight)) * headerWidth);
         headerView.getLayoutParams().height = newHeight;
