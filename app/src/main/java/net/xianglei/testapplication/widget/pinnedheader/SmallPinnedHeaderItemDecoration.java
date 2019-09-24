@@ -144,8 +144,8 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
             } else {
                 mPinnedHeaderOffset = 0;
             }
-            mCover = (v.getTop() <= (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop));
-            LogUtil.d(v.getHeight() + "top " + (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop));
+            mCover = ((v.getTop() < 0) || (v.getHeight() - top <= (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop) * 2));
+            LogUtil.d(v.getTop() + "top " + (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop));
             LogUtil.d(mCover);
             if(mCoverListener != null && mCover) {
                 mCoverListener.isCover(mCover, mHeaderPosition);
