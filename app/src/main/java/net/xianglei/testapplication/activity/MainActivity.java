@@ -2,6 +2,7 @@ package net.xianglei.testapplication.activity;
 
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
@@ -11,12 +12,12 @@ import net.xianglei.testapplication.component.jncryptor.CryptorException;
 import net.xianglei.testapplication.component.jncryptor.JNCryptor;
 import net.xianglei.testapplication.utils.LogUtil;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
 public class MainActivity extends SimpleActivity {
 
-    private String aa;
 
     @Override
     protected int getLayoutById() {
@@ -25,7 +26,6 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-
     }
 
     @OnClick(R.id.btn_test)

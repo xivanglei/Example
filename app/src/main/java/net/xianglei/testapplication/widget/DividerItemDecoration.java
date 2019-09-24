@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import net.xianglei.testapplication.utils.LogUtil;
 import net.xianglei.testapplication.utils.ScreenUtil;
 
 /**
@@ -60,6 +61,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(Canvas c,RecyclerView parent) {
+        LogUtil.d("画几次");
         if(mOrientation == VERTICAL_LIST) {
             drawVertical(c, parent);
         } else {

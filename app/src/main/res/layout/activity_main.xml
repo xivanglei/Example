@@ -63,9 +63,6 @@
             android:layout_height="wrap_content"
             android:text="变态的recyclerView"/>
 
-
-
-
     </LinearLayout>
 
 </ScrollView>
