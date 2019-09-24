@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.xianglei.testapplication.R;
+import net.xianglei.testapplication.utils.LogUtil;
 import net.xianglei.testapplication.utils.ScreenUtil;
 import net.xianglei.testapplication.widget.pinnedheader.callback.OnHeaderClickListener;
 import net.xianglei.testapplication.widget.pinnedheader.callback.OnItemTouchListener;
@@ -80,6 +81,10 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
 
     private RecyclerView mParent;
 
+    private boolean mCover;
+
+    private CoverListener mCoverListener;
+
     private SmallPinnedHeaderItemDecoration(Builder builder) {
         mEnableDivider = builder.enableDivider;
         mHeaderClickListener = builder.headerClickListener;
@@ -88,6 +93,7 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
         mClickIds = builder.clickIds;
         mDisableHeaderClick = builder.disableHeaderClick;
         mPinnedHeaderType = builder.pinnedHeaderType;
+        mCoverListener = builder.mCoverListener;
     }
 
     @Override
@@ -123,18 +129,28 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
 
         // 检测到标签存在的时候，将标签强制固定在RecyclerView顶部
         createPinnedHeader(parent);
-
         if (!mDisableDrawHeader && mPinnedHeaderView != null && mFirstVisiblePosition >= mHeaderPosition) {
             // 标签相对parent高度加上自身的高度
             final int headerEndAt = mPinnedHeaderParentView.getTop() + mPinnedHeaderParentView.getMeasuredHeight() + mRecyclerViewPaddingTop;
             // 根据xy坐标查找view
             View v = parent.findChildViewUnder(c.getWidth() / 2, headerEndAt + 1);
-            if (isPinnedHeader(parent, v) && v.getTop() <= mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop) {
+            int top = v.getTop() < 0 ? 0 : v.getTop();
+//            LogUtil.d(top);
+            if (isPinnedHeader(parent, v) && top <= mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop && top != 0) {
+//                LogUtil.d("top" + top + "mPinnedHeaderView.getHeight()" + mPinnedHeaderView.getHeight());
                 // 如果view是标签的话，那么缓存的标签就要跟随这个真正的标签标签移动了，效果类似于下面的标签把它顶上去一样
                 // 得到mPinnedHeaderView为标签跟随移动的位移
-                mPinnedHeaderOffset = v.getTop() - (mRecyclerViewPaddingTop + mParentPaddingTop + mPinnedHeaderView.getHeight());
+                mPinnedHeaderOffset = top - (mRecyclerViewPaddingTop + mParentPaddingTop + mPinnedHeaderView.getHeight());
             } else {
                 mPinnedHeaderOffset = 0;
+            }
+            mCover = (v.getTop() <= (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop));
+            LogUtil.d(v.getHeight() + "top " + (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop));
+            LogUtil.d(mCover);
+            if(mCoverListener != null && mCover) {
+                mCoverListener.isCover(mCover, mHeaderPosition);
+            } else if(top >= (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop)) {
+                mCoverListener.isCover(false, findNextHeaderPosition(mFirstVisiblePosition));
             }
 
             //            Log.e("TAG", "SmallPinnedHeaderItemDecoration-152行-onDraw(): " + v.getTop() + ";" + mPinnedHeaderOffset);
@@ -151,6 +167,10 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
             c.clipRect(mClipBounds);
 
         }
+    }
+
+    public interface CoverListener {
+        void isCover(boolean isCover, int position);
     }
 
     private void drawDivider(Canvas c, RecyclerView parent) {
@@ -177,13 +197,12 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
         paint.setColor(Color.parseColor("#44ff0000"));
         c.drawRoundRect(new RectF(0, 0, 500, 500), ScreenUtil.dp2px(5), ScreenUtil.dp2px(5), paint);
         if (!mDisableDrawHeader && mPinnedHeaderView != null && mFirstVisiblePosition >= mHeaderPosition) {
-
             c.save();
-
             mClipBounds.left = mRecyclerViewPaddingLeft + mParentPaddingLeft + mHeaderLeftMargin;
             mClipBounds.right = mClipBounds.left + mPinnedHeaderView.getWidth();
             mClipBounds.top = mRecyclerViewPaddingTop + mParentPaddingTop + mHeaderTopMargin;
-            mClipBounds.bottom = mPinnedHeaderOffset + mPinnedHeaderView.getHeight() + mClipBounds.top;
+            mClipBounds.bottom = (mPinnedHeaderOffset + mPinnedHeaderView.getHeight() + mClipBounds.top) * 2 < 0 ? 0 : (mPinnedHeaderOffset + mPinnedHeaderView.getHeight() + mClipBounds.top) * 2;
+//            LogUtil.d("上: " + mClipBounds.top + "  下: " + mClipBounds.bottom + "  mPinnedHeaderOffset: " + mPinnedHeaderOffset);
 
             if (mItemTouchListener != null) {
                 mItemTouchListener.invalidTopAndBottom(mPinnedHeaderOffset);
@@ -194,6 +213,7 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
             c.translate(mRecyclerViewPaddingLeft + mParentPaddingLeft + mHeaderLeftMargin,
                     mPinnedHeaderOffset + mRecyclerViewPaddingTop + mParentPaddingTop + mHeaderTopMargin);
             mPinnedHeaderView.draw(c);
+            mPinnedHeaderView.setVisibility(View.GONE);
 
             c.restore();
         } else if (mItemTouchListener != null) {
@@ -428,6 +448,20 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
         return -1;
     }
 
+    private int findNextHeaderPosition(int fromPosition) {
+        for (int position = fromPosition; position < mAdapter.getItemCount(); position++) {
+            // 从这个位置开始递减，只要一查到有位置type为标签，立即返回此标签位置
+            final int viewType = mAdapter.getItemViewType(position);
+            // 检查是否是标签类型
+            if (isPinnedViewType(viewType)) {
+                // 是标签类型，返回位置
+                return position;
+            }
+        }
+
+        return -1;
+    }
+
     // 检查传入View是否是标签
     private boolean isPinnedHeader(RecyclerView parent, View v) {
         // 获取View在parent中的位置
@@ -543,6 +577,7 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
         private int pinnedHeaderId;
         private boolean enableDivider;
         private int[] clickIds;
+        private CoverListener mCoverListener;
 
         private int pinnedHeaderType;
 
@@ -612,9 +647,16 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
             return this;
         }
 
+        public Builder setCoverListener(CoverListener listener) {
+            mCoverListener = listener;
+            return this;
+        }
+
         public SmallPinnedHeaderItemDecoration create() {
             return new SmallPinnedHeaderItemDecoration(this);
         }
     }
+
+
 
 }

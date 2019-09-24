@@ -46,7 +46,7 @@ public class SmallPinnedHeaderAdapter extends BaseAdapter<SmallPinnedHeaderBean>
         helper.setText(R.id.tv_item, item.getData());
         helper.setGone(R.id.fl_head, helper.getItemViewType() == IS_HEAD);
         if(helper.getItemViewType() == IS_HEAD) {
-            helper.setText(R.id.tv_head, "我是一个头头");
+            helper.setText(R.id.tv_head, "我是一个头头" + item.getData());
         }
     }
 }
