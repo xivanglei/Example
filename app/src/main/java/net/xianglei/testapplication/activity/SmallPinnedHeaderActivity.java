@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import net.xianglei.testapplication.R;
@@ -34,6 +35,7 @@ public class SmallPinnedHeaderActivity extends SimpleActivity {
         rv_content.setLayoutManager(new LinearLayoutManager(mContext));
         adapter.bindToRecyclerView(rv_content);
         adapter.setNewData(getData());
+        adapter.addHeaderView(LayoutInflater.from(mContext).inflate(R.layout.head_small_pinned, null));
 
         rv_content.addItemDecoration(
                 new SmallPinnedHeaderItemDecoration
@@ -43,7 +45,7 @@ public class SmallPinnedHeaderActivity extends SimpleActivity {
                         .setCoverListener(new SmallPinnedHeaderItemDecoration.CoverListener() {
                             @Override
                             public void isCover(boolean isCover, int position) {
-                                LogUtil.d(isCover +  "     " + position);
+//                                LogUtil.d(isCover +  "     " + position);
                                 View view = adapter.getViewByPosition(position, R.id.fl_head);
                                 if(view != null) view.setVisibility(isCover ? View.GONE : View.VISIBLE);
                             }

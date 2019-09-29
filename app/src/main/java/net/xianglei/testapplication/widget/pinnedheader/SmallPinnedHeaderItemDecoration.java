@@ -145,8 +145,8 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
                 mPinnedHeaderOffset = 0;
             }
             mCover = ((v.getTop() < 0) || (v.getHeight() - top <= (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop) * 2));
-            LogUtil.d(v.getTop() + "top " + (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop));
-            LogUtil.d(mCover);
+//            LogUtil.d(v.getTop() + "top " + (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop));
+//            LogUtil.d(mCover);
             if(mCoverListener != null && mCover) {
                 mCoverListener.isCover(mCover, mHeaderPosition);
             } else if(top >= (mPinnedHeaderView.getHeight() + mRecyclerViewPaddingTop + mParentPaddingTop)) {
@@ -242,6 +242,7 @@ public class SmallPinnedHeaderItemDecoration extends RecyclerView.ItemDecoration
         } else if (layoutManager instanceof LinearLayoutManager) {
             mFirstVisiblePosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
         }
+        LogUtil.d(mFirstVisiblePosition);
 
         // 通过第一个部分可见的item位置获取标签的位置
         headerPosition = findPinnedHeaderPosition(mFirstVisiblePosition);
