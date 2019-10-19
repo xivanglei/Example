@@ -34,12 +34,17 @@ public class RecyclerDivideActivity extends SimpleActivity {
 
     }
 
+    @OnClick(R.id.btn_test_stop)
+    public void testStop() {
+        startActivity(ImageViewTouchActivity.class);
+    }
+
     @OnClick(R.id.btn_linearLayout)
     public void initLinearLayout() {
-        BaseAdapter<String> adapter = new BaseAdapter<String>(R.layout.item_simple_option) {
+        BaseAdapter<String> adapter = new BaseAdapter<String>(R.layout.item_question) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
-                helper.setText(R.id.tv_option, item);
+                helper.setText(R.id.tv_nickname, item);
             }
         };
         rv_content.setLayoutManager(new LinearLayoutManager(mContext));

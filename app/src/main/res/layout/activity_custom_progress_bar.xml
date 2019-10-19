@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.CustomProgressBarActivity">
+
+    <!--要用自定义必须把indeterminateOnly设成false-->
+    <ProgressBar
+        android:id="@+id/pb_score"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="19dp"
+        android:indeterminateOnly="false"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/bg_progress_bar_horizontal"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/btn_add_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="每次点击+2进度"/>
+
+</LinearLayout>

@@ -13,6 +13,12 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btn_test_stop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试会不会延迟别的activity的onstop"/>
+
+        <Button
             android:id="@+id/btn_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="100dp"

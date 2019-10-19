@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="9dp" />
+            <solid android:color="#fff000"/>
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <!--使用clip剪裁，如果设置最大进度为100，100就是完全显示，0就是不显示，在layer-list中，这层是最外层，显示多少就是遮住多少-->
+        <clip
+            android:clipOrientation="horizontal"
+            android:gravity="start">
+            <shape>
+                <corners android:radius="9dp" />
+                <solid android:color="@color/red"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

@@ -3,6 +3,8 @@ package net.xianglei.testapplication.activity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
@@ -19,6 +21,11 @@ import butterknife.OnClick;
 public class MainActivity extends SimpleActivity {
 
 
+    @BindView(R.id.et_text)
+    EditText et_text;
+    @BindView(R.id.tv_link)
+    TextView tv_link;
+
     @Override
     protected int getLayoutById() {
         return R.layout.activity_main;
@@ -30,6 +37,7 @@ public class MainActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
+        tv_link.setText(et_text.getText());
     }
 
     @OnClick(R.id.btn_test2)
@@ -63,6 +71,11 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_bt_recycler)
     public void startBTRecyclerActivity() {
         startActivity(BTRecyclerActivity.class);
+    }
+
+    @OnClick(R.id.btn_custom_progress)
+    public void startCustomProgressActivity() {
+        startActivity(CustomProgressBarActivity.class);
     }
 
 
