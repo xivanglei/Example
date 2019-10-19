@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
+import net.xianglei.testapplication.utils.LogUtil;
 import net.xianglei.testapplication.utils.ShotUtil;
 import net.xianglei.testapplication.widget.rong_photoview.PhotoView;
 
@@ -30,5 +31,11 @@ public class ImageViewTouchActivity extends SimpleActivity {
     @OnClick(R.id.btn_shot)
     public void shot() {
         iv_shot.setImageBitmap(ShotUtil.getViewBitmap(image_view));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LogUtil.d("停止了");
     }
 }

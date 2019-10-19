@@ -7,7 +7,10 @@ import android.animation.ValueAnimator;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
+import net.xianglei.testapplication.utils.LogUtil;
 
 /**
  * Created by gavin
@@ -20,11 +23,20 @@ public class PullAnimatorUtil {
      * @param headerHeight
      * @param offsetY
      */
-    public static void pullAnimator(View headerView, int headerHeight, int headerWidth, int offsetY, int maxHeight) {
+    public static void pullAnimator(View headerView, int headerHeight, int headerWidth, int offsetY, int maxHeight, int headTopMargin) {
         if (headerView == null) {
             return;
         }
-        int pullOffset = (int) Math.pow(offsetY, 0.8);
+        int pullOffset = (int) Math.pow(offsetY, 0.9);
+        if(pullOffset <= Math.abs(headTopMargin)) {
+            int margin = Math.min(pullOffset + headTopMargin, 0);
+//            LogUtil.d(margin);
+            ((FrameLayout.LayoutParams) headerView.getLayoutParams()).topMargin = margin;
+            headerView.requestLayout();
+            return;
+        }
+        pullOffset += headTopMargin;
+//        LogUtil.d(pullOffset);
         int newHeight = Math.min(maxHeight + headerHeight, pullOffset + headerHeight);
         int newWidth = (int) ((((float) newHeight / headerHeight)) * headerWidth);
         headerView.getLayoutParams().height = newHeight;
@@ -45,7 +57,7 @@ public class PullAnimatorUtil {
      * @param headerView
      * @param headerHeight
      */
-    public static void resetAnimator(final View headerView, final int headerHeight, int headerWidth) {
+    public static void resetAnimator(final View headerView, final int headerHeight, int headerWidth, int topMargin) {
         if (headerView == null) {
             return;
         }
@@ -65,8 +77,8 @@ public class PullAnimatorUtil {
                 headerView.getLayoutParams().width = width;
             }
         });
-        ValueAnimator translationAnimator = ValueAnimator.ofInt((int) headerView.getTranslationX(), 0);
-        translationAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        ValueAnimator translationXAnimator = ValueAnimator.ofInt((int) headerView.getTranslationX(), 0);
+        translationXAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int translation = (int) animation.getAnimatedValue();
@@ -74,10 +86,19 @@ public class PullAnimatorUtil {
                 headerView.requestLayout();
             }
         });
+        ValueAnimator topMarginAnimator = ValueAnimator.ofInt(((FrameLayout.LayoutParams)headerView.getLayoutParams()).topMargin, topMargin);
+        topMarginAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int translation = (int) animation.getAnimatedValue();
+                ((FrameLayout.LayoutParams) headerView.getLayoutParams()).topMargin = translation;
+                headerView.requestLayout();
+            }
+        });
         AnimatorSet set = new AnimatorSet();
         set.setInterpolator(new FastOutSlowInInterpolator());
         set.setDuration(100);
-        set.play(heightAnimator).with(widthAnimator).with(translationAnimator);
+        set.play(heightAnimator).with(widthAnimator).with(translationXAnimator).with(topMarginAnimator);
         set.start();
 
     }

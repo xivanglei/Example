@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import net.xianglei.testapplication.utils.LogUtil;
 import net.xianglei.testapplication.utils.ScreenUtil;
 
 /**
@@ -24,6 +25,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;                                                      //画图样式
     private int mOrientation;
     private int mLineWidth;
+    private int mMarginLeft;
+    private int mMarginRight;
 
     public DividerItemDecoration(Context context, int orientation) {
         this(context, orientation, Color.parseColor("#f9f9f9"));
@@ -40,6 +43,15 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         setOrientation(orientation);
     }
 
+    public DividerItemDecoration(Context context, int orientation, int color, int lineWidth, int marginLeft, int marginRight) {
+        mDivider = new ColorDrawable(color);                                           //获取样式
+        mLineWidth = lineWidth;
+        mMarginLeft = marginLeft;
+        marginRight = mMarginRight;
+        //设置先的透明度 0-255
+        setOrientation(orientation);
+    }
+
     public void setOrientation(int orientation) {
         if(orientation != HORIZONTAL_LIST && orientation != VERTICAL_LIST) {
             throw new IllegalArgumentException("invalid orientation");
@@ -49,6 +61,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(Canvas c,RecyclerView parent) {
+        LogUtil.d("画几次");
         if(mOrientation == VERTICAL_LIST) {
             drawVertical(c, parent);
         } else {

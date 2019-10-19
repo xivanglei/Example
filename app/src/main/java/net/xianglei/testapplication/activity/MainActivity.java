@@ -2,6 +2,9 @@ package net.xianglei.testapplication.activity;
 
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
@@ -11,12 +14,17 @@ import net.xianglei.testapplication.component.jncryptor.CryptorException;
 import net.xianglei.testapplication.component.jncryptor.JNCryptor;
 import net.xianglei.testapplication.utils.LogUtil;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
 public class MainActivity extends SimpleActivity {
 
-    private String aa;
+
+    @BindView(R.id.et_text)
+    EditText et_text;
+    @BindView(R.id.tv_link)
+    TextView tv_link;
 
     @Override
     protected int getLayoutById() {
@@ -25,29 +33,15 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
-        aa = encode();
+        tv_link.setText(et_text.getText());
     }
 
     @OnClick(R.id.btn_test2)
     public void test2() {
-        decode();
-    }
-
-    private String encode() {
-        String password = "heychat1223";
-        String result = AESHelper.encrypt("{sss}\"\"slkj__kdj", password);
-            LogUtil.d(result);
-        return result;
-    }
-
-    private void decode() {
-        String result = AESHelper.decrypt(aa,"heychat1223" );
-        LogUtil.d(result);
     }
 
     @OnClick(R.id.btn_get_address_list)
@@ -65,6 +59,23 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_recycler_divide)
     public void startRecyclerDividePage() {
         startActivity(RecyclerDivideActivity.class);
+    }
+    @OnClick(R.id.btn_flexible_layout)
+    public void startFlexibleLayoutActivity() {
+        startActivity(FlexibleLayoutActivity.class);
+    }
+    @OnClick(R.id.btn_small_pinned_head)
+    public void startSmallPinnedHeadActivity() {
+        startActivity(SmallPinnedHeaderActivity.class);
+    }
+    @OnClick(R.id.btn_bt_recycler)
+    public void startBTRecyclerActivity() {
+        startActivity(BTRecyclerActivity.class);
+    }
+
+    @OnClick(R.id.btn_custom_progress)
+    public void startCustomProgressActivity() {
+        startActivity(CustomProgressBarActivity.class);
     }
 
 

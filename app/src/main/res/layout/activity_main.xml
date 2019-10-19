@@ -9,6 +9,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入"/>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_link"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="web|email|phone"
+            android:textColorLink="#2972ab"
+            android:minHeight="22dp"
+            android:textStyle="normal"
+            android:lineSpacingMultiplier="1.2" />
+
         <Button
             android:id="@+id/btn_test"
             android:layout_width="match_parent"
@@ -45,7 +73,29 @@
             android:layout_height="wrap_content"
             android:text="recyclerView分割线"/>
 
+        <Button
+            android:id="@+id/btn_flexible_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下拉放大刷新布局"/>
 
+        <Button
+            android:id="@+id/btn_small_pinned_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="通过itemDecorator固定内容中的head"/>
+
+        <Button
+            android:id="@+id/btn_bt_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="变态的recyclerView"/>
+
+        <Button
+            android:id="@+id/btn_custom_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义进度条"/>
 
     </LinearLayout>
 

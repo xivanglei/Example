@@ -18,6 +18,10 @@ import java.util.List;
 public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
 
 
+    public BaseAdapter() {
+        super(null);
+    }
+
     public BaseAdapter(List<T> list) {
         super(list);
     }
