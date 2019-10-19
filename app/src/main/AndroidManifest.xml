@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CustomProgressBarActivity"
+        <activity android:name=".activity.SlideClosePictureActivity"
             android:theme="@style/myTransparent"></activity>
+        <activity android:name=".activity.CustomProgressBarActivity" />
         <activity android:name=".activity.BTRecyclerActivity" />
         <activity android:name=".activity.SmallPinnedHeaderActivity" />
         <activity android:name=".activity.FlexibleLayoutActivity" />

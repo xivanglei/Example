@@ -20,12 +20,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends SimpleActivity {
 
-
-    @BindView(R.id.et_text)
-    EditText et_text;
-    @BindView(R.id.tv_link)
-    TextView tv_link;
-
     @Override
     protected int getLayoutById() {
         return R.layout.activity_main;
@@ -37,7 +31,6 @@ public class MainActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
-        tv_link.setText(et_text.getText());
     }
 
     @OnClick(R.id.btn_test2)
@@ -77,6 +70,12 @@ public class MainActivity extends SimpleActivity {
     public void startCustomProgressActivity() {
         startActivity(CustomProgressBarActivity.class);
     }
+
+    @OnClick(R.id.btn_slide_close_layout)
+    public void startSlideCloseActivity() {
+        startActivity(SlideClosePictureActivity.class);
+    }
+
 
 
 
