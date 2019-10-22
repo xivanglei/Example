@@ -23,6 +23,7 @@ import net.xianglei.testapplication.utils.ScreenUtil;
  * Description:下滑关闭布局
  */
 public class SlideCloseFrameLayout extends FrameLayout implements GestureDetector.OnGestureListener {
+
     private GestureDetector detector;
     private int screenHeight;//设备屏幕高度
     private float oldX, oldY;//手机放在屏幕的坐标
@@ -31,6 +32,7 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
     private boolean isFinsh = false;//是否执行关闭页面的操作
     private SimpleCallback viewCall = null;
     private boolean isIntercept = true;
+    private ObtainInterruptible mObtainInterruptible;
 
     public SlideCloseFrameLayout(@NonNull Context context) {
         this(context, null);
@@ -53,8 +55,21 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
         isIntercept = intercept;
     }
 
+    public void setObtainInterruptible(ObtainInterruptible obtainInterruptible) {
+        mObtainInterruptible = obtainInterruptible;
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                oldX = ev.getRawX();
+                oldY = ev.getRawY();
+                break;
+                case MotionEvent.ACTION_MOVE:
+                    if(mObtainInterruptible != null && mObtainInterruptible.isInterruptible()) return true;
+                    break;
+        }
         return isIntercept || super.onInterceptTouchEvent(ev);
     }
 
@@ -63,10 +78,6 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
     public boolean onTouchEvent(MotionEvent event) {
         detector.onTouchEvent(event);
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                oldX = event.getRawX();
-                oldY = event.getRawY();
-                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 if (isFinsh) {
@@ -165,6 +176,7 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        if(e1 == null || e2 == null) return false;
         float movX = e2.getRawX() - e1.getRawX();
         float movY = e2.getRawY() - e1.getRawY();
         Log.e("ldd------2", movX + "---------" + movY);
@@ -187,6 +199,10 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
 
     public void setViewCall(SimpleCallback viewCall) {
         this.viewCall = viewCall;
+    }
+
+    public interface ObtainInterruptible {
+        boolean isInterruptible();
     }
 
 }

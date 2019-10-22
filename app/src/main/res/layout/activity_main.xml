@@ -9,6 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/iv_skip"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
         <Button
             android:id="@+id/btn_test"
             android:layout_width="match_parent"

@@ -375,7 +375,7 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
         if (this.mZoomEnabled && hasDrawable((ImageView)v)) {
             ViewParent parent = v.getParent();
             switch(ev.getAction()) {
-            case 0:
+            case MotionEvent.ACTION_DOWN:
                 if (null != parent) {
                     parent.requestDisallowInterceptTouchEvent(true);
                 } else {
@@ -384,8 +384,8 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
 
                 this.cancelFling();
                 break;
-            case 1:
-            case 3:
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
                 if (this.getScale() < this.mMinScale) {
                     RectF rect = this.getDisplayRect();
                     if (null != rect) {
@@ -393,7 +393,7 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
                         handled = true;
                     }
                 }
-            case 2:
+            case MotionEvent.ACTION_MOVE:
             }
 
             if (null != this.mScaleDragDetector) {

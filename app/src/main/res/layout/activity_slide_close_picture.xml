@@ -13,9 +13,16 @@
         android:layout_height="match_parent">
 
         <net.xianglei.testapplication.widget.rong_photoview.PhotoView
+            android:id="@+id/pv_photo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher"/>
     </net.xianglei.testapplication.widget.SlideCloseFrameLayout>
+
+    <Button
+        android:id="@+id/btn_get_scale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取比例"/>
 
 </FrameLayout>
