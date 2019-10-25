@@ -3,6 +3,7 @@ package net.xianglei.testapplication.activity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class MainActivity extends SimpleActivity {
 
     @BindView(R.id.iv_skip)
     ImageView iv_skip;
+    @BindView(R.id.btn_test2)
+    Button btn_test2;
 
     private String mImageUrl = "https://rongcloud-file.cn.ronghub.com/application_octet-stream__RC-2019-10-21_8228_1571652938959.mp4?attname=40dfc95cc9fb4ba497b445d10441782f.mp4&e=2147483647&token=CddrKW5AbOMQaDRwc3ReDNvo3-sL_SO1fSUBKV3H:YV8sUH1aAnYaVrh-7iJx0iB31N0=";
 
@@ -41,6 +44,8 @@ public class MainActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
         GlideUtil.loadImage(this, mImageUrl, iv_skip);
+        btn_test2.getLayoutParams().width = 500;
+
     }
 
     @OnClick(R.id.btn_test)

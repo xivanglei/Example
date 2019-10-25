@@ -27,6 +27,12 @@
             android:text="测试2"/>
 
         <Button
+            android:id="@+id/btn_test_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="fragmentTest"/>
+
+        <Button
             android:id="@+id/btn_get_address_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

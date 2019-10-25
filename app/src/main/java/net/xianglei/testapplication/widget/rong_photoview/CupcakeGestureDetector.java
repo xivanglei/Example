@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 
+import net.xianglei.testapplication.utils.LogUtil;
+
 public class CupcakeGestureDetector implements GestureDetector {
     protected OnGestureListener mListener;
     private static final String LOG_TAG = "CupcakeGestureDetector";
@@ -50,58 +52,58 @@ public class CupcakeGestureDetector implements GestureDetector {
         float x;
         float y;
         switch(ev.getAction()) {
-        case 0:
-            this.mVelocityTracker = VelocityTracker.obtain();
-            if (null != this.mVelocityTracker) {
-                this.mVelocityTracker.addMovement(ev);
-            } else {
-            }
-
-            this.mLastTouchX = this.getActiveX(ev);
-            this.mLastTouchY = this.getActiveY(ev);
-            this.mIsDragging = false;
-            break;
-        case 1:
-            if (this.mIsDragging && null != this.mVelocityTracker) {
-                this.mLastTouchX = this.getActiveX(ev);
-                this.mLastTouchY = this.getActiveY(ev);
-                this.mVelocityTracker.addMovement(ev);
-                this.mVelocityTracker.computeCurrentVelocity(1000);
-                x = this.mVelocityTracker.getXVelocity();
-                y = this.mVelocityTracker.getYVelocity();
-                if (Math.max(Math.abs(x), Math.abs(y)) >= this.mMinimumVelocity) {
-                    this.mListener.onFling(this.mLastTouchX, this.mLastTouchY, -x, -y);
-                }
-            }
-
-            if (null != this.mVelocityTracker) {
-                this.mVelocityTracker.recycle();
-                this.mVelocityTracker = null;
-            }
-            break;
-        case 2:
-            x = this.getActiveX(ev);
-            y = this.getActiveY(ev);
-            float dx = x - this.mLastTouchX;
-            float dy = y - this.mLastTouchY;
-            if (!this.mIsDragging) {
-                this.mIsDragging = Math.sqrt((double)(dx * dx + dy * dy)) >= (double)this.mTouchSlop;
-            }
-
-            if (this.mIsDragging) {
-                this.mListener.onDrag(dx, dy);
-                this.mLastTouchX = x;
-                this.mLastTouchY = y;
+            case MotionEvent.ACTION_DOWN:
+                this.mVelocityTracker = VelocityTracker.obtain();
                 if (null != this.mVelocityTracker) {
                     this.mVelocityTracker.addMovement(ev);
+                } else {
                 }
-            }
-            break;
-        case 3:
-            if (null != this.mVelocityTracker) {
-                this.mVelocityTracker.recycle();
-                this.mVelocityTracker = null;
-            }
+
+                this.mLastTouchX = this.getActiveX(ev);
+                this.mLastTouchY = this.getActiveY(ev);
+                this.mIsDragging = false;
+                break;
+            case MotionEvent.ACTION_UP:
+                if (this.mIsDragging && null != this.mVelocityTracker) {
+                    this.mLastTouchX = this.getActiveX(ev);
+                    this.mLastTouchY = this.getActiveY(ev);
+                    this.mVelocityTracker.addMovement(ev);
+                    this.mVelocityTracker.computeCurrentVelocity(1000);
+                    x = this.mVelocityTracker.getXVelocity();
+                    y = this.mVelocityTracker.getYVelocity();
+                    if (Math.max(Math.abs(x), Math.abs(y)) >= this.mMinimumVelocity) {
+                        this.mListener.onFling(this.mLastTouchX, this.mLastTouchY, -x, -y);
+                    }
+                }
+
+                if (null != this.mVelocityTracker) {
+                    this.mVelocityTracker.recycle();
+                    this.mVelocityTracker = null;
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                x = this.getActiveX(ev);
+                y = this.getActiveY(ev);
+                float dx = x - this.mLastTouchX;
+                float dy = y - this.mLastTouchY;
+                if (!this.mIsDragging) {
+                    this.mIsDragging = Math.sqrt((double)(dx * dx + dy * dy)) >= (double)this.mTouchSlop;
+                }
+
+                if (this.mIsDragging) {
+                    this.mListener.onDrag(dx, dy);
+                    this.mLastTouchX = x;
+                    this.mLastTouchY = y;
+                    if (null != this.mVelocityTracker) {
+                        this.mVelocityTracker.addMovement(ev);
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                if (null != this.mVelocityTracker) {
+                    this.mVelocityTracker.recycle();
+                    this.mVelocityTracker = null;
+                }
         }
 
         return true;
