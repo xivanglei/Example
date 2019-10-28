@@ -74,7 +74,7 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
                 int deltaX = x - lastInterceptX;
                 int deltaY = y - lastInterceptY;
 //                    LogUtil.d("移动了");
-                if(Math.abs(deltaY) - Math.abs(deltaX) > 0 && mObtainInterruptible != null && mObtainInterruptible.isInterruptible()) return true;
+                if(deltaY > 0 && Math.abs(deltaY) - Math.abs(deltaX) > 0 && mObtainInterruptible != null && mObtainInterruptible.isInterruptible()) return true;
                 break;
         }
         lastInterceptX = x;
