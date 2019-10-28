@@ -81,9 +81,6 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
                     oldX = ev.getRawX();
                     oldY = ev.getRawY();
                     return true;
-                } else {
-                    oldX = ev.getRawX();
-                    oldY = ev.getRawY();
                 }
                 break;
         }
