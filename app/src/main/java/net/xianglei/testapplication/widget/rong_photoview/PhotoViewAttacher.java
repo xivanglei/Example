@@ -28,6 +28,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+
+import net.xianglei.testapplication.utils.LogUtil;
+
 import java.lang.ref.WeakReference;
 
 public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGestureListener, OnGlobalLayoutListener {
@@ -65,6 +68,7 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
     private int mIvLeft;
     private PhotoViewAttacher.FlingRunnable mCurrentFlingRunnable;
     private int mScrollEdge;
+    private int mScrollEdgeY;
     private float mBaseRotation;
     private boolean mZoomEnabled;
     private ScaleType mScaleType;
@@ -118,6 +122,7 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
         this.mDisplayRect = new RectF();
         this.mMatrixValues = new float[9];
         this.mScrollEdge = 2;
+        this.mScrollEdgeY = 2;
         this.mScaleType = ScaleType.FIT_CENTER;
         this.mImageView = new WeakReference(imageView);
         imageView.setDrawingCacheEnabled(true);
@@ -310,13 +315,16 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
             this.checkAndDisplayMatrix();
             ViewParent parent = imageView.getParent();
             if (this.mAllowParentInterceptOnEdge && !this.mScaleDragDetector.isScaling() && !this.mBlockParentIntercept) {
+//                LogUtil.d((this.mScrollEdgeY == 0 && dy >= 1.0f));
+                if((mScrollEdgeY == 2 || (mScrollEdgeY == 0 && dy >= 1.0F)) && parent != null) {
+                    parent.requestDisallowInterceptTouchEvent(false);
+                }
                 if ((this.mScrollEdge == 2 || this.mScrollEdge == 0 && dx >= 1.0F || this.mScrollEdge == 1 && dx <= -1.0F) && null != parent) {
                     parent.requestDisallowInterceptTouchEvent(false);
                 }
             } else if (null != parent) {
                 parent.requestDisallowInterceptTouchEvent(true);
             }
-
         }
     }
 
@@ -628,6 +636,18 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
                     this.mScrollEdge = -1;
                 }
 
+                if (height <= (float)viewHeight) {
+                    this.mScrollEdgeY = 2;
+                } else if (rect.top > 0.0F) {
+                    this.mScrollEdgeY = 0;
+                } else if (rect.bottom < (float)viewHeight) {
+                    this.mScrollEdgeY = 1;
+                } else {
+                    this.mScrollEdgeY = -1;
+                }
+
+
+
                 this.mSuppMatrix.postTranslate(deltaX, deltaY);
                 return true;
             }
@@ -692,6 +712,8 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
 
     }
 
+
+
     protected void updateBaseMatrix(Drawable d) {
         ImageView imageView = this.getImageView();
         if (null != imageView && null != d) {
@@ -747,6 +769,10 @@ public class PhotoViewAttacher implements IPhotoView, OnTouchListener, OnGesture
 
     protected int getImageViewHeight(ImageView imageView) {
         return null == imageView ? 0 : imageView.getHeight() - imageView.getPaddingTop() - imageView.getPaddingBottom();
+    }
+
+    public int getScrollEdgeY() {
+        return mScrollEdgeY;
     }
 
     private class FlingRunnable implements Runnable {

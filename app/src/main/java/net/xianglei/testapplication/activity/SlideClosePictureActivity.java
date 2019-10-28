@@ -40,11 +40,17 @@ public class SlideClosePictureActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        GlideUtil.loadImage(this, getIntent().getStringExtra(IT_URL), pv_photo);
+        GlideUtil.loadImage(this, R.mipmap.ic_launcher, pv_photo);
         mCloseFrameLayout.setIntercept(pv_photo.getScale() == 1);
         mCloseFrameLayout.setViewCall(this :: onBackPressed);
         mCloseFrameLayout.setIntercept(false);
-        mCloseFrameLayout.setObtainInterruptible(() -> pv_photo.getScale() == 1);
+        mCloseFrameLayout.setObtainInterruptible(new SlideCloseFrameLayout.ObtainInterruptible() {
+            @Override
+            public boolean isInterruptible() {
+                    LogUtil.d(pv_photo.getScrollEdgeY());
+                    return pv_photo.getScale() == 1 || pv_photo.getScrollEdgeY() == 0 || pv_photo.getScrollEdgeY() == 2;
+            }
+        });
         mCloseFrameLayout.setOnClickListener(v -> onBackPressed());
         pv_photo.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override

@@ -113,9 +113,7 @@ public class PhotoView extends android.support.v7.widget.AppCompatImageView impl
     }
 
     public float getScale() {
-        float scale = this.mAttacher.getScale();
-        LogUtil.d(scale);
-        return scale;
+        return this.mAttacher.getScale();
     }
 
     public ScaleType getScaleType() {
@@ -210,6 +208,10 @@ public class PhotoView extends android.support.v7.widget.AppCompatImageView impl
 
     public void setScale(float scale) {
         this.mAttacher.setScale(scale);
+    }
+
+    public int getScrollEdgeY() {
+        return mAttacher.getScrollEdgeY();
     }
 
     public void setScale(float scale, boolean animate) {

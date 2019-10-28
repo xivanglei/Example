@@ -33,6 +33,8 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
     private SimpleCallback viewCall = null;
     private boolean isIntercept = true;
     private ObtainInterruptible mObtainInterruptible;
+    private int lastInterceptX=0;
+    private int lastInterceptY=0;
 
     public SlideCloseFrameLayout(@NonNull Context context) {
         this(context, null);
@@ -61,15 +63,22 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 oldX = ev.getRawX();
                 oldY = ev.getRawY();
                 break;
-                case MotionEvent.ACTION_MOVE:
-                    if(mObtainInterruptible != null && mObtainInterruptible.isInterruptible()) return true;
-                    break;
+            case MotionEvent.ACTION_MOVE:
+                int deltaX = x - lastInterceptX;
+                int deltaY = y - lastInterceptY;
+//                    LogUtil.d("移动了");
+                if(Math.abs(deltaY) - Math.abs(deltaX) > 0 && mObtainInterruptible != null && mObtainInterruptible.isInterruptible()) return true;
+                break;
         }
+        lastInterceptX = x;
+        lastInterceptY = y;
         return isIntercept || super.onInterceptTouchEvent(ev);
     }
 
@@ -144,7 +153,7 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
         int intAlpha = (int) (percent * 255);
         String stringAlpha = Integer.toHexString(intAlpha).toLowerCase();
         String color = "#" + (stringAlpha.length() < 2 ? "0" : "") + stringAlpha + "000000";
-        LogUtil.d(color);
+//        LogUtil.d(color);
         return Color.parseColor(color);
     }
 
