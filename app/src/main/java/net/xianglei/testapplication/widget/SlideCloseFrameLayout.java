@@ -27,7 +27,6 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
     private GestureDetector detector;
     private int screenHeight;//设备屏幕高度
     private float oldX, oldY;//手机放在屏幕的坐标
-    private float movY;//移动中在屏幕上的坐标
     private float alphaPercent = 1f;//背景颜色透明度
     private boolean isFinsh = false;//是否执行关闭页面的操作
     private SimpleCallback viewCall = null;
@@ -35,6 +34,8 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
     private ObtainInterruptible mObtainInterruptible;
     private int lastInterceptX=0;
     private int lastInterceptY=0;
+    private float mDiffX = 0;
+    private float mDiffY = 0;
 
     public SlideCloseFrameLayout(@NonNull Context context) {
         this(context, null);
@@ -69,12 +70,21 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
             case MotionEvent.ACTION_DOWN:
                 oldX = ev.getRawX();
                 oldY = ev.getRawY();
+                mDiffX = 0;
+                mDiffY = 0;
                 break;
             case MotionEvent.ACTION_MOVE:
                 int deltaX = x - lastInterceptX;
                 int deltaY = y - lastInterceptY;
 //                    LogUtil.d("移动了");
-                if(deltaY > 0 && Math.abs(deltaY) - Math.abs(deltaX) > 0 && mObtainInterruptible != null && mObtainInterruptible.isInterruptible()) return true;
+                if(deltaY > 0 && Math.abs(deltaY) - Math.abs(deltaX) > 0 && mObtainInterruptible != null && mObtainInterruptible.isInterruptible()) {
+                    oldX = ev.getRawX();
+                    oldY = ev.getRawY();
+                    return true;
+                } else {
+                    oldX = ev.getRawX();
+                    oldY = ev.getRawY();
+                }
                 break;
         }
         lastInterceptX = x;
@@ -100,11 +110,13 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
                 break;
             case MotionEvent.ACTION_MOVE:
                 isFinsh = false;
-                float movX = event.getRawX() - oldX;
-                movY = event.getRawY() - oldY;
-                setupMoving(movX, movY);
-                if (Math.abs(movX) <= Math.abs(movY)) {
-                    if (movY > (screenHeight / 6)) {
+                mDiffX += event.getRawX() - oldX;
+                oldX = event.getRawX();
+                mDiffY += event.getRawY() - oldY;
+                oldY = event.getRawY();
+                setupMoving(mDiffX, mDiffY);
+                if (Math.abs(mDiffX) <= Math.abs(mDiffY)) {
+                    if (mDiffY > (screenHeight / 6)) {
                         isFinsh = true;
                     }
                 }
@@ -136,8 +148,8 @@ public class SlideCloseFrameLayout extends FrameLayout implements GestureDetecto
     }
 
     private void setupMoving(float deltaX, float deltaY) {
-        if (Math.abs(movY) < (screenHeight / 4)) {
-            float scale = 1 - Math.abs(movY) / screenHeight;
+        if (Math.abs(mDiffY) < (screenHeight / 4)) {
+            float scale = 1 - Math.abs(mDiffY) / screenHeight;
             alphaPercent = 1 - Math.abs(deltaY) / (screenHeight / 2);
             setScaleX(scale);
             setScaleY(scale);
