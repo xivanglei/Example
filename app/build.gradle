@@ -37,4 +37,5 @@ dependencies {
     implementation rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
     implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation 'top.zibin:Luban:1.1.8' // 图片压缩
 }
