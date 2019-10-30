@@ -1,1 +1,1 @@
-include ':app', ':shortcutbadget'
+include ':app', ':shortcutbadge'

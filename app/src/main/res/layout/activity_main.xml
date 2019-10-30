@@ -9,16 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_test"
-            android:layout_width="500dp"
-            android:layout_height="500dp" />
-
-        <net.xianglei.testapplication.widget.AutoWebLinkTextView
-            android:id="@+id/tv_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <Button
             android:id="@+id/btn_test"
             android:layout_width="match_parent"
@@ -90,6 +80,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="下滑关闭父布局"/>
+
+        <Button
+            android:id="@+id/btn_badge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置角标"/>
 
     </LinearLayout>
 
