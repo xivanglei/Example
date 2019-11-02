@@ -11,6 +11,7 @@ import android.os.Bundle;
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
 import net.xianglei.testapplication.component.AddressListUtil;
+import net.xianglei.testapplication.utils.CommonUtil;
 import net.xianglei.testapplication.utils.JsonUtil;
 import net.xianglei.testapplication.utils.LogUtil;
 
@@ -26,7 +27,9 @@ public class GetAddressListAndPermissionActivity extends SimpleActivity {
     }
 
     @Override
-    protected void initViewAndData(Bundle savedInstanceState) { }
+    protected void initViewAndData(Bundle savedInstanceState) {
+        CommonUtil.clickBlankHideKeyboard(this);
+    }
 
     @OnClick(R.id.btn_get_address_list)
     public void getAddressLitIfHasPermissions() {

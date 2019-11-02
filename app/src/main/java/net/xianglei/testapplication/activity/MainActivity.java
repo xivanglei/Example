@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
+import net.xianglei.testapplication.bean.ContactBean;
 import net.xianglei.testapplication.component.jncryptor.AES256JNCryptor;
 import net.xianglei.testapplication.component.jncryptor.AESHelper;
 import net.xianglei.testapplication.component.jncryptor.CryptorException;
@@ -33,6 +35,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,6 +48,9 @@ public class MainActivity extends SimpleActivity {
     private String mImageUrl = "https://rongcloud-file.cn.ronghub.com/application_octet-stream__RC-2019-10-21_8228_1571652938959.mp4?attname=40dfc95cc9fb4ba497b445d10441782f.mp4&e=2147483647&token=CddrKW5AbOMQaDRwc3ReDNvo3-sL_SO1fSUBKV3H:YV8sUH1aAnYaVrh-7iJx0iB31N0=";
     private String srcFile = "/storage/emulated/0/DCIM/Camera/IMG_20191004_150413.jpg";
 
+    SparseArray<ContactBean> array = new SparseArray<>();
+    Map mMap = new HashMap();
+
     @Override
     protected int getLayoutById() {
         return R.layout.activity_main;
@@ -51,15 +58,20 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
+       LogUtil.d("123456".indexOf(2));
+
+
     }
 
     @OnClick(R.id.btn_test2)
     public void test2() {
+        for(int i = 0; i < array.size(); i++) {
+            LogUtil.d(array.valueAt(i).getName());
+        }
     }
 
     @OnClick(R.id.btn_get_address_list)

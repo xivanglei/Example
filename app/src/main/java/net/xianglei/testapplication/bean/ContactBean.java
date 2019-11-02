@@ -12,6 +12,13 @@ public class ContactBean {
     private String name;
     private List<String> phones;
 
+    public ContactBean() {
+    }
+
+    public ContactBean(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
