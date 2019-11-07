@@ -1,46 +1,21 @@
 package net.xianglei.testapplication.activity;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.SparseArray;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
 import net.xianglei.testapplication.bean.ContactBean;
-import net.xianglei.testapplication.component.jncryptor.AES256JNCryptor;
-import net.xianglei.testapplication.component.jncryptor.AESHelper;
-import net.xianglei.testapplication.component.jncryptor.CryptorException;
-import net.xianglei.testapplication.component.jncryptor.JNCryptor;
-import net.xianglei.testapplication.utils.CommonUtil;
-import net.xianglei.testapplication.utils.GlideUtil;
-import net.xianglei.testapplication.utils.ImageCompressUtil;
+import net.xianglei.testapplication.component.MyAlertDialog;
+import net.xianglei.testapplication.utils.JsonUtil;
 import net.xianglei.testapplication.utils.LogUtil;
-import net.xianglei.testapplication.utils.SDCardUtil;
-import net.xianglei.testapplication.utils.StringUtil;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.BindView;
 import butterknife.OnClick;
-import top.zibin.luban.Luban;
 
 
 public class MainActivity extends SimpleActivity {
@@ -62,16 +37,31 @@ public class MainActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
-       LogUtil.d("123456".indexOf(2));
-
+        array.put(1, new ContactBean(null));
+        array.put(2, new ContactBean("sllss"));
+        array.put(3, new ContactBean("slls7"));
+        array.put(4, new ContactBean(null));
+        array.put(5, new ContactBean(null));
+        array.put(6, new ContactBean(null));
+        array.put(7, new ContactBean(null));
+        array.put(8, new ContactBean(null));
+        array.put(9, new ContactBean("slls2"));
+        array.put(10, new ContactBean(null));
+        array.put(11, new ContactBean("slls3"));
+        array.put(12, new ContactBean("sllsa"));
+        array.put(13, new ContactBean(null));
+        LogUtil.d(JsonUtil.toJson(array));
 
     }
 
     @OnClick(R.id.btn_test2)
     public void test2() {
-        for(int i = 0; i < array.size(); i++) {
-            LogUtil.d(array.valueAt(i).getName());
-        }
+        new MyAlertDialog(this, new String[] {"测试下", "dddddd"}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                LogUtil.d(which);
+            }
+        }).initDialog();
     }
 
     @OnClick(R.id.btn_get_address_list)
@@ -118,8 +108,33 @@ public class MainActivity extends SimpleActivity {
         startActivity(ShortcutBadgeActivity.class);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtil.d("onResume");
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LogUtil.d("onPause");
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LogUtil.d("onStop");
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LogUtil.d("onStart");
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        LogUtil.d("onRestart");
+    }
 }

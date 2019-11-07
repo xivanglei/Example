@@ -1,10 +1,18 @@
 package net.xianglei.testapplication.utils;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 
 /**
  * Author:xianglei
@@ -280,6 +288,26 @@ public class FileUtil {
      */
     public static boolean isExist(File file) {
         return file.exists();
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    public static void changeFileCreateTime(String path) {
+        Path fp = Paths.get(path);
+        try{
+            FileTime oldTime = (FileTime)Files.getAttribute(fp, "basic:creationTime");
+            LogUtil.d(oldTime);
+            BasicFileAttributes ra = Files.readAttributes(fp, BasicFileAttributes.class);
+            long currentTimeMillis = System.currentTimeMillis();
+            FileTime fileTime = FileTime.fromMillis(currentTimeMillis);
+            LogUtil.d(fileTime);
+            Files.setAttribute(fp, "basic:creationTime", fileTime);
+            FileTime creationTime = (FileTime)Files.getAttribute(fp, "basic:creationTime");
+            LogUtil.d(creationTime);
+            System.out.println("NEW CREATION TIME:" + creationTime.toString());
+            System.out.println("OLD CREATION TIME:" + ra.creationTime());
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
 }
