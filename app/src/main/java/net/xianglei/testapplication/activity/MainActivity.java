@@ -13,8 +13,8 @@ import net.xianglei.testapplication.bean.ContactBean;
 import net.xianglei.testapplication.component.MyAlertDialog;
 import net.xianglei.testapplication.component.transformanim.ActivityAnimationHelper;
 import net.xianglei.testapplication.utils.GlideUtil;
-import net.xianglei.testapplication.utils.JsonUtil;
 import net.xianglei.testapplication.utils.LogUtil;
+import net.xianglei.testapplication.utils.ScreenUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,20 +46,8 @@ public class MainActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
-        array.put(1, new ContactBean(null));
-        array.put(2, new ContactBean("sllss"));
-        array.put(3, new ContactBean("slls7"));
-        array.put(4, new ContactBean(null));
-        array.put(5, new ContactBean(null));
-        array.put(6, new ContactBean(null));
-        array.put(7, new ContactBean(null));
-        array.put(8, new ContactBean(null));
-        array.put(9, new ContactBean("slls2"));
-        array.put(10, new ContactBean(null));
-        array.put(11, new ContactBean("slls3"));
-        array.put(12, new ContactBean("sllsa"));
-        array.put(13, new ContactBean(null));
-        LogUtil.d(JsonUtil.toJson(array));
+        LogUtil.d(findViewById(R.id.sv_content).getHeight());
+        LogUtil.d(ScreenUtil.getScreenH());
 
     }
 
@@ -118,33 +106,8 @@ public class MainActivity extends SimpleActivity {
         startActivity(ShortcutBadgeActivity.class);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LogUtil.d("onResume");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LogUtil.d("onPause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        LogUtil.d("onStop");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        LogUtil.d("onStart");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        LogUtil.d("onRestart");
+    @OnClick(R.id.iv_test)
+    public void startBigImageActivity(View v) {
+        BigImageActivity.start(this, v, mImageUrl);
     }
 }

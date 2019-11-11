@@ -13,8 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ShortcutBadgeActivity">
-        </activity>
+        <activity android:name=".activity.BigImageActivity"
+            android:theme="@style/myTransparent"></activity>
+        <activity android:name=".activity.ShortcutBadgeActivity"></activity>
         <activity android:name=".activity.TestFragmentActivity" />
         <activity
             android:name=".activity.SlideClosePictureActivity"
@@ -34,9 +35,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ScrollConflictActivity" />
+
         <service
             android:name=".component.BadgeIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
 
 </manifest>

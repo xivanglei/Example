@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    android:id="@+id/tv_option"
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:text="ddd"
-    android:textSize="18sp"
-    android:gravity="center"
-    android:textColor="@color/tv_242424"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tv_option"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="ddd"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/tv_242424" />
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"/>
+</LinearLayout>
