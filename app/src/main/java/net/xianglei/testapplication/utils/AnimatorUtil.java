@@ -66,7 +66,8 @@ public class AnimatorUtil {
      */
     public static void showBigImageTransformAnim(View view, float radio, float translationX, float translationY, boolean isIn, AnimatorListenerAdapter listenerAdapter) {
         float[] values = isIn ? new float[]{0f, 1f} : new float[]{1f, 0f};
-        final ValueAnimator animator = ValueAnimator.ofFloat(values).setDuration(300);
+
+        final ValueAnimator animator = ValueAnimator.ofFloat(values).setDuration(150);
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

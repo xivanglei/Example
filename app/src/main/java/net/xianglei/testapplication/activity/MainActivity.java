@@ -110,4 +110,9 @@ public class MainActivity extends SimpleActivity {
     public void startBigImageActivity(View v) {
         BigImageActivity.start(this, v, mImageUrl);
     }
+
+    @OnClick(R.id.btn_voice_play)
+    public void startVoicePlayActivity() {
+        startActivity(VoicePlayActivity.class);
+    }
 }
