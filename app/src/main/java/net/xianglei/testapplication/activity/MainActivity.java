@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.ImageView;
 
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
@@ -15,6 +14,7 @@ import net.xianglei.testapplication.component.transformanim.ActivityAnimationHel
 import net.xianglei.testapplication.utils.GlideUtil;
 import net.xianglei.testapplication.utils.LogUtil;
 import net.xianglei.testapplication.utils.ScreenUtil;
+import net.xianglei.testapplication.widget.RoundedImageView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +26,7 @@ import butterknife.OnClick;
 public class MainActivity extends SimpleActivity {
 
     @BindView(R.id.iv_test)
-    ImageView iv_test;
+    RoundedImageView iv_test;
 
     private String mImageUrl = "https://rongcloud-file.cn.ronghub.com/application_octet-stream__RC-2019-10-21_8228_1571652938959.mp4?attname=40dfc95cc9fb4ba497b445d10441782f.mp4&e=2147483647&token=CddrKW5AbOMQaDRwc3ReDNvo3-sL_SO1fSUBKV3H:YV8sUH1aAnYaVrh-7iJx0iB31N0=";
     private String srcFile = "/storage/emulated/0/DCIM/Camera/IMG_20191004_150413.jpg";
@@ -46,8 +46,7 @@ public class MainActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
-        LogUtil.d(findViewById(R.id.sv_content).getHeight());
-        LogUtil.d(ScreenUtil.getScreenH());
+        iv_test.setCornerRadius(ScreenUtil.dp2px(5));
 
     }
 

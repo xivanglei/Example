@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/sv_content"
+<ScrollView android:id="@+id/sv_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:orientation="vertical"
@@ -11,12 +11,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp">
 
-        <ImageView
+        <net.xianglei.testapplication.widget.RoundedImageView
             android:id="@+id/iv_test"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:riv_corner_radius="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
