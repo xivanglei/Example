@@ -1,8 +1,11 @@
 package net.xianglei.testapplication.utils;
 
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 /**
  * Author:xianglei
@@ -56,5 +59,28 @@ public class AnimatorUtil {
         ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(view,"translationX", from, to);
         objectAnimator1.setDuration(duration);
         objectAnimator1.start();
+    }
+
+    /**
+     * 模拟入场动画
+     */
+    public static void showBigImageTransformAnim(View view, float radio, float translationX, float translationY, boolean isIn, AnimatorListenerAdapter listenerAdapter) {
+        float[] values = isIn ? new float[]{0f, 1f} : new float[]{1f, 0f};
+
+        final ValueAnimator animator = ValueAnimator.ofFloat(values).setDuration(150);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                view.setAlpha(1f);
+                view.setScaleX(radio + (1 - radio) * value);
+                view.setScaleY(radio + (1 - radio) * value);
+                view.setTranslationX(-translationX * (1f - value));
+                view.setTranslationY(-translationY * (1f - value));
+            }
+        });
+        if(listenerAdapter != null) animator.addListener(listenerAdapter);
+        animator.start();
     }
 }

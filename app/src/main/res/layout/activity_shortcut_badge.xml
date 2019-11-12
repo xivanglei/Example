@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.ShortcutBadgeActivity">
+
+    <TextView
+        android:id="@+id/tv_home_package"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/et_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/btn_set_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置角标"/>
+
+    <Button
+        android:id="@+id/btn_set_badge_by_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="发送通知附带角标-有些手机不能直接带，需要先设置"/>
+
+    <Button
+        android:id="@+id/btn_remove_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="移出角标"/>
+
+</LinearLayout>

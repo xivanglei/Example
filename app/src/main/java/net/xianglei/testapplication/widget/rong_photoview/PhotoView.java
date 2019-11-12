@@ -17,6 +17,8 @@ import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
+import net.xianglei.testapplication.utils.LogUtil;
+
 public class PhotoView extends android.support.v7.widget.AppCompatImageView implements IPhotoView {
     private PhotoViewAttacher mAttacher;
     private ScaleType mPendingScaleType;
@@ -206,6 +208,10 @@ public class PhotoView extends android.support.v7.widget.AppCompatImageView impl
 
     public void setScale(float scale) {
         this.mAttacher.setScale(scale);
+    }
+
+    public int getScrollEdgeY() {
+        return mAttacher.getScrollEdgeY();
     }
 
     public void setScale(float scale, boolean animate) {

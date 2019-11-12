@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<ScrollView android:id="@+id/sv_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="请输入"/>
-
-            <Button
-                android:id="@+id/btn_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="确定"/>
-        </LinearLayout>
+        <net.xianglei.testapplication.widget.RoundedImageView
+            android:id="@+id/iv_test"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:riv_corner_radius="10dp"/>
 
         <TextView
-            android:id="@+id/tv_link"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:autoLink="web|email|phone"
-            android:textColorLink="#2972ab"
-            android:minHeight="22dp"
-            android:textStyle="normal"
-            android:lineSpacingMultiplier="1.2" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btn_test"
@@ -48,6 +35,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="测试2"/>
+
+        <Button
+            android:id="@+id/btn_test_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="fragmentTest"/>
 
         <Button
             android:id="@+id/btn_get_address_list"
@@ -96,6 +89,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="自定义进度条"/>
+
+        <Button
+            android:id="@+id/btn_slide_close_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下滑关闭父布局"/>
+
+        <Button
+            android:id="@+id/btn_badge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置角标"/>
+
+        <Button
+            android:id="@+id/btn_big_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="大图预览放大转场动画"/>
+
+        <Button
+            android:id="@+id/btn_voice_play"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="音频播放"/>
 
     </LinearLayout>
 

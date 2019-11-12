@@ -13,10 +13,10 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_test_stop"
+            android:id="@+id/btn_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="测试会不会延迟别的activity的onstop"/>
+            android:text="查询recyclerView可见的view"/>
 
         <Button
             android:id="@+id/btn_linearLayout"

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SlideClosePictureActivity"
+    android:background="@color/black">
+
+    <net.xianglei.testapplication.widget.SlideCloseFrameLayout
+        android:id="@+id/sf_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <net.xianglei.testapplication.widget.rong_photoview.PhotoView
+            android:id="@+id/pv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"/>
+    </net.xianglei.testapplication.widget.SlideCloseFrameLayout>
+
+    <Button
+        android:id="@+id/btn_get_scale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取比例"/>
+
+</FrameLayout>
