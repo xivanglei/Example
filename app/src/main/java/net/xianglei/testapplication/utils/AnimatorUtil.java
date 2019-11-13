@@ -5,7 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 /**
  * Author:xianglei
@@ -68,7 +68,7 @@ public class AnimatorUtil {
         float[] values = isIn ? new float[]{0f, 1f} : new float[]{1f, 0f};
 
         final ValueAnimator animator = ValueAnimator.ofFloat(values).setDuration(150);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        animator.setInterpolator(new DecelerateInterpolator(2f));
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

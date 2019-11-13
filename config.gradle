@@ -14,7 +14,7 @@ ext {
             retrofit    : "2.2.0",
             okhttp      : "3.6.0",
             dagger2     : "2.7",
-            butterknife : "8.6.0",
+            butterknife : "8.8.1",
             glide       : "4.9.0",
             blockcanary : "1.2.1",
             leakcanary  : "1.5.1",
