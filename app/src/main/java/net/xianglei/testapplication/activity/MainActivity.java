@@ -42,6 +42,7 @@ public class MainActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
         GlideUtil.loadImage(this, mImageUrl, iv_test);
+        startActivity(CustomKayboardActivity.class);
     }
 
     @OnClick(R.id.btn_test)
@@ -125,5 +126,10 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_voice_play)
     public void startVoicePlayActivity() {
         startActivity(VoicePlayActivity.class);
+    }
+
+    @OnClick(R.id.btn_custom_keyboard)
+    public void startCustomKeyboard() {
+        startActivity(CustomKayboardActivity.class);
     }
 }

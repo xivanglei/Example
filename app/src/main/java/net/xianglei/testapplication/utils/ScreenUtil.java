@@ -73,6 +73,24 @@ public class ScreenUtil {
         return (int) (pxValue / getScreenDensity() + 0.5f);
     }
 
+    public static int sp2px(float spValue) {
+        return sp2px(Util.getApp(), spValue);
+    }
+
+    public static int sp2px(Context context, float spValue) {
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5F);
+    }
+
+    public static int px2sp(float pxValue) {
+        return px2sp(Util.getApp(), pxValue);
+    }
+
+    public static int px2sp(Context context, float pxValue) {
+        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5F);
+    }
+
     /**
      * 计算状态栏高度
      */

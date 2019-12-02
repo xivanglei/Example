@@ -114,6 +114,12 @@
             android:layout_height="wrap_content"
             android:text="音频播放"/>
 
+        <Button
+            android:id="@+id/btn_custom_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义键盘"/>
+
     </LinearLayout>
 
 </ScrollView>
