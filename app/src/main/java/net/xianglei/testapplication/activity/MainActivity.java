@@ -11,9 +11,9 @@ import net.xianglei.testapplication.base.SimpleActivity;
 import net.xianglei.testapplication.bean.ContactBean;
 import net.xianglei.testapplication.component.MyAlertDialog;
 import net.xianglei.testapplication.component.transformanim.ActivityAnimationHelper;
+import net.xianglei.testapplication.utils.DialogUtil;
 import net.xianglei.testapplication.utils.GlideUtil;
 import net.xianglei.testapplication.utils.LogUtil;
-import net.xianglei.testapplication.utils.ScreenUtil;
 import net.xianglei.testapplication.widget.RoundedImageView;
 
 import java.util.HashMap;
@@ -46,7 +46,19 @@ public class MainActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
-        iv_test.setCornerRadius(ScreenUtil.dp2px(5));
+        DialogUtil.showDoubleDialog(mContext, "标题", "", "positive", "negative", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        LogUtil.d("positive");
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        LogUtil.d("negative");
+                        break;
+                }
+            }
+        });
 
     }
 
