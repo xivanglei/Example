@@ -6,7 +6,6 @@ package net.xianglei.customkeyboard.listener;
  * Description:
  */
 public interface KeyListener {
-
     void onPress(int code);
     void onRelease(int code);
 }
