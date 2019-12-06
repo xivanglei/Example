@@ -263,6 +263,7 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
 
     private void callback(List<Integer> list, boolean isDown) {
         for(int i : list) {
+            if(i == KeyConst.NO_FIND_KEY) continue;
             if(isDown) {
                 mListener.onPress(i);
             } else {

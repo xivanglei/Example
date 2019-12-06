@@ -7,6 +7,7 @@ package net.xianglei.customkeyboard.constants;
  */
 public interface KeyConst {
 
+    int KEY_EMPTY = 0;                              //点到空的地方
     int NO_FIND_KEY = -10000;                       //没有找到对应的windows键
 
     //***************************************基本键及功能键************************************************

@@ -15,14 +15,14 @@
             android:keyLabel="!" />
         <Key
             android:codes="96"
-            android:keyLabel=" @ " />
+            android:keyLabel="\@" />
         <Key
             android:codes="-2005"
             android:keyLabel="#" />
 
         <Key
             android:codes="-2031"
-            android:keyLabel=" ? " />
+            android:keyLabel="\?" />
 
         <Key
             android:codes="-2007"
@@ -89,7 +89,7 @@
             android:keyLabel="}" />
         <Key
             android:codes="-2021"
-            android:keyLabel="\" />
+            android:keyLabel="\\" />
 
         <Key
             android:codes="-1011"

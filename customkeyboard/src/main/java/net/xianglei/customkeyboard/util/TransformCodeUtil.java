@@ -1,6 +1,7 @@
 package net.xianglei.customkeyboard.util;
 
 import android.inputmethodservice.Keyboard;
+import android.util.Log;
 import android.util.SparseIntArray;
 
 import net.xianglei.customkeyboard.constants.KeyConst;
@@ -8,6 +9,8 @@ import net.xianglei.customkeyboard.constants.KeyConst;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Author:xianglei
@@ -164,9 +167,10 @@ public class TransformCodeUtil {
     }
 
     private int transformSingleCode(int code) {
-        if(mCodeTransform.indexOfKey(code) > 0) {
+        if(mCodeTransform.indexOfKey(code) >= 0) {
             return mCodeTransform.valueAt(mCodeTransform.indexOfKey(code));
         } else {
+            Log.d(TAG, "transformSingleCode: " + "转换错误！找不到code: " + code + "  对应的windows码");
             return KeyConst.NO_FIND_KEY;
         }
     }
@@ -255,7 +259,8 @@ public class TransformCodeUtil {
                 KeyConst.KEY_SYMBOL,
                 KeyConst.KEY_FUNCTION_WIN,
                 KeyConst.KEY_PREVIOUS_PAGE,
-                KeyConst.KEY_NEXT_PAGE).contains(code);
+                KeyConst.KEY_NEXT_PAGE,
+                KeyConst.KEY_EMPTY).contains(code);
     }
 
     public List<Integer> transformCode(int code, boolean isDown) {

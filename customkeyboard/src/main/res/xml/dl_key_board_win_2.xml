@@ -15,9 +15,9 @@
             android:keyLabel="F12" />
         <Key
             android:codes="-1007"
+            android:horizontalGap="50%p"
             android:keyEdgeFlags="right"
-            android:keyLabel="中/英"
-            android:horizontalGap="62.5%p"/>
+            android:keyLabel="中/英" />
     </Row>
 
     <Row>
