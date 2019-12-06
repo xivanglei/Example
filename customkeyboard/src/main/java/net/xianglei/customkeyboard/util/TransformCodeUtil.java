@@ -21,6 +21,7 @@ public class TransformCodeUtil {
 
     private SparseIntArray mCodeTransform;
 
+    //初始化转换码 key为输入，value为输出的windows码
     public TransformCodeUtil() {
         mCodeTransform = new SparseIntArray();
         //字母 a - z
@@ -160,12 +161,13 @@ public class TransformCodeUtil {
         mCodeTransform.put(KeyConst.KEY_TAB, 9);
         mCodeTransform.put(Keyboard.KEYCODE_DELETE, 8);
         mCodeTransform.put(Keyboard.KEYCODE_DONE, 13);
-//        mCodeTransform.put(KeyConst.KEY_ARROW_LEFT, 9);
-//        mCodeTransform.put(KeyConst.KEY_ARROW_RIGHT, 9);
-//        mCodeTransform.put(KeyConst.KEY_ARROW_UP, 9);
-//        mCodeTransform.put(KeyConst.KEY_ARROW_DOWN, 9);
+        mCodeTransform.put(KeyConst.KEY_ARROW_LEFT, 37);
+        mCodeTransform.put(KeyConst.KEY_ARROW_RIGHT, 39);
+        mCodeTransform.put(KeyConst.KEY_ARROW_UP, 38);
+        mCodeTransform.put(KeyConst.KEY_ARROW_DOWN, 40);
     }
 
+    //单个码转换，如果找不到会返回-10000
     private int transformSingleCode(int code) {
         if(mCodeTransform.indexOfKey(code) >= 0) {
             return mCodeTransform.valueAt(mCodeTransform.indexOfKey(code));
@@ -175,6 +177,7 @@ public class TransformCodeUtil {
         }
     }
 
+    //需要加shift
     private boolean isNeedShift(int code) {
         return Arrays.asList(
                 KeyConst.KEY_TILDE,
@@ -228,13 +231,12 @@ public class TransformCodeUtil {
         ).contains(code);
     }
 
+    //是否是组合键，如果是，就需要交给transCombinationCode处理
     private boolean isCombinationCode(int code) {
-        return Arrays.asList(
-                KeyConst.KEY_LANGUAGE,
-                KeyConst.KEY_WWW,
-                KeyConst.KEY_COM).contains(code);
+        return code == KeyConst.KEY_LANGUAGE;
     }
 
+    //添加组合键code
     private List<Integer> transCombinationCode(int code, boolean isDown) {
         List<Integer> result = new ArrayList<>();
         switch (code) {
@@ -251,6 +253,7 @@ public class TransformCodeUtil {
         return result;
     }
 
+    //这部分不需要转换
     private boolean isDoNotTransform(int code) {
         return Arrays.asList(
                 Keyboard.KEYCODE_SHIFT,
@@ -263,6 +266,7 @@ public class TransformCodeUtil {
                 KeyConst.KEY_EMPTY).contains(code);
     }
 
+    //转换码发送
     public List<Integer> transformCode(int code, boolean isDown) {
         if(isCombinationCode(code)) return transCombinationCode(code, isDown);
         List<Integer> result = new ArrayList<>();
@@ -281,6 +285,7 @@ public class TransformCodeUtil {
         return result;
     }
 
+    //a-z如果按住了shift就需要转换成大写再转windows码
     public int changeCapitalAlphabetIfNeed(int code, boolean isShift) {
         int result = code;
         if (isShift && code >= KeyConst.KEY_a && code <= KeyConst.KEY_z) {

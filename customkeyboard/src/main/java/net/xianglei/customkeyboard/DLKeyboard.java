@@ -17,6 +17,7 @@ import net.xianglei.customkeyboard.util.AnimatorUtil;
 import net.xianglei.customkeyboard.util.TransformCodeUtil;
 import net.xianglei.customkeyboard.widget.DLKeyBoardView;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,11 +40,16 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
     public static final int STATUS_CLOSE = 0;
 
     private Activity mActivity;
+    //自定义软键盘View
     private DLKeyBoardView mDLKeyBoardView;
     private View mRootView;
+    //记录键盘打开状态
     private int mOpenStatus = STATUS_CLOSE;
+    //键盘类型
     private int mInputType;
+    //转换windows码工具
     private TransformCodeUtil mCodeUtil;
+    //监听
     private KeyListener mListener;
 
     private DLKeyboard(Activity activity) {
@@ -51,6 +57,7 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
         if(mCodeUtil == null) mCodeUtil = new TransformCodeUtil();
     }
 
+    //单例，静态强引用activity,页面销毁必须调用release释放，否则内存泄漏
     public static DLKeyboard getInstance(Activity activity) {
         if(instance == null) {
             synchronized (DLKeyboard.class) {
@@ -66,11 +73,13 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
         return instance;
     }
 
+    //设置监听，showKeyboard前必须设置，否则报错
     public DLKeyboard setListener(KeyListener listener) {
         mListener = listener;
         return this;
     }
 
+    //打开软键盘,不需要判断打开状态，可以直接调用
     public void showKeyboard() {
         if(mListener == null)
             throw new IllegalStateException("Listening must be set");
@@ -88,6 +97,7 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
         AnimatorUtil.yScroll(mRootView, 250, dp2px(280), 0, new DecelerateInterpolator());
     }
 
+    //隐藏软键盘,不需要判断打开状态，可以直接调用
     public void hideKeyboard() {
         if(mOpenStatus == STATUS_CLOSE) return;
         mOpenStatus = STATUS_CLOSE;
@@ -102,6 +112,7 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
         });
     }
 
+    //释放内存，必须调用，否则引起内存泄漏
     public void release() {
         if(mRootView != null) {
             ((FrameLayout) mActivity.getWindow().getDecorView()).removeView(mRootView);
@@ -112,7 +123,8 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
         Log.d(TAG, "release: ");
     }
 
-    public void checkNewActivity(Activity activity) {
+    //是否是新的activity,如果是就需要把老的activity释放，再通过这activity添加View
+    private void checkNewActivity(Activity activity) {
         Log.d(TAG, "checkNewActivity: 开始");
         if(mActivity == activity) return;
         release();
@@ -120,6 +132,7 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
         Log.d(TAG, "checkNewActivity: 结束");
     }
 
+    //设置键盘类型
     private void setInputType(int inputType) {
         mInputType = inputType;
         Keyboard keyboard = null;
@@ -145,29 +158,7 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
     @Override
     public void onPress(int primaryCode) {
         Log.d(TAG, "onPress: " + primaryCode);
-        switch (primaryCode) {
-            case Keyboard.KEYCODE_SHIFT:
-            case Keyboard.KEYCODE_DELETE:
-            case KeyConst.KEY_SPACE:
-            case KeyConst.KEY_LANGUAGE:
-            case KeyConst.KEY_SYMBOL:
-            case KeyConst.KEY_LINE_FEED:
-            case Keyboard.KEYCODE_CANCEL:
-            case Keyboard.KEYCODE_DONE:
-            case KeyConst.KEY_BACK:
-            case KeyConst.KEY_FUNCTION_WIN:
-            case KeyConst.KEY_PREVIOUS_PAGE:
-            case KeyConst.KEY_NEXT_PAGE:
-            case KeyConst.KEY_ARROW_LEFT:
-            case KeyConst.KEY_ARROW_RIGHT:
-            case KeyConst.KEY_ARROW_UP:
-            case KeyConst.KEY_ARROW_DOWN:
-                mDLKeyBoardView.setPreviewEnabled(false);
-                break;
-            default:
-                mDLKeyBoardView.setPreviewEnabled(true);
-                break;
-        }
+        setPreviewEnabled(primaryCode);
         int code = mCodeUtil.changeCapitalAlphabetIfNeed(primaryCode, mDLKeyBoardView.getKeyboard().isShifted());
         callback(mCodeUtil.transformCode(code, true), true);
     }
@@ -256,11 +247,44 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
         Log.d(TAG, "swipeUp: ");
     }
 
+    //设置是否预览
+    private void setPreviewEnabled(int code) {
+        if(mInputType == INPUT_TYPE_WIN || mInputType == INPUT_TYPE_WIN_2) {
+            mDLKeyBoardView.setPreviewEnabled(false);
+        } else {
+            boolean isNeedShow = !Arrays.asList(
+                    Keyboard.KEYCODE_SHIFT,
+                    Keyboard.KEYCODE_DELETE,
+                    KeyConst.KEY_SPACE,
+                    KeyConst.KEY_LANGUAGE,
+                    KeyConst.KEY_SYMBOL,
+                    KeyConst.KEY_LINE_FEED,
+                    Keyboard.KEYCODE_CANCEL,
+                    Keyboard.KEYCODE_DONE,
+                    KeyConst.KEY_BACK,
+                    KeyConst.KEY_FUNCTION_WIN,
+                    KeyConst.KEY_PREVIOUS_PAGE,
+                    KeyConst.KEY_NEXT_PAGE,
+                    KeyConst.KEY_ARROW_LEFT,
+                    KeyConst.KEY_ARROW_RIGHT,
+                    KeyConst.KEY_ARROW_UP,
+                    KeyConst.KEY_ARROW_DOWN).contains(code);
+            mDLKeyBoardView.setPreviewEnabled(isNeedShow);
+        }
+    }
+
+    //返回 STATUS_OPEN 或 STATUS_CLOSE
+    public int getOpenStatus() {
+        return mOpenStatus;
+    }
+
+    //自动点击按键
     private void clickKey(int code) {
         callback(mCodeUtil.transformCode(code, true), true);
         callback(mCodeUtil.transformCode(code, false), false);
     }
 
+    //返回
     private void callback(List<Integer> list, boolean isDown) {
         for(int i : list) {
             if(i == KeyConst.NO_FIND_KEY) continue;
