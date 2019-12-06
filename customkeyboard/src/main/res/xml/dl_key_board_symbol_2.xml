@@ -19,35 +19,20 @@
             android:codes="-2006"
             android:keyLabel="$" />
 
-        <Key
-            android:codes="-2034"
-            android:keyLabel="←" />
-
-        <Key
-            android:codes="-2036"
-            android:keyLabel="↑" />
-
-        <Key
-            android:codes="-2037"
-            android:keyLabel="↓" />
 
         <Key
             android:codes="-1007"
             android:keyEdgeFlags="right"
-            android:keyLabel="中/英" />
+            android:keyLabel="中/英"
+            android:horizontalGap="37.5%p"/>
     </Row>
 
     <Row>
 
         <Key
-            android:codes="-2035"
-            android:keyLabel="→"
-            android:keyEdgeFlags="left"/>
-
-        <Key
             android:codes="-1010"
             android:keyLabel="上翻"
-            android:horizontalGap="75%p"
+            android:horizontalGap="87.5%p"
             android:keyEdgeFlags="right"/>
 
     </Row>

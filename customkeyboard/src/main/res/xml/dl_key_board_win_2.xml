@@ -3,10 +3,23 @@
     android:keyHeight="50dp"
     android:keyWidth="12.5%p">
     <Row android:rowEdgeFlags="top">
+
+        <Key
+            android:codes="-3024"
+            android:keyLabel="F6"
+            android:keyEdgeFlags="left"/>
+        <Key
+            android:codes="-3026"
+            android:keyLabel="F7" />
+        <Key
+            android:codes="-3027"
+            android:keyLabel="F8" />
+        <Key
+            android:codes="-3028"
+            android:keyLabel="F9" />
         <Key
             android:codes="-3029"
-            android:keyLabel="F10"
-            android:keyEdgeFlags="left"/>
+            android:keyLabel="F10" />
         <Key
             android:codes="-3030"
             android:keyLabel="F11" />
@@ -15,7 +28,6 @@
             android:keyLabel="F12" />
         <Key
             android:codes="-1007"
-            android:horizontalGap="50%p"
             android:keyEdgeFlags="right"
             android:keyLabel="中/英" />
     </Row>

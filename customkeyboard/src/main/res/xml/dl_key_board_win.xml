@@ -3,9 +3,26 @@
     android:keyHeight="50dp"
     android:keyWidth="12.5%p">
     <Row android:rowEdgeFlags="top">
+
+        <Key
+            android:keyEdgeFlags="left"
+            android:codes="-2034"
+            android:keyLabel="←" />
+
+        <Key
+            android:codes="-2036"
+            android:keyLabel="↑" />
+
+        <Key
+            android:codes="-2037"
+            android:keyLabel="↓" />
+
+        <Key
+            android:codes="-2035"
+            android:keyLabel="→" />
+
         <Key
             android:codes="-3001"
-            android:keyEdgeFlags="left"
             android:keyLabel="ESC" />
         <Key
             android:codes="-3002"
@@ -13,9 +30,19 @@
         <Key
             android:codes="-3003"
             android:keyLabel="CTRL(R)" />
+
+        <Key
+            android:codes="-1007"
+            android:keyEdgeFlags="right"
+            android:keyLabel="中/英" />
+
+    </Row>
+    <Row>
+
         <Key
             android:codes="-3004"
-            android:keyLabel="SHIFT(L)" />
+            android:keyLabel="SHIFT(L)"
+            android:keyEdgeFlags="left"/>
         <Key
             android:codes="-3005"
             android:keyLabel="SHIFT(R)" />
@@ -27,16 +54,7 @@
             android:keyLabel="ALT(R)" />
 
         <Key
-            android:codes="-1007"
-            android:keyEdgeFlags="right"
-            android:keyLabel="中/英" />
-
-    </Row>
-    <Row>
-
-        <Key
             android:codes="-3008"
-            android:keyEdgeFlags="left"
             android:keyLabel="CAPSLK" />
 
         <Key
@@ -46,18 +64,7 @@
         <Key
             android:codes="-3009"
             android:keyLabel="WIN" />
-        <Key
-            android:codes="-3010"
-            android:keyLabel="HOME" />
-        <Key
-            android:codes="-3011"
-            android:keyLabel="END" />
-        <Key
-            android:codes="-3012"
-            android:keyLabel="PRTSC" />
-        <Key
-            android:codes="-3013"
-            android:keyLabel="SCRLK" />
+
         <Key
             android:codes="-1010"
             android:keyLabel="上翻"
@@ -67,27 +74,28 @@
     <Row>
 
         <Key
-            android:codes="-3014"
-            android:keyLabel="PAUSE"
+            android:codes="-3010"
+            android:keyLabel="HOME"
             android:keyEdgeFlags="left"/>
+        <Key
+            android:codes="-3011"
+            android:keyLabel="END" />
+        <Key
+            android:codes="-3012"
+            android:keyLabel="PRTSC" />
+        <Key
+            android:codes="-3013"
+            android:keyLabel="SCRLK" />
+
+        <Key
+            android:codes="-3014"
+            android:keyLabel="PAUSE" />
         <Key
             android:codes="-3015"
             android:keyLabel="INS" />
         <Key
             android:codes="-3016"
             android:keyLabel="DEL" />
-        <Key
-            android:codes="-3017"
-            android:keyLabel="PGUP" />
-        <Key
-            android:codes="-3018"
-            android:keyLabel="PUDN" />
-        <Key
-            android:codes="-3019"
-            android:keyLabel="F1" />
-        <Key
-            android:codes="-3020"
-            android:keyLabel="F2" />
 
         <Key
             android:codes="-1011"
@@ -98,27 +106,27 @@
 
     <Row>
         <Key
-            android:codes="-3021"
-            android:keyLabel="F3"
+            android:codes="-3017"
+            android:keyLabel="PGUP"
             android:keyEdgeFlags="left"/>
+        <Key
+            android:codes="-3018"
+            android:keyLabel="PUDN" />
+        <Key
+            android:codes="-3019"
+            android:keyLabel="F1" />
+        <Key
+            android:codes="-3020"
+            android:keyLabel="F2" />
+        <Key
+            android:codes="-3021"
+            android:keyLabel="F3" />
         <Key
             android:codes="-3022"
             android:keyLabel="F4" />
         <Key
             android:codes="-3023"
             android:keyLabel="F5" />
-        <Key
-            android:codes="-3024"
-            android:keyLabel="F6" />
-        <Key
-            android:codes="-3026"
-            android:keyLabel="F7" />
-        <Key
-            android:codes="-3027"
-            android:keyLabel="F8" />
-        <Key
-            android:codes="-3028"
-            android:keyLabel="F9" />
 
         <Key
             android:codes="-1008"
