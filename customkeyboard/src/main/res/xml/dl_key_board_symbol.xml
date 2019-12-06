@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyHeight="50dp"
-    android:keyWidth="12.5%p">
+    android:keyWidth="12.4%p">
     <Row android:rowEdgeFlags="top">
         <Key
             android:codes="-2001"
             android:keyEdgeFlags="left"
-            android:keyLabel="`" />
+            android:keyLabel="`"
+            android:horizontalGap="0.3%p"/>
         <Key
             android:codes="-2002"
             android:keyLabel="~" />
@@ -38,7 +39,8 @@
         <Key
             android:codes="-2008"
             android:keyLabel="^"
-            android:keyEdgeFlags="left"/>
+            android:keyEdgeFlags="left"
+            android:horizontalGap="0.3%p"/>
 
         <Key
             android:codes="-2009"
@@ -70,7 +72,8 @@
         <Key
             android:codes="-2015"
             android:keyLabel="_"
-            android:keyEdgeFlags="left"/>
+            android:keyEdgeFlags="left"
+            android:horizontalGap="0.3%p"/>
         <Key
             android:codes="-2016"
             android:keyLabel="+" />
@@ -102,7 +105,8 @@
         <Key
             android:codes="-2022"
             android:keyLabel="|"
-            android:keyEdgeFlags="left"/>
+            android:keyEdgeFlags="left"
+            android:horizontalGap="0.3%p"/>
         <Key
             android:codes="-2023"
             android:keyLabel=";" />

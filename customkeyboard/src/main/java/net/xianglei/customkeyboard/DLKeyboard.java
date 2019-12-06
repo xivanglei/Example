@@ -289,7 +289,6 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
             } else {
                 mListener.onRelease(i);
             }
-
         }
     }
 }

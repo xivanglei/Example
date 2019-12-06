@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyHeight="50dp"
-    android:keyWidth="12.5%p">
+    android:keyWidth="12.4%p">
     <Row android:rowEdgeFlags="top">
 
         <Key
             android:keyEdgeFlags="left"
             android:codes="-2034"
-            android:keyLabel="←" />
+            android:keyLabel="←"
+            android:horizontalGap="0.3%p"/>
 
         <Key
             android:codes="-2036"
@@ -42,7 +43,8 @@
         <Key
             android:codes="-3004"
             android:keyLabel="SHIFT(L)"
-            android:keyEdgeFlags="left"/>
+            android:keyEdgeFlags="left"
+            android:horizontalGap="0.3%p"/>
         <Key
             android:codes="-3005"
             android:keyLabel="SHIFT(R)" />
@@ -76,7 +78,8 @@
         <Key
             android:codes="-3010"
             android:keyLabel="HOME"
-            android:keyEdgeFlags="left"/>
+            android:keyEdgeFlags="left"
+            android:horizontalGap="0.3%p"/>
         <Key
             android:codes="-3011"
             android:keyLabel="END" />
@@ -108,7 +111,8 @@
         <Key
             android:codes="-3017"
             android:keyLabel="PGUP"
-            android:keyEdgeFlags="left"/>
+            android:keyEdgeFlags="left"
+            android:horizontalGap="0.3%p"/>
         <Key
             android:codes="-3018"
             android:keyLabel="PUDN" />
