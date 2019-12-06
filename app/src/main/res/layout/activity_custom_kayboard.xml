@@ -19,6 +19,12 @@
         android:layout_height="wrap_content"
         android:text="隐藏软键盘"/>
 
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:src="@mipmap/ic_launcher"/>-->
+
     <EditText
         android:id="@+id/et_test"
         android:layout_width="match_parent"

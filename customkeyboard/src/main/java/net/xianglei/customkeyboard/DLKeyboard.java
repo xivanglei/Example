@@ -264,11 +264,7 @@ public class DLKeyboard implements KeyboardView.OnKeyboardActionListener {
                     KeyConst.KEY_BACK,
                     KeyConst.KEY_FUNCTION_WIN,
                     KeyConst.KEY_PREVIOUS_PAGE,
-                    KeyConst.KEY_NEXT_PAGE,
-                    KeyConst.KEY_ARROW_LEFT,
-                    KeyConst.KEY_ARROW_RIGHT,
-                    KeyConst.KEY_ARROW_UP,
-                    KeyConst.KEY_ARROW_DOWN).contains(code);
+                    KeyConst.KEY_NEXT_PAGE).contains(code);
             mDLKeyBoardView.setPreviewEnabled(isNeedShow);
         }
     }

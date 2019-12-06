@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -12,6 +13,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import net.xianglei.customkeyboard.R;
+import net.xianglei.customkeyboard.constants.KeyConst;
 
 /**
  * Author:xianglei
@@ -41,12 +43,27 @@ public class DLKeyBoardView extends KeyboardView {
 
     }
 
+    private void drawFunctionKeyText(Canvas canvas, Keyboard.Key key) {
+        switch (key.codes[0]) {
+            case Keyboard.KEYCODE_SHIFT:
+            case KeyConst.KEY_LANGUAGE:
+            case KeyConst.KEY_SYMBOL:
+            case KeyConst.KEY_LINE_FEED:
+            case Keyboard.KEYCODE_DONE:
+            case KeyConst.KEY_BACK:
+            case KeyConst.KEY_PREVIOUS_PAGE:
+            case KeyConst.KEY_NEXT_PAGE:
+                drawText(canvas, key, key.label.toString());
+                break;
+        }
+    }
+
     private void drawText(Canvas canvas, Keyboard.Key key, String label) {
         if(TextUtils.isEmpty(label)) return;
         Rect bounds = new Rect();
         Paint paint = new Paint();
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(40);
+        paint.setTextSize(50);
         paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
         paint.getTextBounds(label, 0, label.length(), bounds);
@@ -54,11 +71,45 @@ public class DLKeyBoardView extends KeyboardView {
     }
 
     private void drawKey(Keyboard.Key key, Canvas canvas) {
+        drawFunctionKeyBackground(key, canvas);
+        drawFunctionKeyText(canvas, key);
         switch (key.codes[0]) {
             case Keyboard.KEYCODE_DELETE:
                 drawKeyBackground(R.drawable.dl_press_key_delete, canvas, key);
                 break;
         }
+    }
+
+    private void drawFunctionKeyBackground(Keyboard.Key key, Canvas canvas) {
+        switch (key.codes[0]) {
+            case Keyboard.KEYCODE_SHIFT:
+            case Keyboard.KEYCODE_DELETE:
+            case KeyConst.KEY_LANGUAGE:
+            case KeyConst.KEY_SYMBOL:
+            case KeyConst.KEY_LINE_FEED:
+            case Keyboard.KEYCODE_DONE:
+            case KeyConst.KEY_BACK:
+            case KeyConst.KEY_FUNCTION_WIN:
+            case KeyConst.KEY_PREVIOUS_PAGE:
+            case KeyConst.KEY_NEXT_PAGE:
+                drawKeyBackground(R.drawable.dl_key_bg_function, canvas, key);
+                drawStroke(key, canvas);
+                break;
+        }
+    }
+
+    private void drawStroke(Keyboard.Key key, Canvas canvas) {
+        Paint paint = new Paint();
+        paint.setStrokeWidth(dp2px(0.6f));
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.parseColor("#6f6f6f"));
+        paint.setAntiAlias(true);
+        RectF rectF = new RectF();
+        rectF.left = key.x + dp2px(1.6f);
+        rectF.right = key.x + key.width - dp2px(1.6f);
+        rectF.top = key.y + dp2px(4.1f);
+        rectF.bottom = key.y + key.height;
+        canvas.drawRoundRect(rectF, dp2px(5), dp2px(5), paint);
     }
 
     private void drawKeyBackground(int drawableId, Canvas canvas, Keyboard.Key key) {
@@ -70,5 +121,10 @@ public class DLKeyBoardView extends KeyboardView {
         }
         npd.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
         npd.draw(canvas);
+    }
+
+    private int dp2px(float dpValue) {
+        float scale = mContext.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5F);
     }
 }

@@ -5,6 +5,7 @@ import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.KeyEvent;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -37,6 +38,10 @@ public class CustomKayboardActivity extends SimpleActivity {
     EditText normal_ed;
     @BindView(R.id.special_ed)
     EditText special_ed;
+    @BindView(R.id.btn_show_keyboard)
+    Button btn_show_keyboard;
+    @BindView(R.id.btn_hide_keyboard)
+    Button btn_hide_keyboard;
 
     private KeyboardUtil keyboardUtil;
 
@@ -93,7 +98,7 @@ public class CustomKayboardActivity extends SimpleActivity {
     }
 
     private void initMoveKeyBoard() {
-        ViewUtil.setGone(true, kb_custom_keyboard, et_test);
+        ViewUtil.setGone(true, kb_custom_keyboard, et_test, btn_show_keyboard, btn_hide_keyboard);
         keyboardUtil = new KeyboardUtil(this, root_view, sv_main);
         keyboardUtil.setOtherEdittext(normal_ed);
         // monitor the KeyBarod state

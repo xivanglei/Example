@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="#212121">
+        android:background="#212121"
+        android:alpha="0.9">
 
     <net.xianglei.customkeyboard.widget.DLKeyBoardView
         android:id="@+id/kb_custom_keyboard"
