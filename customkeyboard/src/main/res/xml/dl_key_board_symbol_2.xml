@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyHeight="50dp"
+    android:keyWidth="12.5%p">
+    <Row android:rowEdgeFlags="top">
+        <Key
+            android:codes="-2028"
+            android:keyLabel="&lt;"
+            android:keyEdgeFlags="left"/>
+        <Key
+            android:codes="-2029"
+            android:keyLabel="&gt;" />
+
+        <Key
+            android:codes="-2030"
+            android:keyLabel="/" />
+
+        <Key
+            android:codes="-2006"
+            android:keyLabel="$" />
+
+        <Key
+            android:codes="-2034"
+            android:keyLabel="←" />
+
+        <Key
+            android:codes="-2036"
+            android:keyLabel="↑" />
+
+        <Key
+            android:codes="-2037"
+            android:keyLabel="↓" />
+
+        <Key
+            android:codes="-1007"
+            android:keyEdgeFlags="right"
+            android:keyLabel="中/英" />
+    </Row>
+
+    <Row>
+
+        <Key
+            android:codes="-2035"
+            android:keyLabel="→"
+            android:keyEdgeFlags="left"/>
+
+        <Key
+            android:codes="-1010"
+            android:keyLabel="上翻"
+            android:horizontalGap="75%p"
+            android:keyEdgeFlags="right"/>
+
+    </Row>
+
+    <Row>
+
+        <Key
+            android:codes="-1011"
+            android:keyLabel="下翻"
+            android:horizontalGap="87.5%p"
+            android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+
+        <Key
+            android:codes="-1008"
+            android:keyLabel="返回"
+            android:horizontalGap="87.5%p"
+            android:keyEdgeFlags="right"/>
+    </Row>
+
+</Keyboard>

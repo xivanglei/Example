@@ -1,0 +1,30 @@
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#212121">
+
+    <net.xianglei.customkeyboard.widget.DLKeyBoardView
+        android:id="@+id/kb_custom_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:keyBackground="@drawable/dl_key_bg"
+        android:keyTextColor="#dddddd"
+        android:keyTextSize="18sp"
+        android:labelTextSize="18sp"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:keyPreviewHeight="60dp"
+        android:keyPreviewLayout="@layout/dl_key_board_preview"
+        android:keyPreviewOffset="-10dp" />
+
+    </FrameLayout>
+
+</FrameLayout>

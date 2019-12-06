@@ -36,8 +36,10 @@
     </Row>
     <Row>
         <Key android:horizontalGap="0.3%p"
-            android:keyWidth="12.999998%p" android:codes="-1"
-            android:keyEdgeFlags="left" android:isModifier="true"
+            android:keyWidth="12.999998%p"
+            android:codes="-1"
+            android:keyEdgeFlags="left"
+            android:isModifier="true"
             android:isSticky="true" />
         <Key android:codes="122" android:keyLabel="z" />
         <Key android:codes="120" android:keyLabel="x" />

@@ -1,6 +1,5 @@
 package net.xianglei.testapplication.activity;
 
-import android.graphics.drawable.ColorDrawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
@@ -13,12 +12,15 @@ import android.widget.ScrollView;
 import com.stomhong.library.KeyboardTouchListener;
 import com.stomhong.library.KeyboardUtil;
 
+import net.xianglei.customkeyboard.DLKeyboard;
+import net.xianglei.customkeyboard.listener.KeyListener;
 import net.xianglei.testapplication.R;
 import net.xianglei.testapplication.base.SimpleActivity;
 import net.xianglei.testapplication.utils.LogUtil;
 import net.xianglei.testapplication.utils.ViewUtil;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class CustomKayboardActivity extends SimpleActivity {
 
@@ -46,14 +48,29 @@ public class CustomKayboardActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        initCustomKeyboard();
+//        initCustomKeyboard();
 //        initMoveKeyBoard();
+        ViewUtil.setGone(true, kb_custom_keyboard, et_test, root_view);
+    }
+
+    private void showCustomKeyboard() {
+        DLKeyboard.getInstance(this)
+                .setListener(new KeyListener() {
+            @Override
+            public void onPress(int code) {
+                LogUtil.d("press:  " + code);
+            }
+            @Override
+            public void onRelease(int code) {
+                LogUtil.d("onRelease:  " + code);
+            }
+        }).showKeyboard();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
-            if(keyboardUtil.isShow){
+            if(keyboardUtil != null && keyboardUtil.isShow){
                 keyboardUtil.hideSystemKeyBoard();
                 keyboardUtil.hideAllKeyBoard();
                 keyboardUtil.hideKeyboardLayout();
@@ -64,6 +81,15 @@ public class CustomKayboardActivity extends SimpleActivity {
             return false;
         } else
             return super.onKeyDown(keyCode, event);
+    }
+
+    @OnClick(R.id.btn_show_keyboard)
+    public void showKeyboard() {
+        showCustomKeyboard();
+    }
+    @OnClick(R.id.btn_hide_keyboard)
+    public void hideKeyboard() {
+        DLKeyboard.getInstance(this).hideKeyboard();
     }
 
     private void initMoveKeyBoard() {
@@ -117,6 +143,7 @@ public class CustomKayboardActivity extends SimpleActivity {
             // 点击 key 时执行
             @Override
             public void onKey(int primaryCode, int[] keyCodes) {
+                LogUtil.d("onKey" + primaryCode);
                 Editable editable = et_test.getText();
                 int start = et_test.getSelectionStart();
                 switch (primaryCode) {
@@ -156,17 +183,17 @@ public class CustomKayboardActivity extends SimpleActivity {
 
             @Override
             public void swipeLeft() {
-
+                LogUtil.d("swipeLeft");
             }
 
             @Override
             public void swipeRight() {
-
+                LogUtil.d("swipeRIght");
             }
 
             @Override
             public void swipeDown() {
-
+                LogUtil.d("swipeDown");
             }
 
             @Override

@@ -26,4 +26,25 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <!--去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--背景颜色及和透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--这个是定义contentoverlay的背景的-->
+        <item name="android:windowContentOverlay">@null</item>
+        <!--dialog之外的背景true是暗 false是亮-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--给人程序启动慢的感觉，界面会一次性刷出来，刷新同步。否则会启动的同时加载一些东西-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimBottom150ms</item>
+    </style>
+
+    <style name="AnimBottom150ms">
+        <item name="android:windowEnterAnimation">@anim/bottom_in_150_overshoot</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out_150</item>
+    </style>
+
 </resources>

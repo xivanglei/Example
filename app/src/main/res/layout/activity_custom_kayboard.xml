@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.CustomKayboardActivity">
 
+    <Button
+        android:id="@+id/btn_show_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="弹出软键盘"/>
+
+    <Button
+        android:id="@+id/btn_hide_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐藏软键盘"/>
+
     <EditText
         android:id="@+id/et_test"
         android:layout_width="match_parent"

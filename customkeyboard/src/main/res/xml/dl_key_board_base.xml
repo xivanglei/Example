@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyHeight="50dp"
+    android:keyWidth="7.07%p">
+    <Row android:rowEdgeFlags="top">
+        <Key
+            android:codes="-1001"
+            android:keyEdgeFlags="left"
+            android:keyLabel="换行" />
+        <Key android:keyLabel="q" />
+        <Key android:keyLabel="w" />
+        <Key android:keyLabel="e" />
+        <Key android:keyLabel="r" />
+        <Key android:keyLabel="t" />
+        <Key android:keyLabel="y" />
+        <Key android:keyLabel="u" />
+        <Key android:keyLabel="i" />
+        <Key android:keyLabel="o" />
+        <Key android:keyLabel="p" />
+        <Key android:keyLabel="7"
+            android:horizontalGap="5dp"/>
+        <Key android:keyLabel="8" />
+        <Key android:keyEdgeFlags="right"
+            android:keyLabel="9" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="-1007"
+            android:keyEdgeFlags="left"
+            android:keyLabel="中/英" />
+
+        <Key android:keyLabel="a" />
+        <Key android:keyLabel="s" />
+        <Key android:keyLabel="d" />
+        <Key android:keyLabel="f" />
+        <Key android:keyLabel="g" />
+        <Key android:keyLabel="h" />
+        <Key android:keyLabel="j" />
+        <Key android:keyLabel="k" />
+        <Key android:keyLabel="l" />
+        <Key android:codes="-5"
+            android:isRepeatable="true"
+            android:isModifier="true" />
+        <Key android:keyLabel="4"
+            android:horizontalGap="5dp"/>
+        <Key android:keyLabel="5" />
+        <Key android:keyLabel="6"
+            android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key
+            android:codes="-1"
+            android:isModifier="true"
+            android:isSticky="true"
+            android:keyEdgeFlags="left"
+            android:keyLabel="大写" />
+        <Key android:codes="-1002"
+            android:keyLabel="符"/>
+        <Key android:keyLabel="z" />
+        <Key android:keyLabel="x" />
+        <Key android:keyLabel="c" />
+        <Key android:keyLabel="v" />
+        <Key android:keyLabel="b" />
+        <Key android:keyLabel="n" />
+        <Key android:keyLabel="m" />
+        <Key android:codes="-4"
+            android:keyWidth="14.14%p"
+            android:keyLabel="确定"/>
+        <Key android:keyLabel="1"
+            android:horizontalGap="5dp"/>
+        <Key android:keyLabel="2" />
+        <Key android:keyLabel="3"
+            android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:keyEdgeFlags="left"
+            android:codes="-3"/>
+
+        <Key android:codes="-1004"/>
+        <Key
+            android:codes="32"
+            android:isRepeatable="true"
+            android:keyLabel="空格"
+            android:keyWidth="49.49%p" />
+        <Key android:codes="96"
+            android:keyLabel=" @ "/>
+        <Key
+            android:codes="-2033"
+            android:keyLabel="."/>
+        <Key android:keyLabel="0"
+            android:horizontalGap="5dp"/>
+        <Key android:codes="-1005"
+            android:keyLabel="www." />
+        <Key android:codes="-1006"
+            android:keyLabel=".com"
+            android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>
