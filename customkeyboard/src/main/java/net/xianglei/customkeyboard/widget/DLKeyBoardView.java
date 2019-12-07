@@ -9,6 +9,8 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -20,6 +22,7 @@ import net.xianglei.customkeyboard.constants.KeyConst;
  * Date: 2019-12-03 10:36
  * Description:自定义软键盘View
  */
+@RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
 public class DLKeyBoardView extends KeyboardView {
 
     private Context mContext;
