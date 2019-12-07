@@ -63,7 +63,7 @@ public class DLKeyBoardView extends KeyboardView {
         Rect bounds = new Rect();
         Paint paint = new Paint();
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(50);
+        paint.setTextSize(sp2px(14));
         paint.setAntiAlias(true);
         paint.setColor(Color.WHITE);
         paint.getTextBounds(label, 0, label.length(), bounds);
@@ -76,6 +76,12 @@ public class DLKeyBoardView extends KeyboardView {
         switch (key.codes[0]) {
             case Keyboard.KEYCODE_DELETE:
                 drawKeyBackground(R.drawable.dl_press_key_delete, canvas, key);
+                break;
+            case Keyboard.KEYCODE_CANCEL:
+                drawKeyBackground(R.drawable.dl_key_cancel, canvas, key);
+                break;
+            case KeyConst.KEY_FUNCTION_WIN:
+                drawKeyBackground(R.drawable.dl_key_win, canvas, key);
                 break;
         }
     }
@@ -126,5 +132,10 @@ public class DLKeyBoardView extends KeyboardView {
     private int dp2px(float dpValue) {
         float scale = mContext.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5F);
+    }
+
+    public int sp2px(float spValue) {
+        float fontScale = mContext.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5F);
     }
 }
