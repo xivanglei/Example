@@ -40,6 +40,7 @@ public class DLKeyBoardView extends KeyboardView {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Keyboard KeyBoard = getKeyboard();
+        if(KeyBoard == null) return;
         for(Keyboard.Key key : KeyBoard.getKeys()) {
             drawKey(key, canvas);
         }

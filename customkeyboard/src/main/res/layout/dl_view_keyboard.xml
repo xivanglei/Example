@@ -24,7 +24,7 @@
         android:paddingTop="2dp"
         android:keyPreviewHeight="60dp"
         android:keyPreviewLayout="@layout/dl_key_board_preview"
-        android:keyPreviewOffset="-10dp" />
+        android:keyPreviewOffset="-20dp" />
 
     </FrameLayout>
 

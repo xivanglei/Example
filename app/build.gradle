@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
-
+def keystorePropertiesFile = rootProject.file("/Users/xianglei/keystore/xianglei/keystore.properties")
+//def keystorePropertiesFile = rootProject.file("C:\\Users\\qucent\\Desktop\\keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+// 字符格式转换
+def transform(String targetStr) {
+    return new String(targetStr.getBytes("iso8859-1"), "UTF-8")
+}
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -12,13 +19,27 @@ android {
     }
 
     lintOptions {
+        checkReleaseBuilds false
         abortOnError false
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(transform(keystoreProperties['storeFile']))
+            storePassword transform(keystoreProperties['storePassword'])
+            keyAlias transform(keystoreProperties['keyAlias'])
+            keyPassword transform(keystoreProperties['keyPassword'])
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
