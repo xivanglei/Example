@@ -18,13 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.CustomKayboardActivity"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="landscape"/>
         <activity android:name=".activity.VoicePlayActivity" />
         <activity
             android:name=".activity.BigImageActivity"
@@ -42,7 +36,11 @@
         <activity android:name=".activity.RecyclerDivideActivity" />
         <activity android:name=".activity.ImageViewTouchActivity" />
         <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".activity.ScrollConflictActivity" />
 
