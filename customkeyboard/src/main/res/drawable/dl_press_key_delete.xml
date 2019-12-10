@@ -4,9 +4,7 @@
 
 
     <item android:drawable="@mipmap/dl_ic_delete"
-        android:bottom="12dp"
-        android:top="12dp"
-        android:left="12dp"
-        android:right="12dp"/>
+        android:gravity="center"
+        android:top="5dp" />
 
 </layer-list>

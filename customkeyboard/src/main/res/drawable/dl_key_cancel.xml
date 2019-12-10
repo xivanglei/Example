@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@mipmap/dl_ic_keyboard"
-        android:bottom="12dp"
-        android:top="12dp"
-        android:left="12dp"
-        android:right="12dp"/>
+        android:gravity="center"
+        android:top="5dp" />
 
 </layer-list>
