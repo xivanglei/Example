@@ -10,7 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/dl_keyboard_bg">
+        android:background="@color/dl_keyboard_bg"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:alpha="0.9">
 
         <include layout="@layout/dl_include_keyboard_base" />
 

@@ -6,13 +6,13 @@
 
     <TextView
         android:id="@+id/tv_preview"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dl_bg_key_preview"
         android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:textColor="@color/dl_key_preview_text_color"
-        android:textSize="35sp"/>
+        android:textSize="30sp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
 
 </FrameLayout>

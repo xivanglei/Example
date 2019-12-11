@@ -41,12 +41,12 @@ public class KeyboardPreviewPop extends PopupWindow {
         View contentView = inflater.inflate(R.layout.pop_keyboard_preview, null);
         mTvPreview = contentView.findViewById(R.id.tv_preview);
         if(mShowText != null) mTvPreview.setText(mShowText);
-        this.setContentView(contentView);
-        this.setWidth(dp2px(80));
-        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        this.setFocusable(true);
-        this.setOutsideTouchable(true);
-        this.update();
+        setContentView(contentView);
+        setWidth(dp2px(80));
+        setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        setFocusable(true);
+        setOutsideTouchable(true);
+        update();
     }
 
     public void setText(String string) {
@@ -60,7 +60,7 @@ public class KeyboardPreviewPop extends PopupWindow {
         } else {
             int[] location = new int[2];
             parent.getLocationOnScreen(location);
-            this.showAtLocation(parent, 0, location[0] + parent.getWidth() / 2 - this.getWidth() / 2, location[1] - dp2px(100));
+            this.showAtLocation(parent, 0, location[0] + parent.getWidth() / 2 - getWidth(), location[1] - dp2px(80));
         }
     }
 

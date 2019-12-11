@@ -15,6 +15,7 @@ import net.xianglei.customkeyboard.util.TransformCodeUtil;
 import net.xianglei.customkeyboard.widget.Keyboard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -240,8 +241,7 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
     public void onPress(Keyboard key, int primaryCode) {
         Log.d(TAG, "onPress: " + primaryCode);
         showPreviewIfNeed(key, primaryCode);
-        int code = mCodeUtil.changeCapitalAlphabetIfNeed(primaryCode, mShiftIsOpen);
-        callback(mCodeUtil.transformCode(code, true), true);
+        callback(mCodeUtil.transformCode(primaryCode, true), true);
     }
 
     @Override
@@ -266,6 +266,24 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
     //设置是否预览
     private void showPreviewIfNeed(Keyboard key, int code) {
         if(mInputType == INPUT_TYPE_WIN || mInputType == INPUT_TYPE_WIN_2) return;
+        boolean isNeedShow = !Arrays.asList(
+                android.inputmethodservice.Keyboard.KEYCODE_SHIFT,
+                android.inputmethodservice.Keyboard.KEYCODE_DELETE,
+                KeyConst.KEY_SPACE,
+                KeyConst.KEY_LANGUAGE,
+                KeyConst.KEY_SYMBOL,
+                KeyConst.KEY_LINE_FEED,
+                android.inputmethodservice.Keyboard.KEYCODE_CANCEL,
+                android.inputmethodservice.Keyboard.KEYCODE_DONE,
+                KeyConst.KEY_BACK,
+                KeyConst.KEY_FUNCTION_WIN,
+                KeyConst.KEY_PREVIOUS_PAGE,
+                KeyConst.KEY_NEXT_PAGE).contains(code);
+        if(isNeedShow) {
+            mPreviewPop.setText(key.getText().toString());
+            mPreviewPop.showPopupWindow(key);
+        }
+//        Log.d(TAG, "showPreviewIfNeed: ");
 
     }
 

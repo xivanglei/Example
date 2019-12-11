@@ -176,7 +176,7 @@
 
         <net.xianglei.customkeyboard.widget.Keyboard
             style="@style/KBBase"
-            app:dl_keyboard_code="-2033"
+            app:dl_keyboard_code="-2032"
             android:text="," />
 
         <net.xianglei.customkeyboard.widget.Keyboard
