@@ -284,13 +284,4 @@ public class TransformCodeUtil {
         }
         return result;
     }
-
-    //a-z如果按住了shift就需要转换成大写再转windows码
-    public int changeCapitalAlphabetIfNeed(int code, boolean isShift) {
-        int result = code;
-        if (isShift && code >= KeyConst.KEY_a && code <= KeyConst.KEY_z) {
-            result = code - 32;
-        }
-        return result;
-    }
 }

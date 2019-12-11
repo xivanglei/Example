@@ -2,4 +2,9 @@
 <resources>
     <color name="dl_key_preview_bg">#1a70ffa5</color>
     <color name="dl_key_preview_text_color">#2390F9</color>
+    <color name="dl_key_press">#2390F9</color>
+    <color name="dl_key_function_normal">#303030</color>
+    <color name="dl_key_function_stroke">#6f6f6f</color>
+    <color name="dl_key_normal">#383838</color>
+    <color name="dl_keyboard_bg">#212121</color>
 </resources>
