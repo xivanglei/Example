@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/dl_keyboard_bg"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:alpha="0.9">
 
         <include layout="@layout/dl_include_keyboard_base" />

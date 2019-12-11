@@ -156,7 +156,8 @@
             android:id="@+id/kb_symbol"
             style="@style/KBBase"
             app:dl_keyboard_code="-1002"
-            android:text="符"/>
+            android:text="符"
+            android:background="@drawable/dl_key_bg_function"/>
 
         <net.xianglei.customkeyboard.widget.Keyboard
             style="@style/KBBase"
