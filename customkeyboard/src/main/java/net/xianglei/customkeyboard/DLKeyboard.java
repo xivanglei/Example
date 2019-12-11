@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import net.xianglei.customkeyboard.constants.KeyConst;
 import net.xianglei.customkeyboard.listener.KeyListener;
-import net.xianglei.customkeyboard.popwindow.KeyboardPreviewPop;
 import net.xianglei.customkeyboard.util.AnimatorUtil;
 import net.xianglei.customkeyboard.util.TransformCodeUtil;
 import net.xianglei.customkeyboard.widget.Keyboard;
@@ -52,7 +52,9 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
     // 大小写key 记录shift状态
     private boolean mShiftIsOpen;
     //预览框
-    private KeyboardPreviewPop mPreviewPop;
+    private View mPreviewView;
+    private TextView mPreviewText;
+    private int[] mPreviewLocation;
 
     private int[] mClickableViews = new int[] {
             R.id.kb_shift, R.id.kb_cancel, R.id.kb_symbol, R.id.kb_win, R.id.kb_symbol_next, R.id.kb_symbol_return, R.id.kb_symbol_2_return, R.id.kb_symbol_2_previous, R.id.kb_win_next, R.id.kb_win_return, R.id.kb_win_2_return, R.id.kb_win_2_previous
@@ -65,8 +67,11 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
     private View mKeyboardWin2;
 
     private DLKeyboard(Activity activity) {
+        initView(activity);
+    }
+
+    private void initView(Activity activity) {
         mActivity = activity;
-        mPreviewPop = new KeyboardPreviewPop(mActivity);
         if(mCodeUtil == null) mCodeUtil = new TransformCodeUtil();
     }
 
@@ -100,8 +105,12 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
         mOpenStatus = STATUS_OPEN;
         if(mActivity == null) return;
         if(mRootView == null) {
-            mRootView = View.inflate(mActivity, R.layout.dl_view_keyboard_2, null);
+            mRootView = View.inflate(mActivity, R.layout.dl_view_keyboard, null);
+            mPreviewView = View.inflate(mActivity, R.layout.view_keyboard_preview, null);
             ((FrameLayout) mActivity.getWindow().getDecorView()).addView(mRootView);
+            ((FrameLayout) mActivity.getWindow().getDecorView()).addView(mPreviewView);
+            mPreviewText = mPreviewView.findViewById(R.id.tv_preview);
+            setVisibilityToView(mPreviewView, false);
             initEvent(mRootView);
             initCustomEvent();
             initContainerView();
@@ -217,6 +226,10 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
             ((FrameLayout) mActivity.getWindow().getDecorView()).removeView(mRootView);
             mRootView = null;
         }
+        if(mPreviewView != null) {
+            ((FrameLayout) mActivity.getWindow().getDecorView()).removeView(mPreviewView);
+            mPreviewText = null;
+        }
         mActivity = null;
         Log.d(TAG, "release: ");
     }
@@ -226,8 +239,7 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
         Log.d(TAG, "checkNewActivity: 开始");
         if(mActivity == activity) return;
         release();
-        mActivity = activity;
-        mPreviewPop = new KeyboardPreviewPop(mActivity);
+        initView(activity);
         Log.d(TAG, "checkNewActivity: 结束");
     }
 
@@ -246,7 +258,7 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
 
     @Override
     public void onRelease(int primaryCode) {
-        mPreviewPop.dismiss();
+        setVisibilityToView(mPreviewView, false);
         if(primaryCode == KeyConst.KEY_WWW) {
             clickKey(KeyConst.KEY_w);
             clickKey(KeyConst.KEY_w);
@@ -280,11 +292,22 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
                 KeyConst.KEY_PREVIOUS_PAGE,
                 KeyConst.KEY_NEXT_PAGE).contains(code);
         if(isNeedShow) {
-            mPreviewPop.setText(key.getText().toString());
-            mPreviewPop.showPopupWindow(key);
+            mPreviewText.setText(key.getText().toString());
+            showPreview(key);
         }
-//        Log.d(TAG, "showPreviewIfNeed: ");
+    }
 
+    private void showPreview(Keyboard key) {
+        int[] keyLocation = new int[2];
+        if(mPreviewLocation == null) {
+            mPreviewLocation = new int[2];
+            mPreviewText.getLocationOnScreen(mPreviewLocation);
+        }
+        key.getLocationOnScreen(keyLocation);
+        int x = keyLocation[0] + key.getWidth() / 2 - dp2px(80) / 2 - mPreviewLocation[0];
+        mPreviewText.setTranslationX(x);
+        mPreviewText.setTranslationY(keyLocation[1] - dp2px(80));
+        setVisibilityToView(mPreviewView, true);
     }
 
     //返回 STATUS_OPEN 或 STATUS_CLOSE

@@ -12,10 +12,6 @@ import android.view.View;
  */
 public class AnimatorUtil {
 
-    public static void yScroll(final View view, final int duration, int from, int to) {
-        yScroll(view, duration, from, to, null);
-    }
-
     public static void yScroll(final View view, final int duration, int from, int to, TimeInterpolator interpolator) {
         yScroll(view, duration, from, to, interpolator, null);
     }
