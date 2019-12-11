@@ -11,6 +11,7 @@
         android:id="@+id/btn_show_keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/dl_key_bg"
         android:text="弹出软键盘"/>
 
     <Button
