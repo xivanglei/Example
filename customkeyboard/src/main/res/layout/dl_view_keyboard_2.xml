@@ -12,7 +12,15 @@
         android:layout_gravity="bottom"
         android:background="@color/dl_keyboard_bg">
 
-        <include layout="@layout/dl_include_key_board_base" />
+        <include layout="@layout/dl_include_keyboard_base" />
+
+        <include layout="@layout/dl_include_keyboard_symbol"/>
+
+        <include layout="@layout/dl_include_keyboard_symbol_2"/>
+
+        <include layout="@layout/dl_include_keyboard_win"/>
+
+        <include layout="@layout/dl_include_keyboard_win_2"/>
 
     </FrameLayout>
 

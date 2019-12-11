@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_keyboard_base"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -213,6 +214,7 @@
         style="@style/LLKeyboardBaseRowContainer">
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_cancel"
             style="@style/KBBase"
             app:dl_keyboard_code="-3"
             android:background="@drawable/dl_key_cancel"/>

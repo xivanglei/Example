@@ -53,6 +53,12 @@ public class DLKeyboard implements KeyListener {
     // 大小写key 记录shift状态
     private boolean mShiftIsOpen;
 
+    private View mKeyboardBase;
+    private View mKeyboardSymbol;
+    private View mKeyboardSymbol2;
+    private View mKeyboardWin;
+    private View mKeyboardWin2;
+
     private DLKeyboard(Activity activity) {
         mActivity = activity;
         if(mCodeUtil == null) mCodeUtil = new TransformCodeUtil();
@@ -119,7 +125,7 @@ public class DLKeyboard implements KeyListener {
                     if(v instanceof Keyboard) {
                         Keyboard key = (Keyboard) v;
                         key.setListener(this);
-                        initCustomEvent(key);
+                        initCustomEvent();
                         if(key.getCode() >= KeyConst.KEY_a && key.getCode() <= KeyConst.KEY_z) {
                             mAlphaKeys.add(key);
                         }
@@ -129,26 +135,27 @@ public class DLKeyboard implements KeyListener {
         }
     }
 
-    private void initCustomEvent(Keyboard key) {
-        if(key.getCode() == android.inputmethodservice.Keyboard.KEYCODE_SHIFT) {
-            initShiftStatusEvent(key);
-        } else if(key.getCode() == android.inputmethodservice.Keyboard.KEYCODE_CANCEL) {
-            key.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    hideKeyboard();
-                }
-            });
-        }
+    private void initCustomEvent() {
+        initShiftStatusEvent();
+        setCancelListener();
     }
 
-    private void initShiftStatusEvent(final Keyboard keyboard) {
-        keyboard.setOnClickListener(new View.OnClickListener() {
+    private void initShiftStatusEvent() {
+        mRootView.findViewById(R.id.kb_shift).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mShiftIsOpen = !mShiftIsOpen;
-                keyboard.setText(mShiftIsOpen ? "小写" : "大写");
+                ((Keyboard)v) .setText(mShiftIsOpen ? "小写" : "大写");
                 changeCapitalAlphabet();
+            }
+        });
+    }
+
+    private void setCancelListener() {
+        mRootView.findViewById(R.id.kb_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard();
             }
         });
     }

@@ -89,12 +89,12 @@ public interface KeyConst {
     int KEY_F4 = -3022;
     int KEY_F5 = -3023;
     int KEY_F6 = -3024;
-    int KEY_F7 = -3026;
-    int KEY_F8 = -3027;
-    int KEY_F9 = -3028;
-    int KEY_F10 = -3029;
-    int KEY_F11 = -3030;
-    int KEY_F12 = -3031;
+    int KEY_F7 = -3025;
+    int KEY_F8 = -3026;
+    int KEY_F9 = -3027;
+    int KEY_F10 = -3028;
+    int KEY_F11 = -3029;
+    int KEY_F12 = -3030;
 
     //***************************************基本键a-zA-Z0-9************************************************
     int KEY_a = 97;
