@@ -153,6 +153,7 @@
             android:background="@drawable/dl_key_bg_function"/>
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_symbol"
             style="@style/KBBase"
             app:dl_keyboard_code="-1002"
             android:text="符"/>
@@ -220,6 +221,7 @@
             android:background="@drawable/dl_key_cancel"/>
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_win"
             style="@style/KBBase"
             android:background="@drawable/dl_key_win"
             app:dl_keyboard_code="-1004"/>

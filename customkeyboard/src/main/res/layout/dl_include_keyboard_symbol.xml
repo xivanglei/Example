@@ -135,9 +135,10 @@
         <net.xianglei.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             app:dl_keyboard_code="-2021"
-            android:text="\" />
+            android:text="\\" />
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_symbol_next"
             style="@style/KBBase"
             app:dl_keyboard_code="-1011"
             android:text="下翻"
@@ -184,6 +185,7 @@
             android:text="." />
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_symbol_return"
             style="@style/KBBase"
             app:dl_keyboard_code="-1008"
             android:text="返回"

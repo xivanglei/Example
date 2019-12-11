@@ -62,6 +62,7 @@
             android:layout_weight="49"/>
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_win_2_previous"
             style="@style/KBBase"
             app:dl_keyboard_code="-1010"
             android:text="上翻"
@@ -94,6 +95,7 @@
             android:layout_weight="49"/>
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_win_2_return"
             style="@style/KBBase"
             app:dl_keyboard_code="-1008"
             android:text="返回"

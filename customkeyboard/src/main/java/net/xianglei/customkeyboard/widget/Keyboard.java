@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import net.xianglei.customkeyboard.R;
-import net.xianglei.customkeyboard.listener.KeyListener;
+import net.xianglei.customkeyboard.constants.KeyConst;
+
+import java.util.Arrays;
 
 /**
  * Author:xianglei
@@ -19,7 +21,7 @@ public class Keyboard extends android.support.v7.widget.AppCompatTextView {
     private static final String TAG = "Keyboard";
     private int code;
     //监听
-    private KeyListener mListener;
+    private OnKeyActionListener mListener;
 
     public Keyboard(Context context) {
         this(context, null);
@@ -47,13 +49,12 @@ public class Keyboard extends android.support.v7.widget.AppCompatTextView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(code == android.inputmethodservice.Keyboard.KEYCODE_SHIFT || code == android.inputmethodservice.Keyboard.KEYCODE_CANCEL)
-            return super.onTouchEvent(event);
+        if(isCustomClick()) return super.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 setPressed(true);
                 Log.d(TAG, "onTouchEvent: down" + code);
-                if(mListener != null) mListener.onPress(code);
+                if(mListener != null) mListener.onPress(Keyboard.this, code);
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
@@ -65,7 +66,24 @@ public class Keyboard extends android.support.v7.widget.AppCompatTextView {
         return true;
     }
 
-    public void setListener(KeyListener listener) {
+    public void setListener(OnKeyActionListener listener) {
         mListener = listener;
+    }
+
+    private boolean isCustomClick() {
+        return Arrays.asList(
+                android.inputmethodservice.Keyboard.KEYCODE_SHIFT,
+                android.inputmethodservice.Keyboard.KEYCODE_CANCEL,
+                KeyConst.KEY_FUNCTION_WIN,
+                KeyConst.KEY_SYMBOL,
+                KeyConst.KEY_BACK,
+                KeyConst.KEY_PREVIOUS_PAGE,
+                KeyConst.KEY_NEXT_PAGE
+                ).contains(code);
+    }
+
+    public interface OnKeyActionListener {
+        void onPress(Keyboard key, int code);
+        void onRelease(int code);
     }
 }

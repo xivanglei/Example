@@ -9,9 +9,9 @@ import android.widget.LinearLayout;
 
 import net.xianglei.customkeyboard.constants.KeyConst;
 import net.xianglei.customkeyboard.listener.KeyListener;
+import net.xianglei.customkeyboard.popwindow.KeyboardPreviewPop;
 import net.xianglei.customkeyboard.util.AnimatorUtil;
 import net.xianglei.customkeyboard.util.TransformCodeUtil;
-import net.xianglei.customkeyboard.widget.DLKeyBoardView;
 import net.xianglei.customkeyboard.widget.Keyboard;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
  * Date: 2019-12-02 19:03
  * Description:自定义软键盘单例，退出时需要掉release释放资源
  */
-public class DLKeyboard implements KeyListener {
+public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickListener {
 
     private static final String TAG = "DLKeyboard";
     private static volatile DLKeyboard instance;
@@ -39,8 +39,6 @@ public class DLKeyboard implements KeyListener {
     private List<Keyboard> mAlphaKeys;
 
     private Activity mActivity;
-    //自定义软键盘View
-    private DLKeyBoardView mDLKeyBoardView;
     private View mRootView;
     //记录键盘打开状态
     private int mOpenStatus = STATUS_CLOSE;
@@ -52,6 +50,12 @@ public class DLKeyboard implements KeyListener {
     private KeyListener mListener;
     // 大小写key 记录shift状态
     private boolean mShiftIsOpen;
+    //预览框
+    private KeyboardPreviewPop mPreviewPop;
+
+    private int[] mClickableViews = new int[] {
+            R.id.kb_shift, R.id.kb_cancel, R.id.kb_symbol, R.id.kb_win, R.id.kb_symbol_next, R.id.kb_symbol_return, R.id.kb_symbol_2_return, R.id.kb_symbol_2_previous, R.id.kb_win_next, R.id.kb_win_return, R.id.kb_win_2_return, R.id.kb_win_2_previous
+    };
 
     private View mKeyboardBase;
     private View mKeyboardSymbol;
@@ -61,6 +65,7 @@ public class DLKeyboard implements KeyListener {
 
     private DLKeyboard(Activity activity) {
         mActivity = activity;
+        mPreviewPop = new KeyboardPreviewPop(mActivity);
         if(mCodeUtil == null) mCodeUtil = new TransformCodeUtil();
     }
 
@@ -97,6 +102,9 @@ public class DLKeyboard implements KeyListener {
             mRootView = View.inflate(mActivity, R.layout.dl_view_keyboard_2, null);
             ((FrameLayout) mActivity.getWindow().getDecorView()).addView(mRootView);
             initEvent(mRootView);
+            initCustomEvent();
+            initContainerView();
+            setInputType(INPUT_TYPE_BASE);
         }
         AnimatorUtil.yScroll(mRootView, 250, dp2px(280), 0, new DecelerateInterpolator());
     }
@@ -125,7 +133,6 @@ public class DLKeyboard implements KeyListener {
                     if(v instanceof Keyboard) {
                         Keyboard key = (Keyboard) v;
                         key.setListener(this);
-                        initCustomEvent();
                         if(key.getCode() >= KeyConst.KEY_a && key.getCode() <= KeyConst.KEY_z) {
                             mAlphaKeys.add(key);
                         }
@@ -136,28 +143,64 @@ public class DLKeyboard implements KeyListener {
     }
 
     private void initCustomEvent() {
-        initShiftStatusEvent();
-        setCancelListener();
+        for(int id : mClickableViews) {
+            mRootView.findViewById(id).setOnClickListener(this);
+        }
     }
 
-    private void initShiftStatusEvent() {
-        mRootView.findViewById(R.id.kb_shift).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mShiftIsOpen = !mShiftIsOpen;
-                ((Keyboard)v) .setText(mShiftIsOpen ? "小写" : "大写");
-                changeCapitalAlphabet();
-            }
-        });
+    private void initContainerView() {
+        mKeyboardBase = mRootView.findViewById(R.id.ll_keyboard_base);
+        mKeyboardSymbol = mRootView.findViewById(R.id.ll_keyboard_symbol);
+        mKeyboardSymbol2 = mRootView.findViewById(R.id.ll_keyboard_symbol_2);
+        mKeyboardWin = mRootView.findViewById(R.id.ll_keyboard_win);
+        mKeyboardWin2 = mRootView.findViewById(R.id.ll_keyboard_win_2);
     }
 
-    private void setCancelListener() {
-        mRootView.findViewById(R.id.kb_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
+        int code = ((Keyboard)v).getCode();
+        switch (code) {
+            case android.inputmethodservice.Keyboard.KEYCODE_CANCEL:
                 hideKeyboard();
-            }
-        });
+                break;
+            case KeyConst.KEY_FUNCTION_WIN:
+                setInputType(INPUT_TYPE_WIN);
+                break;
+            case KeyConst.KEY_SYMBOL:
+                setInputType(INPUT_TYPE_SYMBOL);
+                break;
+            case KeyConst.KEY_BACK:
+                setInputType(INPUT_TYPE_BASE);
+                break;
+            case android.inputmethodservice.Keyboard.KEYCODE_SHIFT:
+                mShiftIsOpen = !mShiftIsOpen;
+                ((Keyboard)v).setText(mShiftIsOpen ? "小写" : "大写");
+                changeCapitalAlphabet();
+                break;
+            case KeyConst.KEY_PREVIOUS_PAGE:
+                if(mInputType == INPUT_TYPE_SYMBOL_2) {
+                    setInputType(INPUT_TYPE_SYMBOL);
+                } else if(mInputType == INPUT_TYPE_WIN_2) {
+                    setInputType(INPUT_TYPE_WIN);
+                }
+                break;
+            case KeyConst.KEY_NEXT_PAGE:
+                if(mInputType == INPUT_TYPE_SYMBOL) {
+                    setInputType(INPUT_TYPE_SYMBOL_2);
+                } else if(mInputType == INPUT_TYPE_WIN) {
+                    setInputType(INPUT_TYPE_WIN_2);
+                }
+                break;
+        }
+    }
+
+    private void setInputType(int inputType) {
+        mInputType = inputType;
+        setVisibilityToView(mKeyboardBase, inputType == INPUT_TYPE_BASE);
+        setVisibilityToView(mKeyboardSymbol, inputType == INPUT_TYPE_SYMBOL);
+        setVisibilityToView(mKeyboardSymbol2, inputType == INPUT_TYPE_SYMBOL_2);
+        setVisibilityToView(mKeyboardWin, inputType == INPUT_TYPE_WIN);
+        setVisibilityToView(mKeyboardWin2, inputType == INPUT_TYPE_WIN_2);
     }
 
     private void changeCapitalAlphabet() {
@@ -173,7 +216,6 @@ public class DLKeyboard implements KeyListener {
             ((FrameLayout) mActivity.getWindow().getDecorView()).removeView(mRootView);
             mRootView = null;
         }
-        mDLKeyBoardView = null;
         mActivity = null;
         Log.d(TAG, "release: ");
     }
@@ -184,6 +226,7 @@ public class DLKeyboard implements KeyListener {
         if(mActivity == activity) return;
         release();
         mActivity = activity;
+        mPreviewPop = new KeyboardPreviewPop(mActivity);
         Log.d(TAG, "checkNewActivity: 结束");
     }
 
@@ -194,15 +237,16 @@ public class DLKeyboard implements KeyListener {
     }
 
     @Override
-    public void onPress(int primaryCode) {
+    public void onPress(Keyboard key, int primaryCode) {
         Log.d(TAG, "onPress: " + primaryCode);
-        setPreviewEnabled(primaryCode);
+        showPreviewIfNeed(key, primaryCode);
         int code = mCodeUtil.changeCapitalAlphabetIfNeed(primaryCode, mShiftIsOpen);
         callback(mCodeUtil.transformCode(code, true), true);
     }
 
     @Override
     public void onRelease(int primaryCode) {
+        mPreviewPop.dismiss();
         if(primaryCode == KeyConst.KEY_WWW) {
             clickKey(KeyConst.KEY_w);
             clickKey(KeyConst.KEY_w);
@@ -214,14 +258,14 @@ public class DLKeyboard implements KeyListener {
             clickKey(KeyConst.KEY_o);
             clickKey(KeyConst.KEY_m);
         } else {
-            int code = mCodeUtil.changeCapitalAlphabetIfNeed(primaryCode, mShiftIsOpen);
-            callback(mCodeUtil.transformCode(code, false), false);
+            callback(mCodeUtil.transformCode(primaryCode, false), false);
         }
         Log.d(TAG, "onRelease: " + primaryCode);
     }
 
     //设置是否预览
-    private void setPreviewEnabled(int code) {
+    private void showPreviewIfNeed(Keyboard key, int code) {
+        if(mInputType == INPUT_TYPE_WIN || mInputType == INPUT_TYPE_WIN_2) return;
 
     }
 
@@ -246,5 +290,9 @@ public class DLKeyboard implements KeyListener {
                 mListener.onRelease(i);
             }
         }
+    }
+
+    private void setVisibilityToView(View v, boolean isShow) {
+        v.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 }

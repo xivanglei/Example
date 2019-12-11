@@ -133,6 +133,7 @@
             android:text="DEL" />
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_win_next"
             style="@style/KBBase"
             app:dl_keyboard_code="-1011"
             android:text="下翻"
@@ -179,6 +180,7 @@
             android:text="F5" />
 
         <net.xianglei.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_win_return"
             style="@style/KBBase"
             app:dl_keyboard_code="-1008"
             android:text="返回"
