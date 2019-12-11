@@ -96,7 +96,7 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
     public void showKeyboard() {
         if(mListener == null)
             throw new IllegalStateException("Listening must be set");
-        if(mOpenStatus == STATUS_OPEN) return;
+        if(mOpenStatus == STATUS_OPEN && mRootView != null && mRootView.getTranslationY() < dp2px(280)) return;
         mOpenStatus = STATUS_OPEN;
         if(mActivity == null) return;
         if(mRootView == null) {
