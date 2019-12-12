@@ -144,9 +144,9 @@ public class Constants {
     public static final int FAILURE_INTERVAL_TIME = 30 * 1000;
 
     /** track 事件名称长度 */
-    static final long MAX_EVENT_NAME_LENGTH = 99;
+    public static final long MAX_EVENT_NAME_LENGTH = 99;
     /** xContext内key值限制 */
-    static final long MAX_KEY_LENGTH = 99;
+    public static final long MAX_KEY_LENGTH = 99;
     /** xContext内value值限制 */
     public static final long MAX_VALUE_LENGTH = 255;
     /** id值限制 */
@@ -154,7 +154,7 @@ public class Constants {
     /** 发送最大条数 */
     public static final long MAX_SEND_COUNT = 100;
     /** 数组集合限制 */
-    static final long MAX_ARRAY_SIZE = 100;
+    public static final long MAX_ARRAY_SIZE = 100;
     /** 默认最大缓存条数 */
     public static final long MAX_CACHE_COUNT = 10000;
     /** 到达缓存上限后，继续存储，每次删除的条数 */

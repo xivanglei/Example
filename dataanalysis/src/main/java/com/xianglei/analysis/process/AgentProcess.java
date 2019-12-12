@@ -9,6 +9,10 @@ import com.xianglei.analysis.constants.Constants;
 import com.xianglei.analysis.utils.ANSThreadPool;
 import com.xianglei.analysis.utils.CommonUtils;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 /**
  * Author:xianglei
  * Date: 2019-12-11 16:34
@@ -71,6 +75,31 @@ public class AgentProcess {
                 }
             }
         });
+    }
+
+    /**
+     * 页面启动，或从后台进入（判断依据是之前activity数量为0）
+     */
+    public void appStart(final boolean isFromBackground, long startTime) {
+        try {
+            Context context = ContextManager.getContext();
+            if (context == null) {
+                return;
+            }
+            HashMap<String, Object> startUpMap = new HashMap<>();
+            startUpMap.put(Constants.DEV_IS_FROM_BACKGROUND, isFromBackground);
+            JSONObject eventData = DataAssemble.getInstance(context).getEventData(
+                    Constants.API_APP_START, Constants.STARTUP, null, startUpMap);
+            eventData.put(Constants.X_WHEN, startTime);
+            trackEvent(context, Constants.API_APP_START, Constants.STARTUP, eventData);
+            if (CommonUtils.isFirstStart(context)) {
+                sendProfileSetOnce(context, 0);
+                if (Constants.autoInstallation) {
+                    sendFirstInstall(context);
+                }
+            }
+        } catch (Throwable throwable) {
+        }
     }
 
 

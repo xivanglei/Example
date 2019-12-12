@@ -266,6 +266,7 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
                 // a.走AppEnd 尝试补发流程
                 trackAppEnd(makeTrackAppEndMsg());
                 appStartTime = System.currentTimeMillis();
+                //fromBackground 也就第一次不是从后天进入为false,之后就改为true了
                 AgentProcess.getInstance(context).appStart(fromBackground, appStartTime);
                 CommonUtils.setIdFile(context,
                         Constants.APP_START_TIME, String.valueOf(appStartTime));
