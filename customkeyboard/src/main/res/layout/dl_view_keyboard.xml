@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/view_hide_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <FrameLayout
         android:id="@+id/fl_key_root_container"
         android:orientation="vertical"
@@ -26,10 +31,5 @@
         <include layout="@layout/dl_include_keyboard_win_2"/>
 
     </FrameLayout>
-
-    <View
-        android:id="@+id/view_hide_keyboard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </FrameLayout>
