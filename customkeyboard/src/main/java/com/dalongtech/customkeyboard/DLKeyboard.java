@@ -133,15 +133,25 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
                 }
             });
         }
+        setInputType(INPUT_TYPE_BASE);
         AnimatorUtil.yScroll(mRootView, 250, dp2px(280), 0, new DecelerateInterpolator());
     }
 
     //隐藏软键盘,不需要判断打开状态，可以直接调用
     public void hideKeyboard() {
         if(mOpenStatus == STATUS_CLOSE) return;
+        resetKeyStatus();
         mOpenStatus = STATUS_CLOSE;
         if(mRootView == null) return;
         AnimatorUtil.yScroll(mRootView, 250,  0, dp2px(280), new DecelerateInterpolator());
+    }
+
+    private void resetKeyStatus() {
+        if(mCtrlLIsDown) onClick(mKbCtrlL);
+        if(mCtrlRIsDown) onClick(mKbCtrlR);
+        if(mAltLIsDown) onClick(mKbAltL);
+        if(mAltRIsDown) onClick(mKbAltR);
+        if(mShiftIsOpen) changeShiftStatus();
     }
 
     private void initEvent(View view) {
