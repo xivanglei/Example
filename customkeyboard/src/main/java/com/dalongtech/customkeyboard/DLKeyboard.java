@@ -55,9 +55,13 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
     private View mPreviewView;
     private TextView mPreviewText;
     private int[] mPreviewLocation;
+    private boolean mCtrlLIsDown;
+    private boolean mCtrlRIsDown;
+    private boolean mAltLIsDown;
+    private boolean mAltRIsDown;
 
     private int[] mClickableViews = new int[] {
-            R.id.kb_shift, R.id.kb_cancel, R.id.kb_symbol, R.id.kb_win, R.id.kb_symbol_next, R.id.kb_symbol_return, R.id.kb_symbol_2_return, R.id.kb_symbol_2_previous, R.id.kb_win_next, R.id.kb_win_return, R.id.kb_win_2_return, R.id.kb_win_2_previous
+            R.id.kb_shift, R.id.kb_cancel, R.id.kb_symbol, R.id.kb_win, R.id.kb_symbol_next, R.id.kb_symbol_return, R.id.kb_symbol_2_return, R.id.kb_symbol_2_previous, R.id.kb_win_next, R.id.kb_win_return, R.id.kb_win_2_return, R.id.kb_win_2_previous, R.id.kb_ctrl_l, R.id.kb_ctrl_r, R.id.kb_alt_l, R.id.kb_alt_r
     };
 
     private View mKeyboardBase;
@@ -65,6 +69,13 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
     private View mKeyboardSymbol2;
     private View mKeyboardWin;
     private View mKeyboardWin2;
+
+    private Keyboard mKbCtrlL;
+    private Keyboard mKbCtrlR;
+    private Keyboard mKbAltL;
+    private Keyboard mKbAltR;
+    //主键盘上的大小写切换，不算普通的shift按键
+    private Keyboard mBaseShiftView;
 
     private DLKeyboard(Activity activity) {
         initView(activity);
@@ -156,6 +167,11 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
         for(int id : mClickableViews) {
             mRootView.findViewById(id).setOnClickListener(this);
         }
+        mKbCtrlL = mRootView.findViewById(R.id.kb_ctrl_l);
+        mKbCtrlR = mRootView.findViewById(R.id.kb_ctrl_r);
+        mKbAltL = mRootView.findViewById(R.id.kb_alt_l);
+        mKbAltR = mRootView.findViewById(R.id.kb_alt_r);
+        mBaseShiftView = mRootView.findViewById(R.id.kb_shift);
     }
 
     private void initContainerView() {
@@ -183,9 +199,7 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
                 setInputType(INPUT_TYPE_BASE);
                 break;
             case android.inputmethodservice.Keyboard.KEYCODE_SHIFT:
-                mShiftIsOpen = !mShiftIsOpen;
-                ((Keyboard)v).setText(mShiftIsOpen ? "小写" : "大写");
-                changeCapitalAlphabet();
+                changeShiftStatus();
                 break;
             case KeyConst.KEY_PREVIOUS_PAGE:
                 if(mInputType == INPUT_TYPE_SYMBOL_2) {
@@ -201,6 +215,29 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
                     setInputType(INPUT_TYPE_WIN_2);
                 }
                 break;
+            case KeyConst.KEY_CTRL_L:
+                mCtrlLIsDown = !mCtrlLIsDown;
+                changeNormalCancelBg((Keyboard) v, mCtrlLIsDown);
+                callback(mCodeUtil.transformCode(code, mCtrlLIsDown), mCtrlLIsDown);
+                break;
+            case KeyConst.KEY_CTRL_R:
+                mCtrlRIsDown = !mCtrlRIsDown;
+                changeNormalCancelBg((Keyboard) v, mCtrlRIsDown);
+                callback(mCodeUtil.transformCode(code, mCtrlRIsDown), mCtrlRIsDown);
+                break;
+            case KeyConst.KEY_ALT_L:
+                mAltLIsDown = !mAltLIsDown;
+                changeNormalCancelBg((Keyboard) v, mAltLIsDown);
+                callback(mCodeUtil.transformCode(code, mAltLIsDown), mAltLIsDown);
+                break;
+            case KeyConst.KEY_ALT_R:
+                mAltRIsDown = !mAltRIsDown;
+                changeNormalCancelBg((Keyboard) v, mAltRIsDown);
+                callback(mCodeUtil.transformCode(code, mAltRIsDown), mAltRIsDown);
+                break;
+        }
+        if(code == KeyConst.KEY_CTRL_L || code == KeyConst.KEY_CTRL_R || code == KeyConst.KEY_ALT_L || code == KeyConst.KEY_ALT_R) {
+            if(mShiftIsOpen) changeShiftStatus();
         }
     }
 
@@ -218,6 +255,17 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
             keyboard.setCode(keyboard.getCode() + (mShiftIsOpen ? -32 : 32));
             keyboard.setText(new String(new byte[] {(byte)keyboard.getCode()}));
         }
+    }
+
+    private void changeShiftStatus() {
+        mShiftIsOpen = !mShiftIsOpen;
+        mBaseShiftView.setText(mShiftIsOpen ? "小写" : "大写");
+        changeCapitalAlphabet();
+    }
+
+    //改变Ctrl 与 Alt 正常状态与取消状态的背景
+    private void changeNormalCancelBg(Keyboard keyboard, boolean isDown) {
+        keyboard.setBackgroundResource(isDown ? R.drawable.dl_key_bg_cancel : R.drawable.dl_key_bg);
     }
 
     //释放内存，必须调用，否则引起内存泄漏
@@ -251,6 +299,12 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
 
     @Override
     public void onPress(Keyboard key, int primaryCode) {
+        if(primaryCode >= KeyConst.KEY_A && primaryCode <= KeyConst.KEY_Z) {
+            if(mCtrlLIsDown) onClick(mKbCtrlL);
+            if(mCtrlRIsDown) onClick(mKbCtrlR);
+            if(mAltLIsDown) onClick(mKbAltL);
+            if(mAltRIsDown) onClick(mKbAltR);
+        }
         Log.d(TAG, "onPress: " + primaryCode);
         showPreviewIfNeed(key, primaryCode);
         callback(mCodeUtil.transformCode(primaryCode, true), true);

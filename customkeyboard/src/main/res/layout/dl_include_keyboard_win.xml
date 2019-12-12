@@ -36,11 +36,13 @@
             android:text="ESC" />
 
         <com.dalongtech.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_ctrl_l"
             style="@style/KBBase"
             app:dl_keyboard_code="-3002"
             android:text="CTRL(L)" />
 
         <com.dalongtech.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_ctrl_r"
             style="@style/KBBase"
             app:dl_keyboard_code="-3003"
             android:text="CTRL(R)" />
@@ -66,10 +68,12 @@
             app:dl_keyboard_code="-3005"
             android:text="SHIFT(R)" />
         <com.dalongtech.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_alt_l"
             style="@style/KBBase"
             app:dl_keyboard_code="-3006"
             android:text="ALT(L)" />
         <com.dalongtech.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_alt_r"
             style="@style/KBBase"
             app:dl_keyboard_code="-3007"
             android:text="ALT(R)" />
