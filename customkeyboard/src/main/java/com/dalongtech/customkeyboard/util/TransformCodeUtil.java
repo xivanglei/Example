@@ -233,7 +233,7 @@ public class TransformCodeUtil {
 
     //是否是组合键，如果是，就需要交给transCombinationCode处理
     private boolean isCombinationCode(int code) {
-        return code == KeyConst.KEY_LANGUAGE;
+        return code == KeyConst.KEY_LANGUAGE || code == KeyConst.KEY_COM || code == KeyConst.KEY_WWW;
     }
 
     //添加组合键code

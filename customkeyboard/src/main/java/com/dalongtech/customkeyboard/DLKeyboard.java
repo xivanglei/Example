@@ -1,7 +1,6 @@
 package com.dalongtech.customkeyboard;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
@@ -305,16 +304,16 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
             mPreviewText = null;
         }
         mActivity = null;
-        Log.d(TAG, "release: ");
+//        Log.d(TAG, "release: ");
     }
 
     //是否是新的activity,如果是就需要把老的activity释放，再通过这activity添加View
     private void checkNewActivity(Activity activity) {
-        Log.d(TAG, "checkNewActivity: 开始");
+//        Log.d(TAG, "checkNewActivity: 开始");
         if(mActivity == activity) return;
         release();
         initView(activity);
-        Log.d(TAG, "checkNewActivity: 结束");
+//        Log.d(TAG, "checkNewActivity: 结束");
     }
 
 
@@ -331,7 +330,7 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
             if(mAltLIsDown) changeHotKeyStatus(mKbAltL);
             if(mAltRIsDown) changeHotKeyStatus(mKbAltR);
         }
-        Log.d(TAG, "onPress: " + primaryCode);
+//        Log.d(TAG, "onPress: " + primaryCode);
         showPreviewIfNeed(key, primaryCode);
         callback(mCodeUtil.transformCode(primaryCode, true), true);
     }
@@ -352,7 +351,7 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
         } else {
             callback(mCodeUtil.transformCode(primaryCode, false), false);
         }
-        Log.d(TAG, "onRelease: " + primaryCode);
+//        Log.d(TAG, "onRelease: " + primaryCode);
     }
 
     //设置是否预览

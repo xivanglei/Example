@@ -3,7 +3,6 @@ package com.dalongtech.customkeyboard.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.dalongtech.customkeyboard.R;
@@ -53,12 +52,12 @@ public class Keyboard extends android.support.v7.widget.AppCompatTextView {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 setPressed(true);
-                Log.d(TAG, "onTouchEvent: down" + code);
+//                Log.d(TAG, "onTouchEvent: down" + code);
                 if(mListener != null) mListener.onPress(Keyboard.this, code);
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
-                Log.d(TAG, "onTouchEvent: up" + code);
+//                Log.d(TAG, "onTouchEvent: up" + code);
                 if(mListener != null) mListener.onRelease(code);
                 setPressed(false);
                 break;
