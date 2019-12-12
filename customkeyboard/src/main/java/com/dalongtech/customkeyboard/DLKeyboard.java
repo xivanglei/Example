@@ -126,6 +126,12 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
             initCustomEvent();
             initContainerView();
             setInputType(INPUT_TYPE_BASE);
+            mRootView.findViewById(R.id.view_hide_keyboard).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hideKeyboard();
+                }
+            });
         }
         AnimatorUtil.yScroll(mRootView, 250, dp2px(280), 0, new DecelerateInterpolator());
     }

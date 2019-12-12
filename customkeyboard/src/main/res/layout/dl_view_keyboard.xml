@@ -27,4 +27,9 @@
 
     </FrameLayout>
 
+    <View
+        android:id="@+id/view_hide_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </FrameLayout>
