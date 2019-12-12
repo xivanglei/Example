@@ -117,32 +117,7 @@ public class CheckUtils {
      * 校验track事件eventName
      */
     public static boolean checkTrackEventName(String eventName, String eventInfo) {
-        if (TemplateManage.ruleMould == null) {
-            return false;
-        }
-        JSONObject trackMould = TemplateManage.ruleMould.optJSONObject(eventName);
-        if (CommonUtils.isEmpty(trackMould)) {
-            return true;
-        }
-        if (trackMould == null) {
-            return true;
-        }
-        JSONArray funcList = trackMould.optJSONArray(Constants.FUNC_LIST);
-        if (CommonUtils.isEmpty(funcList)) {
-            return true;
-        }
-        String path;
-        for (int i = 0; i < funcList.length(); i++) {
-            path = funcList.optString(i);
-            CommonUtils.reflexUtils(
-                    CommonUtils.getClassPath(path),
-                    CommonUtils.getMethod(path),
-                    new Class[]{Object.class}, eventInfo);
-            if (LogBean.getCode() != Constants.CODE_SUCCESS) {
-                return false;
-            }
-        }
-        return true;
+        return ParameterCheck.checkEventName(eventInfo) == Constants.CODE_SUCCESS;
     }
 
     /**

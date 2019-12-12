@@ -1,13 +1,20 @@
 package com.xianglei.analysis.process;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.xianglei.analysis.constants.Constants;
+import com.xianglei.analysis.utils.CheckUtils;
+import com.xianglei.analysis.utils.CommonUtils;
+import com.xianglei.analysis.utils.LogPrompt;
+import com.xianglei.analysis.utils.SharedUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -75,6 +82,88 @@ public class DataAssemble {
             return (Map<String, Object>) data;
         }
         return null;
+    }
+
+    private void mergeParameter(Map<String, Object> userParameter, Object autoParameter) {
+        Map<String, Object> autoMap = toMap(autoParameter);
+        CommonUtils.clearEmptyValue(autoMap);
+        if (autoMap != null) {
+            userParameter.putAll(autoMap);
+            autoMap.clear();
+        }
+    }
+
+    /**
+     * 添加通用属性
+     */
+    private void mergeSuperProperty(String eventName, Map<String, Object> data) throws JSONException {
+        if (!Constants.ALIAS.equals(eventName) && !eventName.startsWith(Constants.PROFILE)) {
+            String property = SharedUtil.getString(
+                    mContext, Constants.SP_SUPER_PROPERTY, null);
+            if (!TextUtils.isEmpty(property)) {
+                JSONObject superProperty = null;
+                superProperty = new JSONObject(property);
+                Iterator<String> keys = superProperty.keys();
+                String key = null;
+                while (keys.hasNext()) {
+                    key = keys.next();
+                    if (key != null) {
+                        data.put(key, superProperty.opt(key));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 通过遍历字段模板填充数据
+     */
+    private JSONObject fillData(String eventName, JSONObject eventMould, Map<String, Object> xContextMap) throws JSONException {
+        JSONObject allJob = null;
+        putBaseInfo(allJob, eventName);
+        JSONArray outerKeysArray = eventMould.optJSONArray(OUTER);
+        String outFields = null;
+        JSONObject fieldsRuleMould = null;
+        JSONArray xContextFieldsArray = null;
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (outerKeysArray != null) {
+            allJob = new JSONObject();
+            for (int i = 0; i < outerKeysArray.length(); i++) {
+                outFields = outerKeysArray.optString(i);
+                fieldsRuleMould = TemplateManage.ruleMould.optJSONObject(outFields);
+                xContextFieldsArray = eventMould.optJSONArray(outFields);
+                if (xContextFieldsArray != null) {
+                    int length = xContextFieldsArray.length();
+                    String xContextFields = null;
+                    for (int j = 0; j < length; j++) {
+                        xContextFields = xContextFieldsArray.optString(j);
+                        map.put(xContextFields,
+                                getValue(fieldsRuleMould.optJSONObject(xContextFields), null));
+                    }
+                    if (!CommonUtils.isEmpty(map)) {
+                        CommonUtils.clearEmptyValue(map);
+                        xContextMap.putAll(map);
+                        map.clear();
+                    }
+                    allJob.put(outFields, new JSONObject(xContextMap));
+                } else {
+                    //  3.获取value并校验
+                    Object outerValue = getValue(fieldsRuleMould, eventName);
+                    CommonUtils.pushToJSON(allJob, outFields, outerValue);
+                }
+            }
+        }
+        return allJob;
+    }
+
+    private void putBaseInfo(JSONObject allJob, String eventName) {
+        CommonUtils.pushToJSON(allJob, Constants.APP_ID, CommonUtils.getAppKey(mContext));
+        CommonUtils.pushToJSON(allJob, Constants.X_WHAT, eventName);
+        CommonUtils.pushToJSON(allJob, Constants.X_WHEN, System.currentTimeMillis());
+    }
+
+    private void putXContextData() {
+
     }
 
     /**

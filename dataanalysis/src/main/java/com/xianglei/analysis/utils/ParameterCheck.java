@@ -39,22 +39,23 @@ public class ParameterCheck {
     /**
      * 校验事件名称（配置）
      */
-    public static void checkEventName(Object eventInfo) {
+    public static int checkEventName(Object eventInfo) {
         try {
             String eventName = String.valueOf(eventInfo);
             if (!checkNamingSpecification(eventName)) {
                 LogBean.setDetails(Constants.CODE_FAILED,
                         LogPrompt.FRONT + getSubString(eventName) + LogPrompt.NAMING_ERR);
-                return;
+                return LogBean.getCode();
             }
             if (Constants.MAX_EVENT_NAME_LENGTH < eventName.length()) {
                 LogBean.setDetails(Constants.CODE_FAILED,
                         LogPrompt.ERR_HEAD_VALUE + getSubString(eventName) + LogPrompt.WHAT_LENGTH_ERR);
-                return;
+                return LogBean.getCode();
             }
             LogBean.setCode(Constants.CODE_SUCCESS);
         } catch (Throwable throwable) {
         }
+        return LogBean.getCode();
     }
 
     /**
