@@ -12,11 +12,6 @@
 
         <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
-            app:dl_keyboard_code="-3024"
-            android:text="F6" />
-
-        <com.dalongtech.customkeyboard.widget.Keyboard
-            style="@style/KBBase"
             app:dl_keyboard_code="-3025"
             android:text="F7" />
 
@@ -44,6 +39,11 @@
             style="@style/KBBase"
             app:dl_keyboard_code="-3030"
             android:text="F12" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"/>
 
         <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
