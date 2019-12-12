@@ -10,49 +10,49 @@
     <LinearLayout
         style="@style/LLKeyboardBaseRowContainer">
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             app:dl_keyboard_code="-1001"
             android:text="换行"
             android:background="@drawable/dl_key_bg_function"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="q"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="w"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="e"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="r"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="t"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="y"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="u"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="i"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="o"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="p"/>
 
@@ -61,15 +61,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="7" />
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="8"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="9"/>
     </LinearLayout>
@@ -77,49 +77,49 @@
     <LinearLayout
         style="@style/LLKeyboardBaseRowContainer">
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             app:dl_keyboard_code="-1007"
             android:text="中/英"
             android:background="@drawable/dl_key_bg_function"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="a"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="s"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="d"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="f"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="g"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="h"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="j"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="k"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="l"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             app:dl_keyboard_code="-5"
             android:background="@drawable/dl_press_key_delete" />
@@ -129,15 +129,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="4" />
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="5"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="6"/>
     </LinearLayout>
@@ -145,49 +145,49 @@
     <LinearLayout
         style="@style/LLKeyboardBaseRowContainer">
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             android:id="@+id/kb_shift"
             style="@style/KBBase"
             app:dl_keyboard_code="-1"
             android:text="大写"
             android:background="@drawable/dl_key_bg_function"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             android:id="@+id/kb_symbol"
             style="@style/KBBase"
             app:dl_keyboard_code="-1002"
             android:text="符"
             android:background="@drawable/dl_key_bg_function"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="z"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="x"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="c"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="v"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="b"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="n"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="m"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:layout_weight="14"
             app:dl_keyboard_code="-4"
@@ -199,15 +199,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="1" />
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="2"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="3"/>
     </LinearLayout>
@@ -215,30 +215,30 @@
     <LinearLayout
         style="@style/LLKeyboardBaseRowContainer">
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             android:id="@+id/kb_cancel"
             style="@style/KBBase"
             app:dl_keyboard_code="-3"
             android:background="@drawable/dl_key_cancel"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             android:id="@+id/kb_win"
             style="@style/KBBase"
             android:background="@drawable/dl_key_win"
             app:dl_keyboard_code="-1004"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:layout_weight="49"
             app:dl_keyboard_code="32"
             android:text="空格"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="\@"
             app:dl_keyboard_code="96"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="."
             app:dl_keyboard_code="-2033"/>
@@ -248,16 +248,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="0"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="www."
             app:dl_keyboard_code="-1005"/>
 
-        <net.xianglei.customkeyboard.widget.Keyboard
+        <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text=".com"
             app:dl_keyboard_code="-1006"/>

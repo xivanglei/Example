@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.xianglei.testapplication">
+    package="com.dalongtech.testapplication">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,38 +17,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CustomKayboardActivity"
+        <activity android:name="com.dalongtech.testapplication.activity.CustomKayboardActivity"
             android:screenOrientation="landscape"/>
-        <activity android:name=".activity.VoicePlayActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.VoicePlayActivity" />
         <activity
-            android:name=".activity.BigImageActivity"
+            android:name="com.dalongtech.testapplication.activity.BigImageActivity"
             android:theme="@style/myTransparent" />
-        <activity android:name=".activity.ShortcutBadgeActivity" />
-        <activity android:name=".activity.TestFragmentActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.ShortcutBadgeActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.TestFragmentActivity" />
         <activity
-            android:name=".activity.SlideClosePictureActivity"
+            android:name="com.dalongtech.testapplication.activity.SlideClosePictureActivity"
             android:theme="@style/myTransparent" />
-        <activity android:name=".activity.CustomProgressBarActivity" />
-        <activity android:name=".activity.BTRecyclerActivity" />
-        <activity android:name=".activity.SmallPinnedHeaderActivity" />
-        <activity android:name=".activity.FlexibleLayoutActivity" />
-        <activity android:name=".activity.GetAddressListAndPermissionActivity" />
-        <activity android:name=".activity.RecyclerDivideActivity" />
-        <activity android:name=".activity.ImageViewTouchActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.dalongtech.testapplication.activity.CustomProgressBarActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.BTRecyclerActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.SmallPinnedHeaderActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.FlexibleLayoutActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.GetAddressListAndPermissionActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.RecyclerDivideActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.ImageViewTouchActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ScrollConflictActivity" />
+        <activity android:name="com.dalongtech.testapplication.activity.ScrollConflictActivity" />
 
 
 
 <!--        角标设置服务-->
         <service
-            android:name=".component.BadgeIntentService"
+            android:name="com.dalongtech.testapplication.component.BadgeIntentService"
             android:exported="false" />
     </application>
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <net.xianglei.testapplication.widget.ObservableScrollView
+    <com.dalongtech.testapplication.widget.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/sv_content">
@@ -63,6 +63,6 @@
 
         </LinearLayout>
 
-    </net.xianglei.testapplication.widget.ObservableScrollView>
+    </com.dalongtech.testapplication.widget.ObservableScrollView>
 
 </LinearLayout>
