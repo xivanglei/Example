@@ -178,7 +178,7 @@ public class TransformCodeUtil {
     }
 
     //需要加shift
-    private boolean isNeedShift(int code) {
+    public boolean isNeedShift(int code) {
         return Arrays.asList(
                 KeyConst.KEY_TILDE,
                 KeyConst.KEY_EXCLAMATION_MARK,

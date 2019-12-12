@@ -324,7 +324,7 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
 
     @Override
     public void onPress(Keyboard key, int primaryCode) {
-        if(primaryCode >= KeyConst.KEY_A && primaryCode <= KeyConst.KEY_Z) {
+        if(mCodeUtil.isNeedShift(primaryCode)) {
             if(mCtrlLIsDown) changeHotKeyStatus(mKbCtrlL);
             if(mCtrlRIsDown) changeHotKeyStatus(mKbCtrlR);
             if(mAltLIsDown) changeHotKeyStatus(mKbAltL);
