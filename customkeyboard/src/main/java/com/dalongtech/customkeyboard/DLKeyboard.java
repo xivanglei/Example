@@ -232,28 +232,12 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
                 }
                 break;
             case KeyConst.KEY_CTRL_L:
-                mCtrlLIsDown = !mCtrlLIsDown;
-                changeNormalCancelBg((Keyboard) v, mCtrlLIsDown);
-                callback(mCodeUtil.transformCode(code, mCtrlLIsDown), mCtrlLIsDown);
-                break;
             case KeyConst.KEY_CTRL_R:
-                mCtrlRIsDown = !mCtrlRIsDown;
-                changeNormalCancelBg((Keyboard) v, mCtrlRIsDown);
-                callback(mCodeUtil.transformCode(code, mCtrlRIsDown), mCtrlRIsDown);
-                break;
             case KeyConst.KEY_ALT_L:
-                mAltLIsDown = !mAltLIsDown;
-                changeNormalCancelBg((Keyboard) v, mAltLIsDown);
-                callback(mCodeUtil.transformCode(code, mAltLIsDown), mAltLIsDown);
-                break;
             case KeyConst.KEY_ALT_R:
-                mAltRIsDown = !mAltRIsDown;
-                changeNormalCancelBg((Keyboard) v, mAltRIsDown);
-                callback(mCodeUtil.transformCode(code, mAltRIsDown), mAltRIsDown);
+                changeHotKeyStatus((Keyboard) v);
+                if(mShiftIsOpen) changeShiftStatus();
                 break;
-        }
-        if(code == KeyConst.KEY_CTRL_L || code == KeyConst.KEY_CTRL_R || code == KeyConst.KEY_ALT_L || code == KeyConst.KEY_ALT_R) {
-            if(mShiftIsOpen) changeShiftStatus();
         }
     }
 
@@ -277,6 +261,32 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
         mShiftIsOpen = !mShiftIsOpen;
         mBaseShiftView.setText(mShiftIsOpen ? "小写" : "大写");
         changeCapitalAlphabet();
+    }
+
+    private void changeHotKeyStatus(Keyboard key) {
+        int code = key.getCode();
+        switch (key.getCode()) {
+            case KeyConst.KEY_CTRL_L:
+                mCtrlLIsDown = !mCtrlLIsDown;
+                changeNormalCancelBg(key, mCtrlLIsDown);
+                callback(mCodeUtil.transformCode(code, mCtrlLIsDown), mCtrlLIsDown);
+                break;
+            case KeyConst.KEY_CTRL_R:
+                mCtrlRIsDown = !mCtrlRIsDown;
+                changeNormalCancelBg(key, mCtrlRIsDown);
+                callback(mCodeUtil.transformCode(code, mCtrlRIsDown), mCtrlRIsDown);
+                break;
+            case KeyConst.KEY_ALT_L:
+                mAltLIsDown = !mAltLIsDown;
+                changeNormalCancelBg(key, mAltLIsDown);
+                callback(mCodeUtil.transformCode(code, mAltLIsDown), mAltLIsDown);
+                break;
+            case KeyConst.KEY_ALT_R:
+                mAltRIsDown = !mAltRIsDown;
+                changeNormalCancelBg(key, mAltRIsDown);
+                callback(mCodeUtil.transformCode(code, mAltRIsDown), mAltRIsDown);
+                break;
+        }
     }
 
     //改变Ctrl 与 Alt 正常状态与取消状态的背景
@@ -316,10 +326,10 @@ public class DLKeyboard implements Keyboard.OnKeyActionListener, View.OnClickLis
     @Override
     public void onPress(Keyboard key, int primaryCode) {
         if(primaryCode >= KeyConst.KEY_A && primaryCode <= KeyConst.KEY_Z) {
-            if(mCtrlLIsDown) onClick(mKbCtrlL);
-            if(mCtrlRIsDown) onClick(mKbCtrlR);
-            if(mAltLIsDown) onClick(mKbAltL);
-            if(mAltRIsDown) onClick(mKbAltR);
+            if(mCtrlLIsDown) changeHotKeyStatus(mKbCtrlL);
+            if(mCtrlRIsDown) changeHotKeyStatus(mKbCtrlR);
+            if(mAltLIsDown) changeHotKeyStatus(mKbAltL);
+            if(mAltRIsDown) changeHotKeyStatus(mKbAltR);
         }
         Log.d(TAG, "onPress: " + primaryCode);
         showPreviewIfNeed(key, primaryCode);
