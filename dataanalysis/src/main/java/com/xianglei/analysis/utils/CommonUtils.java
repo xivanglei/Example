@@ -22,6 +22,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.xianglei.analysis.constants.Constants;
+import com.xianglei.analysis.constants.ExtraConst;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -877,7 +878,7 @@ public class CommonUtils {
                 }
             }
         }
-        return null;
+        return ExtraConst.UN_KNOW;
     }
 
     /**

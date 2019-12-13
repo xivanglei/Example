@@ -8,6 +8,8 @@ import com.xianglei.analysis.AutomaticAcquisition;
 import com.xianglei.analysis.constants.Constants;
 import com.xianglei.analysis.utils.ANSThreadPool;
 import com.xianglei.analysis.utils.CommonUtils;
+import com.xianglei.analysis.utils.LogPrompt;
+import com.xianglei.analysis.utils.SharedUtil;
 
 import org.json.JSONObject;
 
@@ -100,6 +102,56 @@ public class AgentProcess {
             }
         } catch (Throwable throwable) {
         }
+    }
+
+    /**
+     * 存储channel
+     */
+    private void saveChannel(Context context, String channel) {
+        String appChannel = getNewChannel(context, channel);
+        if (!CommonUtils.isEmpty(appChannel)) {
+            SharedUtil.setString(context, Constants.SP_CHANNEL, appChannel);
+            LogPrompt.showChannelLog(true, channel);
+        } else {
+            LogPrompt.showChannelLog(false, channel);
+        }
+    }
+
+    /**
+     * 获取 xml channel和 init channel，优先xml
+     */
+    private String getNewChannel(Context context, String channel) {
+        String xmlChannel = CommonUtils.getManifestData(context, Constants.DEV_CHANNEL);
+        if (CommonUtils.isEmpty(xmlChannel) && !CommonUtils.isEmpty(channel)) {
+            return channel;
+        }
+        return xmlChannel;
+    }
+
+    /**
+     * 接口数据处理
+     */
+    private void trackEvent(Context context, String apiName,
+                            String eventName, JSONObject eventData) {
+        if (!CommonUtils.isEmpty(eventName) && checkoutEvent(eventData)) {
+            // 此处重置重传传次数，解决出于重传状态时，触发新事件重传次数不够三次
+            //SharedUtil.remove(mContext, Constants.SP_FAILURE_COUNT);
+            if (LogBean.getCode() == Constants.CODE_SUCCESS) {
+                LogPrompt.showLog(apiName, true);
+            }
+            UploadManager.getInstance(context).sendManager(eventName, eventData);
+        }
+    }
+
+    /**
+     * 校验数据是否符合上传格式
+     */
+    private boolean checkoutEvent(JSONObject eventData) {
+        if (CommonUtils.isEmpty(eventData.optString(Constants.APP_ID))) {
+            LogPrompt.keyFailed();
+            return false;
+        }
+        return true;
     }
 
 

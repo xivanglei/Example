@@ -4,12 +4,13 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.xianglei.analysis.constants.Constants;
+import com.xianglei.analysis.constants.ExtraConst;
 import com.xianglei.analysis.utils.CheckUtils;
 import com.xianglei.analysis.utils.CommonUtils;
 import com.xianglei.analysis.utils.LogPrompt;
+import com.xianglei.analysis.utils.ParameterAddUtil;
 import com.xianglei.analysis.utils.SharedUtil;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,7 +54,6 @@ public class DataAssemble {
             String apiName = String.valueOf(values[0]);
             String eventName = String.valueOf(values[1]);
             Map<String, Object> data = toMap(values[2]);
-            JSONObject eventMould = getEventMould(eventName);
             if (Constants.TRACK.equals(eventName)) {
                 String eventInfo = String.valueOf(values[4]);
                 if (!CheckUtils.checkTrackEventName(eventName, eventInfo)) {
@@ -69,7 +69,7 @@ public class DataAssemble {
             }
             mergeParameter(data, values[3]);
             mergeSuperProperty(eventName, data);
-            return fillData(eventName, eventMould, data);
+            return fillData(eventName, String.valueOf(values[1]), data);
         }
         return null;
     }
@@ -118,61 +118,19 @@ public class DataAssemble {
     /**
      * 通过遍历字段模板填充数据
      */
-    private JSONObject fillData(String eventName, JSONObject eventMould, Map<String, Object> xContextMap) throws JSONException {
-        JSONObject allJob = null;
+    private JSONObject fillData(String eventName, String optionName, Map<String, Object> xContextMap) throws JSONException {
+        JSONObject allJob = new JSONObject();
         putBaseInfo(allJob, eventName);
-        JSONArray outerKeysArray = eventMould.optJSONArray(OUTER);
-        String outFields = null;
-        JSONObject fieldsRuleMould = null;
-        JSONArray xContextFieldsArray = null;
-        Map<String, Object> map = new HashMap<String, Object>();
-        if (outerKeysArray != null) {
-            allJob = new JSONObject();
-            for (int i = 0; i < outerKeysArray.length(); i++) {
-                outFields = outerKeysArray.optString(i);
-                fieldsRuleMould = TemplateManage.ruleMould.optJSONObject(outFields);
-                xContextFieldsArray = eventMould.optJSONArray(outFields);
-                if (xContextFieldsArray != null) {
-                    int length = xContextFieldsArray.length();
-                    String xContextFields = null;
-                    for (int j = 0; j < length; j++) {
-                        xContextFields = xContextFieldsArray.optString(j);
-                        map.put(xContextFields,
-                                getValue(fieldsRuleMould.optJSONObject(xContextFields), null));
-                    }
-                    if (!CommonUtils.isEmpty(map)) {
-                        CommonUtils.clearEmptyValue(map);
-                        xContextMap.putAll(map);
-                        map.clear();
-                    }
-                    allJob.put(outFields, new JSONObject(xContextMap));
-                } else {
-                    //  3.获取value并校验
-                    Object outerValue = getValue(fieldsRuleMould, eventName);
-                    CommonUtils.pushToJSON(allJob, outFields, outerValue);
-                }
-            }
-        }
+        ParameterAddUtil.putXContextInfo(xContextMap, optionName);
+        CommonUtils.clearEmptyValue(xContextMap);
+        allJob.put(ExtraConst.X_CONTEXT, new JSONObject(xContextMap));
         return allJob;
     }
 
     private void putBaseInfo(JSONObject allJob, String eventName) {
         CommonUtils.pushToJSON(allJob, Constants.APP_ID, CommonUtils.getAppKey(mContext));
+        CommonUtils.pushToJSON(allJob, Constants.X_WHO, CommonUtils.getUserId(mContext));
         CommonUtils.pushToJSON(allJob, Constants.X_WHAT, eventName);
         CommonUtils.pushToJSON(allJob, Constants.X_WHEN, System.currentTimeMillis());
-    }
-
-    private void putXContextData() {
-
-    }
-
-    /**
-     * 获取事件字段模板
-     */
-    private JSONObject getEventMould(String eventName) {
-        if (eventName.startsWith(Constants.PROFILE)) {
-            return TemplateManage.fieldsMould.optJSONObject(Constants.PROFILE);
-        }
-        return TemplateManage.fieldsMould.optJSONObject(eventName);
     }
 }
