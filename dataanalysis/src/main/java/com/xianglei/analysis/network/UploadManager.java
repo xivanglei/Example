@@ -7,9 +7,12 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 
+import com.xianglei.analysis.aesencrypt.EncryptAgent;
 import com.xianglei.analysis.constants.Constants;
 import com.xianglei.analysis.database.TableAllInfo;
 import com.xianglei.analysis.process.AgentProcess;
+import com.xianglei.analysis.strategy.BaseSendStatus;
+import com.xianglei.analysis.strategy.PolicyManager;
 import com.xianglei.analysis.utils.CheckUtils;
 import com.xianglei.analysis.utils.CommonUtils;
 import com.xianglei.analysis.utils.LogPrompt;
@@ -286,43 +289,14 @@ public class UploadManager {
      * 数据加密压缩编码或只压缩编码
      */
     private String encrypt(String data, int type) {
-        try {
-            if (LifeCycleConfig.encryptJson != null) {
-                String path = LifeCycleConfig.encryptJson.optString("start");
-                if (!TextUtils.isEmpty(path)) {
-                    Object object = CommonUtils.reflexUtils(
-                            CommonUtils.getClassPath(path),
-                            CommonUtils.getMethod(path),
-                            new Class[]{String.class, String.class, String.class, int.class},
-                            CommonUtils.getAppKey(mContext),
-                            Constants.DEV_SDK_VERSION, data, type);
-                    if (object != null) {
-                        return String.valueOf(object);
-                    }
-                }
-            }
-        } catch (Throwable throwable) {
-        }
-        return null;
+        return EncryptAgent.dataEncrypt(CommonUtils.getAppKey(mContext), Constants.DEV_SDK_VERSION, data, type);
     }
 
     /**
      * 获取数据加密后上传头信息
      */
     private Map<String, String> getHeadInfo() {
-        if (LifeCycleConfig.uploadHeadJson != null) {
-            String path = LifeCycleConfig.uploadHeadJson.optString("start");
-            if (!TextUtils.isEmpty(path)) {
-                int index = path.lastIndexOf(".");
-                Object object = CommonUtils.reflexUtils(
-                        path.substring(0, index),
-                        path.substring(index + 1));
-                if (object != null) {
-                    return (Map<String, String>) object;
-                }
-            }
-        }
-        return null;
+        return EncryptAgent.getHeadInfo();
     }
 
     /**

@@ -25,7 +25,8 @@ public class ParameterAddUtil {
         if(TextUtils.equals(eventName, Constants.STARTUP)
                 || TextUtils.equals(eventName, Constants.END)
                 || TextUtils.equals(eventName, Constants.TRACK)
-                ||TextUtils.equals(eventName, Constants.PAGE_VIEW)) {
+                ||TextUtils.equals(eventName, Constants.PAGE_VIEW)
+                || TextUtils.equals(eventName, Constants.FIRST_INSTALL)) {
             putXContextCommon(map, context);
         }
         switch (eventName) {

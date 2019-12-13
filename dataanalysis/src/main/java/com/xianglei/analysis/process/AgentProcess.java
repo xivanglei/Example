@@ -6,6 +6,7 @@ import android.content.Context;
 import com.xianglei.analysis.AnalysysConfig;
 import com.xianglei.analysis.AutomaticAcquisition;
 import com.xianglei.analysis.constants.Constants;
+import com.xianglei.analysis.network.UploadManager;
 import com.xianglei.analysis.utils.ANSThreadPool;
 import com.xianglei.analysis.utils.CommonUtils;
 import com.xianglei.analysis.utils.LogPrompt;
@@ -13,7 +14,13 @@ import com.xianglei.analysis.utils.SharedUtil;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Author:xianglei
@@ -23,6 +30,8 @@ import java.util.HashMap;
 public class AgentProcess {
 
     private Application mApp = null;
+
+    private static long cacheMaxCount = 0;
 
     public static AgentProcess getInstance(Context context) {
         ContextManager.setContext(context);
@@ -144,6 +153,32 @@ public class AgentProcess {
     }
 
     /**
+     * 获取最大缓存条数
+     */
+    public long getMaxCacheSize() {
+        long count;
+        count = cacheMaxCount;
+        if (count < 1) {
+            count = Constants.MAX_CACHE_COUNT;
+        }
+        return count;
+    }
+
+    /**
+     * 设置最大缓存条数
+     */
+    public void setMaxCacheSize(final long count) {
+        ANSThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (100 < count) {
+                    cacheMaxCount = count;
+                }
+            }
+        });
+    }
+
+    /**
      * 校验数据是否符合上传格式
      */
     private boolean checkoutEvent(JSONObject eventData) {
@@ -152,6 +187,138 @@ public class AgentProcess {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 首次安装后是否发送profile_set_once
+     * type 0 表示设置 1表示清除
+     */
+    private void sendProfileSetOnce(Context context, int type) throws Exception {
+        if (Constants.isAutoProfile) {
+            Map<String, Object> profileInfo = new HashMap<>();
+            if (type == 0) {
+                profileInfo.put(Constants.DEV_FIRST_VISIT_TIME,
+                        CommonUtils.getFirstStartTime(context));
+                profileInfo.put(Constants.DEV_FIRST_VISIT_LANGUAGE,
+                        Locale.getDefault().getLanguage());
+            } else if (type == 1) {
+                profileInfo.put(Constants.DEV_RESET_TIME,
+                        CommonUtils.getTime(context));
+            } else {
+                return;
+            }
+            JSONObject eventData = DataAssemble.getInstance(context).getEventData(
+                    Constants.API_PROFILE_SET_ONCE,
+                    Constants.PROFILE_SET_ONCE, null, profileInfo);
+            trackEvent(context,
+                    Constants.API_PROFILE_SET_ONCE, Constants.PAGE_VIEW, eventData);
+        }
+    }
+
+    /**
+     * 渠道归因
+     */
+    private void sendFirstInstall(Context context) throws Exception {
+        if (context != null) {
+            JSONObject eventData = DataAssemble.getInstance(context).getEventData(
+                    Constants.API_FIRST_INSTALL, Constants.FIRST_INSTALL,
+                    null, Constants.utm);
+            trackEvent(context, Constants.API_FIRST_INSTALL,
+                    Constants.FIRST_INSTALL, eventData);
+        }
+    }
+
+    /**
+     * 是否自动采集
+     */
+    public void automaticCollection(final boolean isAuto) {
+        ANSThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                Context context = ContextManager.getContext();
+                if (context != null) {
+                    SharedUtil.setBoolean(context, Constants.SP_IS_COLLECTION, isAuto);
+                }
+            }
+        });
+    }
+
+    /**
+     * 获取自动采集开关状态
+     */
+    public boolean getAutomaticCollection() {
+        Context context = ContextManager.getContext();
+        if (context != null) {
+            return SharedUtil.getBoolean(
+                    context, Constants.SP_IS_COLLECTION, true);
+        }
+        return true;
+    }
+
+    /**
+     * 获取忽略自动采集的页面
+     */
+    public List<String> getIgnoredAutomaticCollection() {
+        Context context = ContextManager.getContext();
+        if (context != null) {
+            String activities = SharedUtil.getString(
+                    context, Constants.SP_IGNORED_COLLECTION, null);
+            if (!CommonUtils.isEmpty(activities)) {
+                return CommonUtils.toList(activities);
+            }
+        }
+        return new ArrayList<>();
+    }
+
+    /**
+     * 忽略多个页面自动采集
+     */
+    public void setIgnoredAutomaticCollection(final List<String> activitiesName) {
+        ANSThreadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Context context = ContextManager.getContext();
+                    if (context == null) {
+                        return;
+                    }
+                    if (CommonUtils.isEmpty(activitiesName)) {
+                        SharedUtil.remove(context, Constants.SP_IGNORED_COLLECTION);
+                        return;
+                    }
+                    String activities = SharedUtil.getString(context,
+                            Constants.SP_IGNORED_COLLECTION, null);
+                    if (CommonUtils.isEmpty(activities)) {
+                        SharedUtil.setString(
+                                context, Constants.SP_IGNORED_COLLECTION,
+                                CommonUtils.toString(activitiesName));
+                    } else {
+                        Set<String> pageNames = CommonUtils.toSet(activities);
+                        if (pageNames == null) {
+                            pageNames = new HashSet<>();
+                        }
+                        pageNames.addAll(activitiesName);
+                        SharedUtil.setString(context,
+                                Constants.SP_IGNORED_COLLECTION,
+                                CommonUtils.toString(pageNames));
+                    }
+
+                } catch (Throwable throwable) {
+                }
+            }
+        });
+    }
+
+    /**
+     * 页面信息处理
+     */
+    public void autoCollectPageView(final Map<String, Object> pageInfo) throws Exception {
+        Context context = ContextManager.getContext();
+        if (context != null) {
+            JSONObject eventData = DataAssemble.getInstance(context).getEventData(
+                    Constants.API_PAGE_VIEW, Constants.PAGE_VIEW, pageInfo, null);
+            trackEvent(context, Constants.API_PAGE_VIEW, Constants.PAGE_VIEW, eventData);
+        }
     }
 
 
