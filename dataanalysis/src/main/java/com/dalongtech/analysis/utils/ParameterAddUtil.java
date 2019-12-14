@@ -29,6 +29,7 @@ public class ParameterAddUtil {
                 || TextUtils.equals(eventName, Constants.FIRST_INSTALL)) {
             putXContextCommon(map, context);
         }
+        if(eventName.startsWith(Constants.PROFILE)) eventName = Constants.PROFILE;
         switch (eventName) {
             case Constants.STARTUP:
                 map.put(ExtraConst.C_IS_FIRST_TIME, CommonUtils.isFirstStart(context));

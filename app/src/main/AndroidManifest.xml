@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -44,13 +45,20 @@
             </intent-filter>
         </activity>
         <activity android:name="com.dalongtech.testapplication.activity.ScrollConflictActivity" />
+        <activity android:name=".activity.AnalysisDemoActivity" />
 
 
-
-<!--        角标设置服务-->
+        <!--        角标设置服务-->
         <service
             android:name="com.dalongtech.testapplication.component.BadgeIntentService"
             android:exported="false" />
+
+        <meta-data
+            android:name="ANALYSYS_AUTO_COLLECTION_MAC"
+            android:value="true"/>
+        <meta-data
+            android:name="ANALYSYS_AUTO_COLLECTION_IMEI"
+            android:value="true"/>
     </application>
 
 </manifest>

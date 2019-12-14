@@ -25,8 +25,9 @@ public class App extends Application {
         AnalysisAgent.init(this, config);
         AnalysisAgent.setUploadURL(this, "http://www.baidu.com");
         AnalysisAgent.setMaxCacheSize(this, 101);
-        AnalysisAgent.setMaxEventSize(this, 101);
+        AnalysisAgent.setMaxEventSize(this, 95);
         AnalysisAgent.setIntervalTime(this, 60);
         AnalysisAgent.setDebugMode(this, 0);
+        AnalysisAgent.identify(this, "我是默认身份，登录后替换");
     }
 }
