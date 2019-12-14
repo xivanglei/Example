@@ -24,5 +24,9 @@ public class App extends Application {
         config.setEncryptType(EncryptEnum.EMPTY);
         AnalysisAgent.init(this, config);
         AnalysisAgent.setUploadURL(this, "http://www.baidu.com");
+        AnalysisAgent.setMaxCacheSize(this, 101);
+        AnalysisAgent.setMaxEventSize(this, 101);
+        AnalysisAgent.setIntervalTime(this, 60);
+        AnalysisAgent.setDebugMode(this, 0);
     }
 }

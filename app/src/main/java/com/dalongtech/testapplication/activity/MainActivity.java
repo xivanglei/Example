@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
 
-import com.dalongtech.customkeyboard.DLKeyboard;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
 import com.dalongtech.testapplication.widget.RoundedImageView;
+import com.xianglei.analysis.ANSAutoPageTracker;
+import com.xianglei.analysis.AnalysisAgent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class MainActivity extends SimpleActivity {
+public class MainActivity extends SimpleActivity implements ANSAutoPageTracker {
 
     @BindView(R.id.iv_test)
     RoundedImageView iv_test;
@@ -37,16 +38,19 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        startActivity(CustomKayboardActivity.class);
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
+        AnalysisAgent.track(this, "pppp");
     }
 
     @OnClick(R.id.btn_test2)
     public void test2() {
-        DLKeyboard.getInstance(this).hideKeyboard();
+        Map<String, Object> map = new HashMap<>();
+        map.put("super1", 11111);
+        map.put("super2", 22222);
+        AnalysisAgent.registerSuperProperties(this, map);
     }
 
     @OnClick(R.id.btn_get_address_list)
@@ -107,5 +111,17 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_custom_keyboard)
     public void startCustomKeyboard() {
         startActivity(CustomKayboardActivity.class);
+    }
+
+    @Override
+    public Map<String, Object> registerPageProperties() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("3393939", 98989898);
+        return map;
+    }
+
+    @Override
+    public String registerPageUrl() {
+        return "我是主页";
     }
 }

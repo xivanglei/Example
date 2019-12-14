@@ -16,6 +16,7 @@ import com.xianglei.analysis.strategy.PolicyManager;
 import com.xianglei.analysis.utils.CheckUtils;
 import com.xianglei.analysis.utils.CommonUtils;
 import com.xianglei.analysis.utils.LogPrompt;
+import com.xianglei.analysis.utils.LogUtil;
 import com.xianglei.analysis.utils.SharedUtil;
 
 import org.json.JSONArray;
@@ -79,10 +80,12 @@ public class UploadManager {
         }
         dbCacheCheck();
         TableAllInfo.getInstance(mContext).insert(sendData.toString(), type);
+        LogUtil.d(TableAllInfo.getInstance(mContext).selectCount());
         if (CommonUtils.isMainProcess(mContext)) {
             BaseSendStatus sendStatus = PolicyManager.getPolicyType(mContext);
             if (sendStatus.isSend(mContext)) {
                 sendUploadMessage();
+                LogUtil.d("开始发送");
             }
         } else {
             LogPrompt.processFailed();
@@ -92,6 +95,7 @@ public class UploadManager {
     private void dbCacheCheck() {
         long maxCount = AgentProcess.getInstance(mContext).getMaxCacheSize();
         long count = TableAllInfo.getInstance(mContext).selectCount();
+        LogUtil.d(count + "--最大缓存--" + maxCount);
         if (maxCount <= count) {
             TableAllInfo.getInstance(mContext).delete(Constants.DELETE_COUNT);
         }

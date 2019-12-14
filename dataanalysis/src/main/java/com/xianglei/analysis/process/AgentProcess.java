@@ -297,7 +297,7 @@ public class AgentProcess {
                     Constants.API_PROFILE_SET_ONCE,
                     Constants.PROFILE_SET_ONCE, null, profileInfo);
             trackEvent(context,
-                    Constants.API_PROFILE_SET_ONCE, Constants.PAGE_VIEW, eventData);
+                    Constants.API_PROFILE_SET_ONCE, Constants.PROFILE_SET_ONCE, eventData);
         }
     }
 
