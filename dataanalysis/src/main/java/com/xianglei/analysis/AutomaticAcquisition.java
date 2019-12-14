@@ -3,8 +3,6 @@ package com.xianglei.analysis;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -12,8 +10,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.view.View;
-import android.view.ViewTreeObserver;
 
 import com.xianglei.analysis.constants.Constants;
 import com.xianglei.analysis.process.AgentProcess;
@@ -49,7 +45,6 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
      */
     private long appStartTime = 0;
     private boolean fromBackground = false;
-    private ViewTreeObserver.OnGlobalLayoutListener layoutListener;
 
     private HandlerThread mWorkThread = new HandlerThread("WorkThread");
     private Handler mHandler;
@@ -93,11 +88,7 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
     }
 
     @Override
-    public void onActivityResumed(@NonNull Activity activity) {
-        if (Constants.autoHeatMap) {
-            checkLayoutListener(new WeakReference<>(activity), true);
-        }
-    }
+    public void onActivityResumed(@NonNull Activity activity) { }
 
     @Override
     public void onActivityPaused(@NonNull final Activity activity) {
@@ -218,10 +209,6 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
         if (activity != null) {
             Context context = activity.get();
             if (context != null) {
-                // 热图部分逻辑不能在子线程执行
-                if (Constants.autoHeatMap) {
-                    checkLayoutListener(activity, false);
-                }
                 // 单队列线程执行
                 ANSThreadPool.execute(new Runnable() {
                     @Override
@@ -230,22 +217,6 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
                         appEnd();
                     }
                 });
-            }
-        }
-    }
-
-    private void checkLayoutListener(WeakReference<Activity> wr, boolean isResume) {
-        if (wr != null) {
-            Activity activity = wr.get();
-            if (layoutListener != null) {
-                View rootView = activity.findViewById(android.R.id.content);
-                if (isResume) {
-                    rootView.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
-                } else {
-                    if (Build.VERSION.SDK_INT > 15) {
-                        rootView.getViewTreeObserver().removeOnGlobalLayoutListener(layoutListener);
-                    }
-                }
             }
         }
     }

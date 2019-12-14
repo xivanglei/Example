@@ -78,6 +78,21 @@ public class AnalysysConfig {
     }
 
     /**
+     * 获取渠道归因设置
+     */
+    public boolean isAutoInstallation() {
+        return autoInstallation;
+    }
+
+    /**
+     * 设置渠道归因是否开启
+     * 默认 false 关闭
+     */
+    public void setAutoInstallation(boolean autoInstallation) {
+        this.autoInstallation = autoInstallation;
+    }
+
+    /**
      * 设置是否进行时间校准
      */
     public void setAllowTimeCheck(boolean calibration) {

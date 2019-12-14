@@ -39,7 +39,6 @@ public class UploadManager {
     private Context mContext;
     private SendHandler mHandler;
     private int uploadData = 0x01;
-    private int delayUploadData = 0x02;
     private int updateTime = 0x03;
     private String spv = "";
 
@@ -103,7 +102,7 @@ public class UploadManager {
      * 发送实时消息
      */
     private void sendUploadMessage() {
-        if (mHandler.hasMessages(delayUploadData)) {
+        if (mHandler.hasMessages(uploadData)) {
             mHandler.removeMessages(uploadData);
         }
         Message msg = Message.obtain();
@@ -116,8 +115,8 @@ public class UploadManager {
      * 发送delay消息
      */
     public void sendUploadDelayedMessage(long time) {
-        if (mHandler.hasMessages(delayUploadData)) {
-            mHandler.removeMessages(delayUploadData);
+        if (mHandler.hasMessages(uploadData)) {
+            mHandler.removeMessages(uploadData);
         }
         Message msg = Message.obtain();
         msg.what = uploadData;
@@ -150,7 +149,7 @@ public class UploadManager {
                 String url = CommonUtils.getUrl(mContext);
                 if (!CommonUtils.isEmpty(url)) {
                     int what = msg.what;
-                    if (what == uploadData || what == delayUploadData) {
+                    if (what == uploadData) {
                         uploadData(url);
                     } else if (what == updateTime) {
                         calibrationTime(url);
