@@ -2,9 +2,9 @@ package com.dalongtech.testapplication.app;
 
 import android.app.Application;
 
-import com.xianglei.analysis.AnalysisAgent;
-import com.xianglei.analysis.AnalysysConfig;
-import com.xianglei.analysis.EncryptEnum;
+import com.dalongtech.analysis.AnalysisAgent;
+import com.dalongtech.analysis.AnalysysConfig;
+import com.dalongtech.analysis.EncryptEnum;
 
 /**
  * Author:xianglei

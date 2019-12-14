@@ -18,6 +18,7 @@
             android:adjustViewBounds="true"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
+            android:src="@mipmap/ic_launcher"
             app:riv_corner_radius="10dp"/>
 
         <TextView

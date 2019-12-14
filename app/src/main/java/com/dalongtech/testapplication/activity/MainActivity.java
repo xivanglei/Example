@@ -10,8 +10,8 @@ import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
 import com.dalongtech.testapplication.widget.RoundedImageView;
-import com.xianglei.analysis.ANSAutoPageTracker;
-import com.xianglei.analysis.AnalysisAgent;
+import com.dalongtech.analysis.ANSAutoPageTracker;
+import com.dalongtech.analysis.AnalysisAgent;
 
 import java.util.HashMap;
 import java.util.Map;
