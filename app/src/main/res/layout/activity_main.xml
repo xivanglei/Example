@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp">
 
-        <net.xianglei.testapplication.widget.RoundedImageView
+        <com.dalongtech.testapplication.widget.RoundedImageView
             android:id="@+id/iv_test"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -113,6 +113,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="音频播放"/>
+
+        <Button
+            android:id="@+id/btn_custom_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义键盘"/>
 
     </LinearLayout>
 

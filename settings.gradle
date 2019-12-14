@@ -1,1 +1,1 @@
-include ':app', ':shortcutbadge'
+include ':app', ':shortcutbadge', ':customkeyboard', ':dataanalysis'

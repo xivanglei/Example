@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.ImageViewTouchActivity">
 
-    <net.xianglei.testapplication.widget.rong_photoview.PhotoView
+    <com.dalongtech.testapplication.widget.rong_photoview.PhotoView
         android:id="@+id/image_view"
         android:layout_width="400dp"
         android:layout_height="300dp"

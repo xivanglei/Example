@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp">
+        <selector>
+            <!-- 按压后图层 -->
+            <item android:state_pressed="true">
+                <shape>
+                    <solid android:color="@color/dl_key_press" />
+                    <corners android:radius="5dp" />
+                    <stroke android:color="@color/dl_key_function_stroke"
+                        android:width="0.6dp"/>
+                </shape>
+            </item>
+            <!-- 正常状态图层 -->
+            <item>
+                <shape>
+                    <solid android:color="@color/dl_key_function_normal" />
+                    <corners android:radius="5dp" />
+                    <stroke android:color="@color/dl_key_function_stroke"
+                        android:width="0.6dp"/>
+                </shape>
+            </item>
+        </selector>
+    </item>
+    <item android:drawable="@mipmap/dl_ic_keyboard"
+        android:gravity="center" />
+
+</layer-list>
