@@ -168,6 +168,7 @@ public class UploadManager {
     private void uploadData(String url) throws IOException, JSONException {
         if (CommonUtils.isNetworkAvailable(mContext)) {
             JSONArray eventArray = TableAllInfo.getInstance(mContext).select();
+//            Log.d("祥雷", "uploadData: " + String.valueOf(eventArray));
             // 上传数据检查校验
             eventArray = checkUploadData(eventArray);
             if (!CommonUtils.isEmpty(eventArray)) {

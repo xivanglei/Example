@@ -17,6 +17,7 @@ import com.xianglei.analysis.utils.CheckUtils;
 import com.xianglei.analysis.utils.CommonUtils;
 import com.xianglei.analysis.utils.InternalAgent;
 import com.xianglei.analysis.utils.LogPrompt;
+import com.xianglei.analysis.utils.LogUtil;
 import com.xianglei.analysis.utils.NumberFormat;
 import com.xianglei.analysis.utils.SharedUtil;
 
@@ -176,6 +177,7 @@ public class AgentProcess {
             if (LogBean.getCode() == Constants.CODE_SUCCESS) {
                 LogPrompt.showLog(apiName, true);
             }
+            LogUtil.d(eventName + "----" + eventData.toString());
             UploadManager.getInstance(context).sendManager(eventName, eventData);
         }
     }
