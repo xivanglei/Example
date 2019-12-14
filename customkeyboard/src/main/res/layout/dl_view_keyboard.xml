@@ -1,31 +1,37 @@
-<FrameLayout
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="#212121"
-        android:alpha="0.9">
+        <View
+            android:id="@+id/view_hide_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
-    <net.xianglei.customkeyboard.widget.DLKeyBoardView
-        android:id="@+id/kb_custom_keyboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:keyBackground="@drawable/dl_key_bg"
-        android:keyTextColor="#dddddd"
-        android:keyTextSize="18sp"
-        android:labelTextSize="18sp"
-        android:paddingBottom="2dp"
-        android:paddingTop="2dp"
-        android:keyPreviewHeight="60dp"
-        android:keyPreviewLayout="@layout/dl_key_board_preview"
-        android:keyPreviewOffset="-20dp" />
+        <FrameLayout
+            android:id="@+id/fl_key_root_container"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/dl_keyboard_bg"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:alpha="0.9">
 
-    </FrameLayout>
+            <include layout="@layout/dl_include_keyboard_base" />
 
-</FrameLayout>
+            <include layout="@layout/dl_include_keyboard_symbol"/>
+
+            <include layout="@layout/dl_include_keyboard_symbol_2"/>
+
+            <include layout="@layout/dl_include_keyboard_win"/>
+
+            <include layout="@layout/dl_include_keyboard_win_2"/>
+
+        </FrameLayout>
+
+</LinearLayout>

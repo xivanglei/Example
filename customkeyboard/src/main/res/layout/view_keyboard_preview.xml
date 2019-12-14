@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="80dp"
+    android:layout_height="50dp">
+
+    <TextView
+        android:id="@+id/tv_preview"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:background="@drawable/dl_bg_key_preview"
+        android:gravity="center"
+        android:textColor="@color/dl_key_preview_text_color"
+        android:textSize="30sp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="测试一下"/>
+
+</FrameLayout>
