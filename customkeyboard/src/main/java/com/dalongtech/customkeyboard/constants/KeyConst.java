@@ -21,6 +21,14 @@ public interface KeyConst {
     int KEY_TAB = -1009;                            //tab键
     int KEY_PREVIOUS_PAGE = -1010;                  //上翻一页
     int KEY_NEXT_PAGE = -1011;                      //下翻一页
+    int KEY_CAPITAL = -1012;                        //大写键，按键码是-1 判断状态后使用
+    int KEY_LOWER_CASE = -1013;                     //小写键，按键码是-1 判断状态后使用
+    int KEY_MAIN_AT = -1014;                        //首页@键，因为埋点需求，做区分
+    int KEY_MAIN_DOT = -1015;                       //首页. 点键，因为埋点需求，做区分
+    int KEY_SYMBOL_LANGUAGE = -1016;                //符号页中英键
+    int KEY_SYMBOL_BACK = -1017;                    //符号页返回键
+    int KEY_WIN_LANGUAGE = -1018;                   //WIN页中英键
+    int KEY_WIN_BACK = -1019;                       //WIN页返回键
 
     int KEY_AT = 96;                                //@键
     int KEY_SPACE = 32;                             //空格键

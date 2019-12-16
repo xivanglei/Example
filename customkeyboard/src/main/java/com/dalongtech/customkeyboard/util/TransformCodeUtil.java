@@ -20,9 +20,15 @@ import static android.content.ContentValues.TAG;
 public class TransformCodeUtil {
 
     private SparseIntArray mCodeTransform;
+    private SparseIntArray mAnalysisCode;
 
     //初始化转换码 key为输入，value为输出的windows码
     public TransformCodeUtil() {
+        initCodeTransformMap();
+        initAnalysisEventMap();
+    }
+
+    private void initCodeTransformMap() {
         mCodeTransform = new SparseIntArray();
         //字母 a - z
         mCodeTransform.put(KeyConst.KEY_a, 65);
@@ -93,7 +99,9 @@ public class TransformCodeUtil {
 
         //符号
         mCodeTransform.put(KeyConst.KEY_AT, 50);
+        mCodeTransform.put(KeyConst.KEY_MAIN_AT, 50);
         mCodeTransform.put(KeyConst.KEY_DOT, 190);
+        mCodeTransform.put(KeyConst.KEY_MAIN_DOT, 190);
         mCodeTransform.put(KeyConst.KEY_GRAVE_ACCENT, 192);
         mCodeTransform.put(KeyConst.KEY_TILDE, 192);
         mCodeTransform.put(KeyConst.KEY_EXCLAMATION_MARK, 49);
@@ -167,6 +175,24 @@ public class TransformCodeUtil {
         mCodeTransform.put(KeyConst.KEY_ARROW_DOWN, 40);
     }
 
+    private void initAnalysisEventMap() {
+        mAnalysisCode = new SparseIntArray();
+        mAnalysisCode.put(KeyConst.KEY_LINE_FEED, 1);
+        mAnalysisCode.put(KeyConst.KEY_LANGUAGE, 2);
+        mAnalysisCode.put(KeyConst.KEY_CAPITAL, 3);
+        mAnalysisCode.put(KeyConst.KEY_LOWER_CASE, 4);
+        mAnalysisCode.put(Keyboard.KEYCODE_CANCEL, 5);
+        mAnalysisCode.put(KeyConst.KEY_SYMBOL, 6);
+        mAnalysisCode.put(KeyConst.KEY_FUNCTION_WIN, 7);
+        mAnalysisCode.put(KeyConst.KEY_MAIN_AT, 8);
+        mAnalysisCode.put(KeyConst.KEY_MAIN_DOT, 9);
+        mAnalysisCode.put(KeyConst.KEY_WWW, 10);
+        mAnalysisCode.put(KeyConst.KEY_COM, 11);
+        mAnalysisCode.put(KeyConst.KEY_SYMBOL_BACK, 12);
+        mAnalysisCode.put(KeyConst.KEY_SYMBOL_LANGUAGE, 13);
+        mAnalysisCode.put(KeyConst.KEY_WIN_BACK, 14);
+    }
+
     //单个码转换，如果找不到会返回-10000
     private int transformSingleCode(int code) {
         if(mCodeTransform.indexOfKey(code) >= 0) {
@@ -183,6 +209,7 @@ public class TransformCodeUtil {
                 KeyConst.KEY_TILDE,
                 KeyConst.KEY_EXCLAMATION_MARK,
                 KeyConst.KEY_AT,
+                KeyConst.KEY_MAIN_AT,
                 KeyConst.KEY_CROSSHATCH,
                 KeyConst.KEY_DOLLAR_SIGN,
                 KeyConst.KEY_PERCENT_SIGN,
@@ -233,7 +260,8 @@ public class TransformCodeUtil {
 
     //是否是组合键，如果是，就需要交给transCombinationCode处理
     private boolean isCombinationCode(int code) {
-        return code == KeyConst.KEY_LANGUAGE || code == KeyConst.KEY_COM || code == KeyConst.KEY_WWW;
+        return code == KeyConst.KEY_LANGUAGE || code == KeyConst.KEY_COM || code == KeyConst.KEY_WWW
+                || code == KeyConst.KEY_SYMBOL_LANGUAGE || code == KeyConst.KEY_WIN_LANGUAGE;
     }
 
     //添加组合键code
@@ -241,6 +269,8 @@ public class TransformCodeUtil {
         List<Integer> result = new ArrayList<>();
         switch (code) {
             case KeyConst.KEY_LANGUAGE:
+            case KeyConst.KEY_SYMBOL_LANGUAGE:
+            case KeyConst.KEY_WIN_LANGUAGE:
                 if(isDown) {
                     result.add(transformSingleCode(KeyConst.KEY_CTRL_L));
                     result.add(transformSingleCode(KeyConst.KEY_SPACE));
@@ -258,6 +288,8 @@ public class TransformCodeUtil {
         return Arrays.asList(
                 Keyboard.KEYCODE_SHIFT,
                 KeyConst.KEY_BACK,
+                KeyConst.KEY_SYMBOL_BACK,
+                KeyConst.KEY_WIN_BACK,
                 Keyboard.KEYCODE_CANCEL,
                 KeyConst.KEY_SYMBOL,
                 KeyConst.KEY_FUNCTION_WIN,
@@ -283,5 +315,14 @@ public class TransformCodeUtil {
             result.add(transformSingleCode(code));
         }
         return result;
+    }
+
+    //埋点事件转换码
+    public int analysisEventTransform(int code) {
+        if(mAnalysisCode.indexOfKey(code) >= 0) {
+            return mAnalysisCode.valueAt(mAnalysisCode.indexOfKey(code));
+        } else {
+            return KeyConst.NO_FIND_KEY;
+        }
     }
 }
