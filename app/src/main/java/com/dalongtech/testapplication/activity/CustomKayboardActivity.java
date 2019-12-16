@@ -52,14 +52,12 @@ public class CustomKayboardActivity extends SimpleActivity {
         });
     }
 
-    private void showCustomKeyboard() {
+    @OnClick(R.id.btn_show_keyboard)
+    public void showKeyboard() {
         kb_custom_keyboard.showKeyboard();
     }
 
-    @OnClick(R.id.btn_show_keyboard)
-    public void showKeyboard() {
-        showCustomKeyboard();
-    }
+
     @OnClick(R.id.btn_hide_keyboard)
     public void hideKeyboard() {
         kb_custom_keyboard.hideKeyboard();
