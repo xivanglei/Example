@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -115,14 +116,25 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     public void showKeyboard() {
         if(mOpenStatus == STATUS_OPEN && getTranslationY() < dp2px(280)) return;
         mOpenStatus = STATUS_OPEN;
+        Log.d(TAG, "showKeyboard: ");
         setVisibilityToView(this, true);
-        setInputType(INPUT_TYPE_BASE);
         resetAnimator();
         mAnimator = AnimatorUtil.yScroll(this, 250, dp2px(280), 0, new DecelerateInterpolator());
     }
 
     public void setAutoClickBlankHide(boolean autoClickBlankHide) {
         mAutoClickBlankHide = autoClickBlankHide;
+        if(mAutoClickBlankHide) {
+            mHintKeyboard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hideKeyboard(HIDE_TYPE_BLANK);
+                }
+            });
+        } else {
+            mHintKeyboard.setOnClickListener(null);
+            mHintKeyboard.setClickable(false);
+        }
     }
 
     public void hideKeyboard() {
@@ -136,8 +148,10 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         mAnimator = AnimatorUtil.yScroll(this, 250, (int)getTranslationY(), dp2px(280), new DecelerateInterpolator(), new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+                Log.d(TAG, "onAnimationEnd: " );
                 if(mListener != null) mListener.onHide(hideType);
                 if(mOpenStatus == STATUS_CLOSE) {
+                    Log.d(TAG, "onAnimationEnd: " + "重置");
                     resetKeyStatus();
                     setVisibilityToView(DLKeyboardView.this, false);
                 }
@@ -155,6 +169,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         if(mAltLIsDown) onClick(mKbAltL);
         if(mAltRIsDown) onClick(mKbAltR);
         if(mShiftIsOpen) changeShiftStatus();
+        setInputType(INPUT_TYPE_BASE);
     }
 
     private void initEvent() {
@@ -186,12 +201,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
                 }
             }
         }
-        mHintKeyboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mAutoClickBlankHide) hideKeyboard(HIDE_TYPE_BLANK);
-            }
-        });
+        setAutoClickBlankHide(mAutoClickBlankHide);
     }
 
     private void initCustomEvent() {

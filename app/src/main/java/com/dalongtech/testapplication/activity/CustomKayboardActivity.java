@@ -28,7 +28,7 @@ public class CustomKayboardActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        kb_custom_keyboard.setAutoClickBlankHide(true);
+        kb_custom_keyboard.setAutoClickBlankHide(false);
         kb_custom_keyboard.setListener(new KeyListener() {
             @Override
             public void onPress(int code) {
@@ -38,6 +38,16 @@ public class CustomKayboardActivity extends SimpleActivity {
             @Override
             public void onRelease(int code) {
                 LogUtil.d(code);
+            }
+
+            @Override
+            public void onHide(int hideType) {
+                LogUtil.d(hideType);
+            }
+
+            @Override
+            public void onKeyClickEvent(String eventCode) {
+                LogUtil.d(eventCode);
             }
         });
     }

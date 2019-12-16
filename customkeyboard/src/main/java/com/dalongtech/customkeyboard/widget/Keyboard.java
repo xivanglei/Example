@@ -76,13 +76,15 @@ public class Keyboard extends android.support.v7.widget.AppCompatTextView {
                 KeyConst.KEY_FUNCTION_WIN,
                 KeyConst.KEY_SYMBOL,
                 KeyConst.KEY_BACK,
+                KeyConst.KEY_WIN_BACK,
+                KeyConst.KEY_SYMBOL_BACK,
                 KeyConst.KEY_PREVIOUS_PAGE,
                 KeyConst.KEY_NEXT_PAGE,
                 KeyConst.KEY_CTRL_L,
                 KeyConst.KEY_CTRL_R,
                 KeyConst.KEY_ALT_L,
                 KeyConst.KEY_ALT_R
-                ).contains(code);
+        ).contains(code);
     }
 
     public interface OnKeyActionListener {
