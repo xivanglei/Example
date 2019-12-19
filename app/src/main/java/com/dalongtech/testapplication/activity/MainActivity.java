@@ -112,4 +112,9 @@ public class MainActivity extends SimpleActivity {
     public void startAnalysisDemo() {
         startActivity(AnalysisDemoActivity.class);
     }
+
+    @OnClick(R.id.btn_action_queue)
+    public void startActionQueueActivity() {
+        startActivity(ActionQueueActivity.class);
+    }
 }

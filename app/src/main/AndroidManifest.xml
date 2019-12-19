@@ -46,6 +46,7 @@
         </activity>
         <activity android:name="com.dalongtech.testapplication.activity.ScrollConflictActivity" />
         <activity android:name=".activity.AnalysisDemoActivity" />
+        <activity android:name=".activity.ActionQueueActivity" />
 
 
         <!--        角标设置服务-->
