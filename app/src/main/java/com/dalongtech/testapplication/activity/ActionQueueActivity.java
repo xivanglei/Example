@@ -30,15 +30,15 @@ public class ActionQueueActivity extends SimpleActivity {
         mActionQueue = new ActionQueue();
     }
 
-    @OnClick(R.id.btn_delay_three_show)
-    public void delayThreeSecondShowDialog() {
+    @OnClick(R.id.btn_show_dialog_one)
+    public void showDialogOne() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mActionQueue.enqueue(new ActionQueue.ActionExe() {
                     @Override
                     public void action() {
-                        DialogHelper.getInstance().showSingleDialog(mContext, "我是3秒弹框", new DialogHelper.OnDefaultCallback() {
+                        DialogHelper.getInstance().showSingleDialog(mContext, "我是弹窗1", new DialogHelper.OnDefaultCallback() {
                             @Override
                             public void onRightClickListener(View v) {
                                 DialogHelper.getInstance().dismiss();
@@ -51,15 +51,15 @@ public class ActionQueueActivity extends SimpleActivity {
         }, 3000);
     }
 
-    @OnClick(R.id.btn_delay_five_show)
-    public void delayFiveSecondShowDialog() {
+    @OnClick(R.id.btn_show_dialog_two)
+    public void showDialogTwo() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mActionQueue.enqueue(new ActionQueue.ActionExe() {
                     @Override
                     public void action() {
-                        DialogHelper.getInstance().showSingleDialog(mContext, "我是5秒弹框", new DialogHelper.OnDefaultCallback() {
+                        DialogHelper.getInstance().showSingleDialog(mContext, "我是弹窗2", new DialogHelper.OnDefaultCallback() {
                             @Override
                             public void onRightClickListener(View v) {
                                 DialogHelper.getInstance().dismiss();
@@ -69,6 +69,6 @@ public class ActionQueueActivity extends SimpleActivity {
                     }
                 });
             }
-        }, 5000);
+        }, 3000);
     }
 }
