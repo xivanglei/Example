@@ -7,6 +7,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 def transform(String targetStr) {
     return new String(targetStr.getBytes("iso8859-1"), "UTF-8")
 }
+
 android {
     compileSdkVersion 28
     defaultConfig {

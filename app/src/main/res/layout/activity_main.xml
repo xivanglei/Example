@@ -19,13 +19,13 @@
             android:id="@+id/btn_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="测试"/>
+            android:text="小测试"/>
 
         <Button
-            android:id="@+id/btn_test2"
+            android:id="@+id/btn_test_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="测试2"/>
+            android:text="进入测试页"/>
 
         <Button
             android:id="@+id/btn_test_fragment"
