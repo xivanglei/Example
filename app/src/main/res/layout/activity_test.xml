@@ -19,12 +19,22 @@
         android:layout_height="wrap_content"
         android:text="测试2"/>
 
+    <FrameLayout
+        android:id="@+id/fl_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <CheckBox
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:id="@+id/cb_test"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
         android:background="@drawable/check_cb"
         android:checked="false"
         android:button="@null"
+        android:enabled="false"
+        android:clickable="false"
         />
+
+    </FrameLayout>
 
 </LinearLayout>
