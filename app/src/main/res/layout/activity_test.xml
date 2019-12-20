@@ -20,8 +20,11 @@
         android:text="测试2"/>
 
     <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/check_cb"
+        android:checked="false"
+        android:button="@null"
         />
 
 </LinearLayout>
