@@ -94,7 +94,7 @@ public class CheckUtils {
                 if (Constants.CODE_FAILED == ParameterCheck.checkKey(key)) {
                     continue;
                 }
-                if (Constants.CODE_FAILED == ParameterCheck.checkKey(value)) {
+                if (Constants.CODE_FAILED == ParameterCheck.checkValue(value)) {
                     continue;
                 }
                 if (LogBean.getCode() == Constants.CODE_CUT_OFF
