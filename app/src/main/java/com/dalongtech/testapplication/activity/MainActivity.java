@@ -10,8 +10,6 @@ import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
 import com.dalongtech.testapplication.widget.RoundedImageView;
-import com.xianglei.analysis.ANSAutoPageTracker;
-import com.xianglei.analysis.AnalysisAgent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,10 +18,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class MainActivity extends SimpleActivity implements ANSAutoPageTracker {
+public class MainActivity extends SimpleActivity {
 
-    @BindView(R.id.iv_test)
-    RoundedImageView iv_test;
+    @BindView(R.id.iv_test_transform_animator)
+    RoundedImageView iv_test_transform_animator;
+
+    boolean isTest = true;
 
     private String mImageUrl = "https://rongcloud-file.cn.ronghub.com/application_octet-stream__RC-2019-10-21_8228_1571652938959.mp4?attname=40dfc95cc9fb4ba497b445d10441782f.mp4&e=2147483647&token=CddrKW5AbOMQaDRwc3ReDNvo3-sL_SO1fSUBKV3H:YV8sUH1aAnYaVrh-7iJx0iB31N0=";
     private String srcFile = "/storage/emulated/0/DCIM/Camera/IMG_20191004_150413.jpg";
@@ -38,19 +38,17 @@ public class MainActivity extends SimpleActivity implements ANSAutoPageTracker {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
+        if(isTest) startActivity(TestActivity.class);
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
-        AnalysisAgent.track(this, "pppp");
+
     }
 
-    @OnClick(R.id.btn_test2)
-    public void test2() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("super1", 11111);
-        map.put("super2", 22222);
-        AnalysisAgent.registerSuperProperties(this, map);
+    @OnClick(R.id.btn_test_page)
+    public void enterTestPage() {
+        startActivity(TestActivity.class);
     }
 
     @OnClick(R.id.btn_get_address_list)
@@ -89,7 +87,7 @@ public class MainActivity extends SimpleActivity implements ANSAutoPageTracker {
 
     @OnClick(R.id.btn_slide_close_layout)
     public void startSlideCloseActivity(View v) {
-        ActivityAnimationHelper.startActivity(this, new Intent(this, SlideClosePictureActivity.class), iv_test);
+        ActivityAnimationHelper.startActivity(this, new Intent(this, SlideClosePictureActivity.class), iv_test_transform_animator);
 //        SlideClosePictureActivity.start(this, mImageUrl, v);
     }
 
@@ -98,9 +96,9 @@ public class MainActivity extends SimpleActivity implements ANSAutoPageTracker {
         startActivity(ShortcutBadgeActivity.class);
     }
 
-    @OnClick(R.id.iv_test)
+    @OnClick(R.id.btn_big_image)
     public void startBigImageActivity(View v) {
-        BigImageActivity.start(this, v, mImageUrl);
+        BigImageActivity.start(this, iv_test_transform_animator, mImageUrl);
     }
 
     @OnClick(R.id.btn_voice_play)
@@ -113,15 +111,13 @@ public class MainActivity extends SimpleActivity implements ANSAutoPageTracker {
         startActivity(CustomKayboardActivity.class);
     }
 
-    @Override
-    public Map<String, Object> registerPageProperties() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("3393939", 98989898);
-        return map;
+    @OnClick(R.id.btn_analysis)
+    public void startAnalysisDemo() {
+        startActivity(AnalysisDemoActivity.class);
     }
 
-    @Override
-    public String registerPageUrl() {
-        return "我是主页";
+    @OnClick(R.id.btn_action_queue)
+    public void startActionQueueActivity() {
+        startActivity(ActionQueueActivity.class);
     }
 }

@@ -8,4 +8,6 @@ package com.dalongtech.customkeyboard.listener;
 public interface KeyListener {
     void onPress(int code);
     void onRelease(int code);
+    void onHide(int hideType);
+    void onKeyClickEvent(String eventCode);
 }

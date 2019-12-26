@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_send_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送普通事件"/>
+
+    <Button
+        android:id="@+id/btn_send_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送属性事件"/>
+
+    <Button
+        android:id="@+id/btn_set_super_properties"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置super参数"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录设置"/>
+
+
+
+
+</LinearLayout>

@@ -236,12 +236,12 @@
         <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="\@"
-            app:dl_keyboard_code="96"/>
+            app:dl_keyboard_code="-1014"/>
 
         <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             android:text="."
-            app:dl_keyboard_code="-2033"/>
+            app:dl_keyboard_code="-1015"/>
 
         <View
             android:layout_width="0dp"
