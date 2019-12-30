@@ -2,6 +2,7 @@ package com.dalongtech.testapplication.utils;
 
 import android.util.Base64;
 
+import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Random;
@@ -25,14 +26,19 @@ public class AESUtil {
         byte[] salt = getRandomBytes(8);
         byte[] key = getKeyBytes(WEB_SOCKET_PASSWORD, salt);
         byte[] encrypt = encrypt(data, Arrays.copyOfRange(key, 0, 32), Arrays.copyOfRange(key, 32, 48));
-        LogUtil.d("第一次加密" + byteArrayToHexString(encrypt));
         byte[] extra = addByte("Salted__".getBytes(), salt);
         String result = new String(Base64.encode(addByte(extra, encrypt), Base64.DEFAULT));
+        ByteBuffer byteBuffer = ByteBuffer.allocate(4 + result.length());
+        byteBuffer.putInt(result.length());
+        byteBuffer.put(result.getBytes());
+        result = new String(byteBuffer.array());
         return result;
     }
 
     public static String decryptAES(String data) {
-        byte[] bytes = Base64.decode(data, Base64.DEFAULT);
+        byte[] temp = data.getBytes();
+        byte[] bytes = Arrays.copyOfRange(temp, 4, temp.length);
+        bytes = Base64.decode(bytes, Base64.DEFAULT);
         byte[] salt = Arrays.copyOfRange(bytes, 8, 16);
         bytes = Arrays.copyOfRange(bytes, 16, bytes.length);
         LogUtil.d("第一次解密" + byteArrayToHexString(bytes));
@@ -163,7 +169,7 @@ public class AESUtil {
      * @param b 字节数组
      * @return 十六进制字符串
      */
-    private static String byteArrayToHexString(byte[] b){
+    public static String byteArrayToHexString(byte[] b) {
         StringBuffer resultSb = new StringBuffer();
         for(int i=0;i<b.length;i++){
             resultSb.append(byteToHexString(b[i]));

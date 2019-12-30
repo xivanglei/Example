@@ -27,9 +27,6 @@ public class TestActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
 
-
-
-
     }
 
     @OnClick(R.id.btn_test)
