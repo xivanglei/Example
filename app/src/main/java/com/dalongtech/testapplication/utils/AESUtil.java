@@ -28,7 +28,6 @@ public class AESUtil {
         LogUtil.d("第一次加密" + byteArrayToHexString(encrypt));
         byte[] extra = addByte("Salted__".getBytes(), salt);
         String result = new String(Base64.encode(addByte(extra, encrypt), Base64.DEFAULT));
-        LogUtil.d(result);
         return result;
     }
 
@@ -39,20 +38,20 @@ public class AESUtil {
         LogUtil.d("第一次解密" + byteArrayToHexString(bytes));
         byte[] key = getKeyBytes(WEB_SOCKET_PASSWORD, salt);
         String result = decrypt(bytes, Arrays.copyOfRange(key, 0, 32), Arrays.copyOfRange(key, 32, 48));
-        LogUtil.d(result);
         return result;
 
     }
 
     private static byte[] getKeyBytes(String pw, byte[] salt) {
         byte[] hash = md5(pw);
+        String hashStr = byteArrayToHexString(hash);
         byte[] salted;
         byte[] dx;
-        byte[] tp = addByte(hash , salt);
+        byte[] tp = addByte(hashStr.getBytes() , salt);
         dx = md5(tp);
         salted = dx;
         while (salted.length < 48) {
-            byte[] temp = addByte(dx, hash);
+            byte[] temp = addByte(dx, hashStr.getBytes());
             dx = md5(addByte(temp, salt));
             salted = addByte(salted, dx);
         }
@@ -60,27 +59,22 @@ public class AESUtil {
     }
 
     private static byte[] encrypt(String data, byte[] key, byte[] keyIv) {
-        try {
-            IvParameterSpec iv = new IvParameterSpec(keyIv);
-            SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-            return cipher.doFinal(data.getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return getAESTransResult(data.getBytes(), key, keyIv, true);
     }
 
     private static String decrypt(byte[] data, byte[] key, byte[] keyIv) {
+        return new String(getAESTransResult(data, key, keyIv, false));
+    }
+
+    private static byte[] getAESTransResult(byte[] data, byte[] key, byte[] keyIv, boolean isEncrypt) {
         try {
             IvParameterSpec iv = new IvParameterSpec(keyIv);
             SecretKeySpec skeySpec = new SecretKeySpec(key, "AES");
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-            return new String(cipher.doFinal(data));
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, skeySpec, iv);
+            return cipher.doFinal(data);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
