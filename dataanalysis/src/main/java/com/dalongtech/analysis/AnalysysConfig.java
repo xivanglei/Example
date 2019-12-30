@@ -64,20 +64,6 @@ public class AnalysysConfig {
     }
 
     /**
-     * 获取加密方式
-     */
-    public EncryptEnum getEncryptType() {
-        return encryptType;
-    }
-
-    /**
-     * 设置加密方式
-     */
-    public void setEncryptType(EncryptEnum encryptType) {
-        this.encryptType = encryptType;
-    }
-
-    /**
      * 获取渠道归因设置
      */
     public boolean isAutoInstallation() {

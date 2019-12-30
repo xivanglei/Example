@@ -28,7 +28,7 @@ class RequestUtils {
     /**
      * HTTP
      */
-    static String postRequest(String url, String value, String spv,
+    static String postRequest(String url, String value,
                               Map<String, String> headInfo) {
         String response = null;
         InputStream is = null;
@@ -46,7 +46,6 @@ class RequestUtils {
             connection.setConnectTimeout(20 * 1000);
             connection.setReadTimeout(20 * 1000);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("spv", spv);
             if (headInfo != null) {
                 Set<String> keys = headInfo.keySet();
                 for (String key : keys) {
@@ -95,7 +94,7 @@ class RequestUtils {
      */
     static String postRequestHttps
     (Context context, String path, String requestData,
-     String spv, Map<String, String> headInfo) {
+     Map<String, String> headInfo) {
         HttpsURLConnection connection = null;
         OutputStream outputStream = null;
         try {
@@ -108,7 +107,6 @@ class RequestUtils {
             connection.setRequestMethod("POST");
             connection.setConnectTimeout(20 * 1000);
             connection.setReadTimeout(20 * 1000);
-            connection.setRequestProperty("spv", spv);
             if (headInfo != null) {
                 Set<String> keys = headInfo.keySet();
                 for (String key : keys) {

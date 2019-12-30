@@ -6,4 +6,8 @@ package com.dalongtech.analysis.constants;
  * Description:
  */
 public interface KeyConst {
+
+    String HEAD_DATA_LENGTH = "Content-Data-Length";
+    String HEAD_DATA_MD5 = "Content-Data-MD5";
+    String HEAD_DATA_EN_WAY = "Content-Data-EnWay";
 }

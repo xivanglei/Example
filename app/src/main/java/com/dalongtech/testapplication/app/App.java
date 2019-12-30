@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.dalongtech.analysis.AnalysisAgent;
 import com.dalongtech.analysis.AnalysysConfig;
-import com.dalongtech.analysis.EncryptEnum;
 
 /**
  * Author:xianglei
@@ -21,7 +20,6 @@ public class App extends Application {
         config.setAutoInstallation(true);
         config.setAutoProfile(true);
         config.setChannel("testChannel");
-        config.setEncryptType(EncryptEnum.EMPTY);
         AnalysisAgent.init(this, config);
         AnalysisAgent.setUploadURL(this, "http://www.baidu.com");
         AnalysisAgent.setMaxCacheSize(this, 101);

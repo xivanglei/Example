@@ -5,10 +5,11 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.text.TextUtils;
 
 import com.dalongtech.analysis.aesencrypt.EncryptAgent;
 import com.dalongtech.analysis.constants.Constants;
+import com.dalongtech.analysis.constants.KeyConst;
+import com.dalongtech.analysis.constants.TypeConst;
 import com.dalongtech.analysis.database.TableAllInfo;
 import com.dalongtech.analysis.process.AgentProcess;
 import com.dalongtech.analysis.strategy.BaseSendStatus;
@@ -24,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -251,25 +253,8 @@ public class UploadManager {
         if (CommonUtils.isEmpty(spv)) {
             spv = CommonUtils.getSpvInfo(mContext);
         }
-        Map<String, String> headInfo = null;
-        String encryptData;
-        if (Constants.encryptType != 0) {
-            encryptData = encrypt(value, Constants.encryptType);
-            if (!TextUtils.isEmpty(encryptData)) {
-                headInfo = getHeadInfo();
-                if (!CommonUtils.isEmpty(headInfo)) {
-                    LogPrompt.encryptLog(true);
-                } else {
-                    encryptData = value;
-                }
-            } else {
-                encryptData = value;
-            }
-        } else {
-            encryptData = value;
-        }
-        String zipData = CommonUtils.messageZip(encryptData);
-        sendRequest(url, zipData, headInfo);
+        Map<String, String> headInfo = getHeadInfo(value);
+        sendRequest(url, value, headInfo);
     }
 
     /**
@@ -279,9 +264,9 @@ public class UploadManager {
         try {
             String returnInfo;
             if (url.startsWith(Constants.HTTP)) {
-                returnInfo = RequestUtils.postRequest(url, dataInfo, spv, headInfo);
+                returnInfo = RequestUtils.postRequest(url, dataInfo, headInfo);
             } else {
-                returnInfo = RequestUtils.postRequestHttps(mContext, url, dataInfo, spv, headInfo);
+                returnInfo = RequestUtils.postRequestHttps(mContext, url, dataInfo, headInfo);
             }
             policyAnalysis(analysisStrategy(returnInfo));
         } catch (Throwable e) {
@@ -299,8 +284,12 @@ public class UploadManager {
     /**
      * 获取数据加密后上传头信息
      */
-    private Map<String, String> getHeadInfo() {
-        return EncryptAgent.getHeadInfo();
+    private Map<String, String> getHeadInfo(String dataInfo) {
+        Map<String, String> headInfo = new HashMap<>();
+        headInfo.put(KeyConst.HEAD_DATA_EN_WAY, TypeConst.ENCRYPT_NONE);
+        headInfo.put(KeyConst.HEAD_DATA_LENGTH, String.valueOf(dataInfo.length()));
+
+        return headInfo;
     }
 
     /**

@@ -6,4 +6,7 @@ package com.dalongtech.analysis.constants;
  * Description:
  */
 public interface TypeConst {
+
+    String ENCRYPT_NONE = "obj";
+    String ENCRYPT_AES = "aes";
 }
