@@ -9,6 +9,7 @@ import android.text.TextUtils;
 
 import com.dalongtech.analysis.aesencrypt.EncryptAgent;
 import com.dalongtech.analysis.constants.Constants;
+import com.dalongtech.analysis.constants.ExtraConst;
 import com.dalongtech.analysis.constants.KeyConst;
 import com.dalongtech.analysis.constants.TypeConst;
 import com.dalongtech.analysis.database.TableAllInfo;
@@ -155,7 +156,7 @@ public class UploadManager {
         @Override
         public void handleMessage(Message msg) {
             try {
-                String url = CommonUtils.getUrl(mContext);
+                String url = CommonUtils.getUrl(mContext) + ExtraConst.URL_EVENT;
                 if (!CommonUtils.isEmpty(url)) {
                     int what = msg.what;
                     if (what == uploadData) {
@@ -184,7 +185,7 @@ public class UploadManager {
                 LogPrompt.showSendMessage(url, eventArray);
 //                JSONObject jsonObject = new JSONObject();
 //                jsonObject.put("data", eventArray);
-                encryptData(url, String.valueOf(eventArray));
+                encryptDataAndRequest(url, String.valueOf(eventArray));
             } else {
                 TableAllInfo.getInstance(mContext).deleteData();
             }
@@ -254,12 +255,49 @@ public class UploadManager {
     /**
      * 数据加密
      */
-    private void encryptData(String url, String value) throws IOException {
-        if (CommonUtils.isEmpty(spv)) {
-            spv = CommonUtils.getSpvInfo(mContext);
-        }
+    private void encryptDataAndRequest(String url, String value) throws IOException {
         Map<String, String> headInfo = getHeadInfo(value);
-        sendRequest(url, "data=" + URLEncoder.encode(value, "UTF-8"), headInfo);
+        String encryptData = encryptData("data=" + URLEncoder.encode(value, "UTF-8"));
+        sendRequest(url, encryptData, headInfo);
+    }
+
+    private String encryptData(String value) {
+        return value;
+    }
+
+    /**
+     * 发送数据
+     */
+    public void directSendRequest(final String value, final HttpCallback callback) throws IOException {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                String url = CommonUtils.getUrl(mContext) + ExtraConst.URL_GET_CID;
+                LogUtil.d(value);
+                Map<String, String> headInfo = getHeadInfo(value);
+                try {
+                    String encryptData = encryptData("data=" + URLEncoder.encode(value, "UTF-8"));
+                    String returnInfo;
+                    if (url.startsWith(Constants.HTTP)) {
+                        returnInfo = RequestUtils.postRequest(url, encryptData, headInfo);
+                    } else {
+                        returnInfo = RequestUtils.postRequestHttps(mContext, url, encryptData, headInfo);
+                    }
+                    LogUtil.d(returnInfo);
+                    JSONObject json = analysisStrategy(returnInfo);
+                    if(json == null) {
+                        callback.failed(-1, "收到的响应数据解析异常");
+                        return;
+                    }
+                    if(json.optInt(Constants.SERVICE_CODE) == 10000) {
+                        callback.success(json.optString(Constants.SERVICE_DATA));
+                    } else {
+                        callback.failed(json.optInt(Constants.SERVICE_CODE), json.optString(Constants.SERVICE_MSG));
+                    }
+                } catch (Throwable e) { }
+            }
+        });
+
     }
 
     /**
@@ -275,9 +313,7 @@ public class UploadManager {
                 returnInfo = RequestUtils.postRequestHttps(mContext, url, dataInfo, headInfo);
             }
             policyAnalysis(analysisStrategy(returnInfo));
-        } catch (Throwable e) {
-
-        }
+        } catch (Throwable e) { }
     }
 
     /**
@@ -331,19 +367,6 @@ public class UploadManager {
                     SharedUtil.setLong(mContext, Constants.SP_SEND_TIME,
                             System.currentTimeMillis());
                     LogPrompt.showSendResults(true);
-                } else {
-                    JSONObject policyJson = json.optJSONObject(Constants.SERVICE_POLICY);
-                    if (!CommonUtils.isEmpty(policyJson)) {
-                        String serviceHash = SharedUtil.getString(mContext,
-                                Constants.SP_SERVICE_HASH, null);
-                        if (CommonUtils.isEmpty(serviceHash)
-                                || !serviceHash.equals(
-                                policyJson.optString(Constants.SERVICE_HASH))) {
-                            PolicyManager.analysisStrategy(mContext, policyJson);
-                        }
-                    }
-                    LogPrompt.showSendResults(false);
-                    reUpload();
                 }
             } else {
                 reUpload();

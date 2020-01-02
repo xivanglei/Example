@@ -21,7 +21,7 @@ public class App extends Application {
         config.setChannel("testChannel");
 //        config.setPartnerCode("随便传传");
         AnalysisAgent.init(this, config);
-        AnalysisAgent.setUploadURL(this, "http://116.62.6.159:18306/v1/report");
+        AnalysisAgent.setUploadURL(this, "http://116.62.6.159:18306/v1");
         AnalysisAgent.setMaxCacheSize(this, 101);
         AnalysisAgent.setMaxEventSize(this, 10);
         AnalysisAgent.setIntervalTime(this, 10);

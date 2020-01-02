@@ -7,7 +7,6 @@ import com.dalongtech.analysis.constants.Constants;
 import com.dalongtech.analysis.constants.ExtraConst;
 import com.dalongtech.analysis.utils.CheckUtils;
 import com.dalongtech.analysis.utils.CommonUtils;
-import com.dalongtech.analysis.utils.InternalAgent;
 import com.dalongtech.analysis.utils.LogPrompt;
 import com.dalongtech.analysis.utils.ParameterAddUtil;
 import com.dalongtech.analysis.utils.SharedUtil;
@@ -131,7 +130,7 @@ public class DataAssemble {
     private void putBaseInfo(JSONObject allJob, String eventName) {
         CommonUtils.pushToJSON(allJob, Constants.EVENT, eventName);
         CommonUtils.pushToJSON(allJob, ExtraConst.PLATFORM, ExtraConst.C_V_PLATFORM);
-        CommonUtils.pushToJSON(allJob, ExtraConst.C_CID, InternalAgent.getIMEI(mContext));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_CID, CommonUtils.getCId(mContext));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, CommonUtils.getCAgent(mContext));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_APP_VERSION, CommonUtils.getVersionName(mContext));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_PARTNER_CODE, CommonUtils.getPartnerCode(mContext));

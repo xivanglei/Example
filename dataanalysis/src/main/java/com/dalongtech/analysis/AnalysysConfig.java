@@ -65,12 +65,6 @@ public class AnalysysConfig {
         this.autoProfile = autoProfile;
     }
 
-    /**
-     * 获取渠道归因设置
-     */
-    public boolean isAutoInstallation() {
-        return autoInstallation;
-    }
 //
 //    /**
 //     * 设置渠道归因是否开启

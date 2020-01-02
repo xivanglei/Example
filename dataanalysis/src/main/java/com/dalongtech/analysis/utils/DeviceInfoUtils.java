@@ -90,7 +90,7 @@ public class DeviceInfoUtils {
         }
     }
 
-    private static String getAndroidID(Context context) {
+    public static String getAndroidID(Context context) {
         String id = "";
         try {
             id = Settings.System.getString(context.getContentResolver(),

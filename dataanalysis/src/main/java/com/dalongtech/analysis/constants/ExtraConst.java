@@ -17,7 +17,7 @@ public interface ExtraConst {
     String C_DEBUG = "$debug";
     String C_IS_LOGIN = "$is_login";
 
-    String C_CHANNEL = "channel_code";
+    String C_CHANNEL = "$channel_code";
     String C_TIME_ZONE = "$time_zone";
     String C_MANUFACTURER = "$manufacturer";
     String C_APP_VERSION = "$app_version";
@@ -44,5 +44,11 @@ public interface ExtraConst {
 
     String C_V_PLATFORM = "Android";
     String C_V_OS = "Android";
+    String IDENT_KEY = "ident_key";
+    String IDENT_VALUE = "ident_value";
+
+    String URL_EVENT = "/report";       //用户事件上报
+    String URL_GET_CID = "/client";     //获取cid
+    String URL_LOGIN = "/client/user";  //登录
 
 }

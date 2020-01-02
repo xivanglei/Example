@@ -211,6 +211,8 @@ public class CommonUtils {
         return baseMessage;
     }
 
+
+
     /**
      * base64解码 gzip解压缩
      */
@@ -811,6 +813,14 @@ public class CommonUtils {
      */
     public static String getPartnerCode(Context context) {
         return SharedUtil.getString(context, Constants.SP_PARTNER_CODE, "");
+    }
+
+    public static void setCId(Context context, String cId) {
+        SharedUtil.setString(context, Constants.SP_C_ID, cId);
+    }
+
+    public static String getCId(Context context) {
+        return SharedUtil.getString(context, Constants.SP_C_ID, "");
     }
 
     /**

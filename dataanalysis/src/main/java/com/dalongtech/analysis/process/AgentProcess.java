@@ -9,12 +9,15 @@ import android.util.Log;
 import com.dalongtech.analysis.AnalysysConfig;
 import com.dalongtech.analysis.AutomaticAcquisition;
 import com.dalongtech.analysis.constants.Constants;
+import com.dalongtech.analysis.constants.ExtraConst;
 import com.dalongtech.analysis.database.TableAllInfo;
+import com.dalongtech.analysis.network.HttpCallback;
 import com.dalongtech.analysis.network.UploadManager;
 import com.dalongtech.analysis.utils.ANSLog;
 import com.dalongtech.analysis.utils.ANSThreadPool;
 import com.dalongtech.analysis.utils.CheckUtils;
 import com.dalongtech.analysis.utils.CommonUtils;
+import com.dalongtech.analysis.utils.DeviceInfoUtils;
 import com.dalongtech.analysis.utils.InternalAgent;
 import com.dalongtech.analysis.utils.LogPrompt;
 import com.dalongtech.analysis.utils.LogUtil;
@@ -73,8 +76,6 @@ public class AgentProcess {
                         if (CommonUtils.isMainProcess(context)) {
                             // 设置首次启动是否发送
                             Constants.isAutoProfile = config.isAutoProfile();
-                            // 设置渠道归因是否开启
-                            Constants.autoInstallation = config.isAutoInstallation();
                             // 重置PV计数器值
                             CommonUtils.resetCount(context.getFilesDir().getAbsolutePath());
                             long MaxDiffTimeInterval = config.getMaxDiffTimeInterval();
@@ -110,11 +111,8 @@ public class AgentProcess {
                     Constants.API_APP_START, Constants.STARTUP, null, startUpMap);
             eventData.put(Constants.TIME_STAMP, startTime);
             trackEvent(context, Constants.API_APP_START, Constants.STARTUP, eventData);
-            if (CommonUtils.isFirstStart(context)) {
-                sendProfileSetOnce(context, 0);
-                if (Constants.autoInstallation) {
-                    sendFirstInstall(context);
-                }
+            if (CommonUtils.isFirstStart(context) || TextUtils.isEmpty(CommonUtils.getCId(context))) {
+                sendFirstInstall(context);
             }
         } catch (Throwable throwable) {
         }
@@ -322,14 +320,38 @@ public class AgentProcess {
     /**
      * 渠道归因
      */
-    private void sendFirstInstall(Context context) throws Exception {
-        if (context != null) {
-            JSONObject eventData = DataAssemble.getInstance(context).getEventData(
-                    Constants.API_FIRST_INSTALL, Constants.FIRST_INSTALL,
-                    null, Constants.utm);
-            trackEvent(context, Constants.API_FIRST_INSTALL,
-                    Constants.FIRST_INSTALL, eventData);
-        }
+    private void sendFirstInstall(final Context context) throws Exception {
+        UploadManager.getInstance(context).directSendRequest(getFirstInstallParam(context), new HttpCallback() {
+            @Override
+            public void success(String data) {
+                try {
+                    JSONObject json = new JSONObject(data);
+                    CommonUtils.setCId(context, json.optString(Constants.SERVICE_CID));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void failed(int code, String message) { }
+        });
+    }
+
+    private String getFirstInstallParam(Context context) {
+        JSONObject allJob = new JSONObject();
+        CommonUtils.pushToJSON(allJob, ExtraConst.PLATFORM, ExtraConst.C_V_PLATFORM);
+        CommonUtils.pushToJSON(allJob, ExtraConst.IDENT_KEY, DeviceInfoUtils.getDeviceID(context));
+        CommonUtils.pushToJSON(allJob, ExtraConst.IDENT_VALUE, DeviceInfoUtils.getAndroidID(context));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_APP_VERSION, CommonUtils.getVersionName(context));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_CHANNEL, CommonUtils.getChannel(context));
+        CommonUtils.pushToJSON(allJob, Constants.APP_KEY, CommonUtils.getAppKey(context));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_PARTNER_CODE, CommonUtils.getPartnerCode(context));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, CommonUtils.getCAgent(context));
+        CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, System.currentTimeMillis() / 1000);
+        return String.valueOf(allJob);
+    }
+
+    public void login() {
+
     }
 
     /**

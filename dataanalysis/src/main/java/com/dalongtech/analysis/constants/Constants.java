@@ -70,6 +70,7 @@ public class Constants {
 
     public static final String SP_C_AGENT = "c_agent";
     public static final String SP_PARTNER_CODE = "partner_code";
+    public static final String SP_C_ID = "c_id";
     public static final String SP_CHANNEL = "appChannel";
     public static final String SP_APP_KEY = "appKey";
     public static final String SP_SEND_TIME = "uploadTime";
@@ -109,6 +110,11 @@ public class Constants {
     public static final String REAL_TIME_DATA = "realTimeData";
 
     public static final String SERVICE_CODE = "code";
+    public static final String SERVICE_MSG = "msg";
+    public static final String SERVICE_DATA = "data";
+
+    public static final String SERVICE_CID = "cid";
+
     public static final String SERVICE_POLICY = "policy";
     public static final String SERVICE_POLICY_NO = "policyNo";
     public static final String SERVICE_EVENT_COUNT = "eventCount";
@@ -252,7 +258,7 @@ public class Constants {
     public static boolean isAutoProfile = true;
     public static boolean autoHeatMap = false;
     public static int encryptType = 0;
-    public static boolean autoInstallation = false;
+    public static boolean autoInstallation = true;
     public static Map<String, Object> utm = null;
 
     // 用户设置是否允许时间校准
