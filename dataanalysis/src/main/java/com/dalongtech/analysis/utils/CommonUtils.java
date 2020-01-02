@@ -823,35 +823,28 @@ public class CommonUtils {
         return SharedUtil.getString(context, Constants.SP_C_ID, "");
     }
 
+    public static void setVipGrade(Context context, String cId) {
+        SharedUtil.setString(context, Constants.SP_VIP_GRADE, cId);
+    }
+
+    public static String getVipGrade(Context context) {
+        return SharedUtil.getString(context, Constants.SP_VIP_GRADE, "");
+    }
+
     /**
      * 获取distinct id 如果用户没有调用，获取androidId
      */
     public static String getUserId(Context context) {
-        String id = getIdFile(context, Constants.SP_ALIAS_ID);
-        if (!isEmpty(id)) {
-            return id;
-        }
-        id = getIdFile(context, Constants.SP_DISTINCT_ID);
-        if (!isEmpty(id)) {
-            return id;
-        }
-        id = getIdFile(context, Constants.SP_UUID);
-        if (!isEmpty(id)) {
-            return id;
-        }
-        if (TextUtils.isEmpty(id)) {
-            id = transSaveId(context);
-        }
-        return id;
+        return getIdFile(context, Constants.SP_USER_ID);
     }
 
     /**
      * 转存id
      */
     private static String transSaveId(Context context) {
-        String aliasId = SharedUtil.getString(context, Constants.SP_ALIAS_ID, null);
-        if (!TextUtils.isEmpty(aliasId)) {
-            setIdFile(context, Constants.SP_ALIAS_ID, aliasId);
+        String userId = SharedUtil.getString(context, Constants.SP_USER_ID, null);
+        if (!TextUtils.isEmpty(userId)) {
+            setIdFile(context, Constants.SP_USER_ID, userId);
         }
         String distinctId = SharedUtil.getString(context, Constants.SP_DISTINCT_ID, null);
         if (!TextUtils.isEmpty(distinctId)) {
@@ -863,8 +856,8 @@ public class CommonUtils {
         }
         setIdFile(context, Constants.SP_UUID, uuid);
 
-        if (!TextUtils.isEmpty(aliasId)) {
-            return aliasId;
+        if (!TextUtils.isEmpty(userId)) {
+            return userId;
         }
         if (!TextUtils.isEmpty(distinctId)) {
             return distinctId;

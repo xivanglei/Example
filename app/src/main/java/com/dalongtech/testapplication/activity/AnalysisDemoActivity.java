@@ -65,7 +65,7 @@ public class AnalysisDemoActivity extends SimpleActivity implements ANSAutoPageT
 
     @OnClick(R.id.btn_login)
     public void login() {
-        AnalysisAgent.alias(this, "我登录了", null);
+//        AnalysisAgent.login(this, "我登录了", null);
     }
 
 

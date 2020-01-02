@@ -17,7 +17,7 @@ public class Constants {
     public static final String PAGE_VIEW = "pageview";
     public static final String STARTUP = "$startup";
     public static final String END = "end";
-    public static final String ALIAS = "$alias";
+    public static final String LOGIN = "login";
     public static final String ORIGINAL_ID = "$original_id";
     public static final String TRACK = "$track";
     public static final String APP_CLICK = "$app_click";
@@ -71,10 +71,11 @@ public class Constants {
     public static final String SP_C_AGENT = "c_agent";
     public static final String SP_PARTNER_CODE = "partner_code";
     public static final String SP_C_ID = "c_id";
+    public static final String SP_VIP_GRADE = "vip_grade";
     public static final String SP_CHANNEL = "appChannel";
     public static final String SP_APP_KEY = "appKey";
     public static final String SP_SEND_TIME = "uploadTime";
-    public static final String SP_ALIAS_ID = "aliasId";
+    public static final String SP_USER_ID = "userId";
     public static final String SP_DISTINCT_ID = "distinctId";
     public static final String SP_UUID = "uuid";
     public static final String SP_ORIGINAL_ID = "originalId";
@@ -202,7 +203,7 @@ public class Constants {
     public static final String API_SET_UPLOAD_URL = "setUploadURL";
     public static final String API_TRACK = "track";
     public static final String API_PAGE_VIEW = "pageView";
-    public static final String API_ALIAS = "alias";
+    public static final String API_LOGIN = "login";
     public static final String API_IDENTIFY = "identify";
     public static final String API_APP_START = "appStart";
     public static final String API_APP_END = "appEnd";

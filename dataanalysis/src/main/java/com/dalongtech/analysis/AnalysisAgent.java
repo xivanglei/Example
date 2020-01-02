@@ -94,30 +94,11 @@ public class AnalysisAgent {
      * 新distinctID关联到原有originalID
      * originalID 原始id. 该变量将会映射到aliasID,
      *
-     * @param aliasId 长度大于0且小于255字符
-     * @param originalId 可以是现在使用也可以是历史使用的id,不局限于本地正使用的distinctId,
+     * @param userId 长度大于0且小于255字符
      * 若为空则使用本地的distinctId,长度大于0且小于255字符
      */
-    public static void alias(Context context, String aliasId, String originalId) {
-        AgentProcess.getInstance(context).alias(aliasId, originalId);
-    }
-
-    /**
-     * 用户ID设置
-     *
-     * @param distinctId 唯一身份标识,长度大于0且小于255字符
-     */
-    public static void identify(Context context, String distinctId) {
-        AgentProcess.getInstance(context).identify(distinctId);
-    }
-
-    /**
-     * 获取匿名 id
-     * 如果用户通过identify接口设置，则返回设置id ；
-     * 如未设置，则返回代码自动生成的uuid
-     */
-    public static String getDistinctId(Context context) {
-        return AgentProcess.getInstance(context).getDistinctId();
+    public static void login(Context context, String userId, String vip_grade, int is_register) {
+        AgentProcess.getInstance(context).login(userId, vip_grade, is_register);
     }
 
     /**

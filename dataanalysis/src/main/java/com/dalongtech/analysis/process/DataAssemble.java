@@ -97,7 +97,7 @@ public class DataAssemble {
      * 添加通用属性
      */
     private void mergeSuperProperty(String eventName, Map<String, Object> data) throws JSONException {
-        if (!Constants.ALIAS.equals(eventName) && !eventName.startsWith(Constants.PROFILE)) {
+        if (!Constants.LOGIN.equals(eventName) && !eventName.startsWith(Constants.PROFILE)) {
             String property = SharedUtil.getString(
                     mContext, Constants.SP_SUPER_PROPERTY, null);
             if (!TextUtils.isEmpty(property)) {
@@ -138,6 +138,5 @@ public class DataAssemble {
         CommonUtils.pushToJSON(allJob, ExtraConst.C_CHANNEL, CommonUtils.getChannel(mContext));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_SDK_VERSION, Constants.DEV_SDK_VERSION);
         CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, System.currentTimeMillis() / 1000);
-        CommonUtils.pushToJSON(allJob, Constants.USER, CommonUtils.getUserId(mContext));
     }
 }

@@ -26,6 +26,5 @@ public class App extends Application {
         AnalysisAgent.setMaxEventSize(this, 10);
         AnalysisAgent.setIntervalTime(this, 10);
         AnalysisAgent.setDebugMode(this, 0);
-        AnalysisAgent.identify(this, "我是默认身份，登录后替换");
     }
 }

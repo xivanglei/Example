@@ -227,7 +227,7 @@ public class AgentProcess {
         // 重置 通用属性
         SharedUtil.remove(context, Constants.SP_SUPER_PROPERTY);
         // 重置 alias id
-        CommonUtils.setIdFile(context, Constants.SP_ALIAS_ID, "");
+        CommonUtils.setIdFile(context, Constants.SP_USER_ID, "");
         // 重置identify
         CommonUtils.setIdFile(context, Constants.SP_DISTINCT_ID, "");
         // 修改 isLogin
@@ -321,7 +321,8 @@ public class AgentProcess {
      * 渠道归因
      */
     private void sendFirstInstall(final Context context) throws Exception {
-        UploadManager.getInstance(context).directSendRequest(getFirstInstallParam(context), new HttpCallback() {
+        String url = CommonUtils.getUrl(context) + ExtraConst.URL_GET_CID;
+        UploadManager.getInstance(context).directSendRequest(url, getFirstInstallParam(context), new HttpCallback() {
             @Override
             public void success(String data) {
                 try {
@@ -336,6 +337,15 @@ public class AgentProcess {
         });
     }
 
+    private void bindCidAndUserId(Context context) throws Exception{
+        String url = CommonUtils.getUrl(context) + ExtraConst.URL_LOGIN;
+        JSONObject allJob = new JSONObject();
+        CommonUtils.pushToJSON(allJob, Constants.USER, CommonUtils.getUserId(context));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_CID, CommonUtils.getCId(context));
+        CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, System.currentTimeMillis() / 1000);
+        UploadManager.getInstance(context).directSendRequest(url, String.valueOf(allJob), null);
+    }
+
     private String getFirstInstallParam(Context context) {
         JSONObject allJob = new JSONObject();
         CommonUtils.pushToJSON(allJob, ExtraConst.PLATFORM, ExtraConst.C_V_PLATFORM);
@@ -348,10 +358,6 @@ public class AgentProcess {
         CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, CommonUtils.getCAgent(context));
         CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, System.currentTimeMillis() / 1000);
         return String.valueOf(allJob);
-    }
-
-    public void login() {
-
     }
 
     /**
@@ -594,43 +600,31 @@ public class AgentProcess {
 
     /**
      * alias id
+     * is_register 1注册用户/0游客
+     * vip_grade 会员等级
      */
-    public void alias(final String aliasId, final String originalId) {
+    public void login(final String userId, final String vip_grade, final int is_register) {
         ANSThreadPool.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     Context context = ContextManager.getContext();
                     if (context != null) {
-                        if (!CheckUtils.checkIdLength(aliasId)) {
-                            LogPrompt.showLog(Constants.API_ALIAS, LogBean.getLog());
+                        if (!CheckUtils.checkIdLength(userId)) {
+                            LogPrompt.showLog(Constants.API_LOGIN, LogBean.getLog());
                             return;
                         }
-                        if (!CommonUtils.isEmpty(originalId)
-                                && !CheckUtils.checkOriginalIdLength(originalId)) {
-                            LogPrompt.showLog(Constants.API_ALIAS, LogBean.getLog());
-                            return;
-                        }
-                        String original = originalId;
-                        if (CommonUtils.isEmpty(original)) {
-                            original = CommonUtils.getDistinctId(context);
-                        } else {
-                            SharedUtil.setString(context, Constants.SP_ORIGINAL_ID, original);
-                        }
-                        CommonUtils.setIdFile(context, Constants.SP_ALIAS_ID, aliasId);
-                        SharedUtil.setInt(context, Constants.SP_IS_LOGIN, 1);
-
-                        Map<String, Object> aliasMap = new HashMap<>();
-                        aliasMap.put(Constants.ORIGINAL_ID, original);
-
+                        CommonUtils.setIdFile(context, Constants.SP_USER_ID, userId);
+                        SharedUtil.setInt(context, Constants.SP_IS_LOGIN, is_register);
+                        CommonUtils.setVipGrade(context, vip_grade);
+                        if(is_register == 1) bindCidAndUserId(context);
+                        Map<String, Object> loginMap = new HashMap<>();
                         JSONObject eventData = DataAssemble.getInstance(context).getEventData(
-                                Constants.API_ALIAS, Constants.ALIAS, aliasMap, null);
-
+                                Constants.API_LOGIN, Constants.LOGIN, loginMap, null);
                         if (!CommonUtils.isEmpty(eventData)) {
-                            trackEvent(context, Constants.API_ALIAS, Constants.ALIAS, eventData);
-                            sendProfileSetOnce(context, 0);
+                            trackEvent(context, Constants.API_LOGIN, Constants.LOGIN, eventData);
                         } else {
-                            LogPrompt.showLog(Constants.API_ALIAS, false);
+                            LogPrompt.showLog(Constants.API_LOGIN, false);
                         }
                     }
                 } catch (Throwable throwable) {

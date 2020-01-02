@@ -1,6 +1,7 @@
 package com.dalongtech.analysis.utils;
 
 import android.content.Context;
+import android.os.Build;
 
 import com.dalongtech.analysis.constants.Constants;
 import com.dalongtech.analysis.constants.ExtraConst;
@@ -25,9 +26,15 @@ public class ParameterAddUtil {
                 map.put(ExtraConst.C_IS_FIRST_TIME, CommonUtils.isFirstStart(context));
                 map.put(ExtraConst.C_SCREEN_WIDTH, CommonUtils.getScreenWidth(context));
                 map.put(ExtraConst.C_SCREEN_HEIGHT, CommonUtils.getScreenHeight(context));
+                map.put(Constants.USER, CommonUtils.getUserId(context));
+                map.put(ExtraConst.IS_REGISTER, InternalAgent.getLogin(context));
                 break;
-            case Constants.ALIAS:
+            case Constants.LOGIN:
                 map.put(ExtraConst.C_NETWORK, CommonUtils.networkType(context));
+                map.put(ExtraConst.SYSTEM_VERSION, Build.VERSION.SDK_INT);
+                map.put(Constants.USER, CommonUtils.getUserId(context));
+                map.put(ExtraConst.IS_REGISTER, InternalAgent.getLogin(context));
+                map.put(ExtraConst.VIP_GRADE, CommonUtils.getVipGrade(context));
                 break;
             case Constants.END:
                 map.put(ExtraConst.C_NETWORK, CommonUtils.networkType(context));
@@ -35,6 +42,8 @@ public class ParameterAddUtil {
                 map.put(ExtraConst.C_IS_FIRST_TIME, CommonUtils.isFirstStart(context));
                 map.put(ExtraConst.C_SCREEN_WIDTH, CommonUtils.getScreenWidth(context));
                 map.put(ExtraConst.C_SCREEN_HEIGHT, CommonUtils.getScreenHeight(context));
+                map.put(Constants.USER, CommonUtils.getUserId(context));
+                map.put(ExtraConst.IS_REGISTER, InternalAgent.getLogin(context));
                 break;
 //            case Constants.PROFILE:
 //                map.put(ExtraConst.C_MAC, InternalAgent.getMac(context));

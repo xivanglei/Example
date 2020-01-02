@@ -50,5 +50,9 @@ public interface ExtraConst {
     String URL_EVENT = "/report";       //用户事件上报
     String URL_GET_CID = "/client";     //获取cid
     String URL_LOGIN = "/client/user";  //登录
+    String SYSTEM_VERSION = "system_version";       //系统版本
+    String VIP_GRADE = "vip_grade";         //会员等级
+    String IS_REGISTER = "is_register";     //是否注册
+    String UID = "uid";
 
 }

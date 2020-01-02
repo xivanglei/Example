@@ -268,11 +268,10 @@ public class UploadManager {
     /**
      * 发送数据
      */
-    public void directSendRequest(final String value, final HttpCallback callback) throws IOException {
+    public void directSendRequest(final String url, final String value, final HttpCallback callback) throws IOException {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                String url = CommonUtils.getUrl(mContext) + ExtraConst.URL_GET_CID;
                 LogUtil.d(value);
                 Map<String, String> headInfo = getHeadInfo(value);
                 try {
@@ -285,6 +284,7 @@ public class UploadManager {
                     }
                     LogUtil.d(returnInfo);
                     JSONObject json = analysisStrategy(returnInfo);
+                    if(callback == null) return;
                     if(json == null) {
                         callback.failed(-1, "收到的响应数据解析异常");
                         return;
