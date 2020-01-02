@@ -20,10 +20,10 @@ import java.util.regex.Pattern;
 public class ParameterCheck {
 
     private static final String[] reservedKeywords = new String[] {
-            "xwhat",
-            "xwhen",
-            "xwho",
-            "appid",
+            "event",
+            "$time_stamp",
+            "$user",
+            "$appkey",
             "xcontext",
             "$lib",
             "$lib_version",

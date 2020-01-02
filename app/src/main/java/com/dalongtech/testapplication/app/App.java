@@ -17,14 +17,14 @@ public class App extends Application {
         super.onCreate();
         AnalysysConfig config = new AnalysysConfig();
         config.setAppKey("test-key");
-        config.setAutoInstallation(true);
         config.setAutoProfile(true);
         config.setChannel("testChannel");
+//        config.setPartnerCode("随便传传");
         AnalysisAgent.init(this, config);
-        AnalysisAgent.setUploadURL(this, "http://www.baidu.com");
+        AnalysisAgent.setUploadURL(this, "http://116.62.6.159:18306/v1/report");
         AnalysisAgent.setMaxCacheSize(this, 101);
-        AnalysisAgent.setMaxEventSize(this, 95);
-        AnalysisAgent.setIntervalTime(this, 60);
+        AnalysisAgent.setMaxEventSize(this, 10);
+        AnalysisAgent.setIntervalTime(this, 10);
         AnalysisAgent.setDebugMode(this, 0);
         AnalysisAgent.identify(this, "我是默认身份，登录后替换");
     }

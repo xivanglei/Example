@@ -31,6 +31,7 @@ public class TestActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
+        LogUtil.d(Integer.toHexString(250));
         mData = AESUtil.encryptAES(content);
     }
 

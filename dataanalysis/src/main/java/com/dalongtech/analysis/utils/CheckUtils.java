@@ -26,16 +26,15 @@ public class CheckUtils {
      */
     public static JSONObject checkField(JSONObject eventInfo) {
         if (eventInfo != null) {
-            String appId = eventInfo.optString(Constants.APP_ID);
-            long xWhen = eventInfo.optLong(Constants.X_WHEN);
-            String xWho = eventInfo.optString(Constants.X_WHO);
-            String xWhat = eventInfo.optString(Constants.X_WHAT);
+            String appkey = eventInfo.optString(Constants.APP_KEY);
+            long timeStamp = eventInfo.optLong(Constants.TIME_STAMP);
+            String user = eventInfo.optString(Constants.USER);
+            String event = eventInfo.optString(Constants.EVENT);
             JSONObject xContext = eventInfo.optJSONObject(Constants.X_CONTEXT);
-            if (TextUtils.isEmpty(appId) || TextUtils.isEmpty(appId.trim())
-                    || xWhen == 0
-                    || TextUtils.isEmpty(xWho) || TextUtils.isEmpty(xWho.trim())
-                    || TextUtils.isEmpty(xWhat) || TextUtils.isEmpty(xWhat.trim())
-                    || CommonUtils.isEmpty(xContext)) {
+            if (TextUtils.isEmpty(appkey) || TextUtils.isEmpty(appkey.trim())
+                    || timeStamp == 0
+                    || TextUtils.isEmpty(user) || TextUtils.isEmpty(user.trim())
+                    || TextUtils.isEmpty(event) || TextUtils.isEmpty(event.trim())) {
                 return null;
             }
         }

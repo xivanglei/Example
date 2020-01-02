@@ -1,6 +1,7 @@
 package com.dalongtech.testapplication.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.dalongtech.analysis.ANSAutoPageTracker;
 import com.dalongtech.analysis.AnalysisAgent;
@@ -65,5 +66,26 @@ public class AnalysisDemoActivity extends SimpleActivity implements ANSAutoPageT
     @OnClick(R.id.btn_login)
     public void login() {
         AnalysisAgent.alias(this, "我登录了", null);
+    }
+
+
+    /**
+     * 获取字符数
+     */
+
+    public static int getByteLength(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char item = str.charAt(i);
+            if (item < 128) {
+                count = count + 1;
+            } else {
+                count = count + 2;
+            }
+        }
+        return count;
     }
 }

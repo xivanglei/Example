@@ -68,11 +68,11 @@ public class AgentProcess {
                     if (context != null) {
                         saveKey(context, config.getAppKey());
                         saveChannel(context, config.getChannel());
+                        saveCAgent(context, config.getcAgent());
+                        savePartnerCode(context, config.getPartnerCode());
                         if (CommonUtils.isMainProcess(context)) {
                             // 设置首次启动是否发送
                             Constants.isAutoProfile = config.isAutoProfile();
-                            // 设置加密类型
-                            Constants.encryptType = config.getEncryptType().getType();
                             // 设置渠道归因是否开启
                             Constants.autoInstallation = config.isAutoInstallation();
                             // 重置PV计数器值
@@ -108,7 +108,7 @@ public class AgentProcess {
             startUpMap.put(Constants.DEV_IS_FROM_BACKGROUND, isFromBackground);
             JSONObject eventData = DataAssemble.getInstance(context).getEventData(
                     Constants.API_APP_START, Constants.STARTUP, null, startUpMap);
-            eventData.put(Constants.X_WHEN, startTime);
+            eventData.put(Constants.TIME_STAMP, startTime);
             trackEvent(context, Constants.API_APP_START, Constants.STARTUP, eventData);
             if (CommonUtils.isFirstStart(context)) {
                 sendProfileSetOnce(context, 0);
@@ -131,7 +131,7 @@ public class AgentProcess {
                 if (context != null && realTimeField != null) {
                     JSONObject endData = DataAssemble.getInstance(context).getEventData(
                             Constants.API_APP_END, Constants.END, null, null);
-                    endData.put(Constants.X_WHEN, time);
+                    endData.put(Constants.TIME_STAMP, time);
                     JSONObject xContData = endData.optJSONObject(Constants.X_CONTEXT);
                     CommonUtils.mergeJson(realTimeField, xContData);
                     endData.put(Constants.X_CONTEXT, xContData);
@@ -152,6 +152,24 @@ public class AgentProcess {
             LogPrompt.showChannelLog(true, channel);
         } else {
             LogPrompt.showChannelLog(false, channel);
+        }
+    }
+
+    private void saveCAgent(Context context, String cAgent) {
+        if (!CommonUtils.isEmpty(cAgent)) {
+            SharedUtil.setString(context, Constants.SP_C_AGENT, cAgent);
+            LogPrompt.showCAgentLog(true, cAgent);
+        } else {
+            LogPrompt.showCAgentLog(false, cAgent);
+        }
+    }
+
+    private void savePartnerCode(Context context, String partnerCode) {
+        if (!CommonUtils.isEmpty(partnerCode)) {
+            SharedUtil.setString(context, Constants.SP_PARTNER_CODE, partnerCode);
+            LogPrompt.showCAgentLog(true, partnerCode);
+        } else {
+            LogPrompt.showCAgentLog(false, partnerCode);
         }
     }
 
@@ -268,7 +286,7 @@ public class AgentProcess {
      * 校验数据是否符合上传格式
      */
     private boolean checkoutEvent(JSONObject eventData) {
-        if (CommonUtils.isEmpty(eventData.optString(Constants.APP_ID))) {
+        if (CommonUtils.isEmpty(eventData.optString(Constants.APP_KEY))) {
             LogPrompt.keyFailed();
             return false;
         }
@@ -460,7 +478,7 @@ public class AgentProcess {
                             return;
                         }
                         if (!CommonUtils.isEmpty(getUrl)) {
-                            saveUploadUrl(context, getUrl + "/up");
+                            saveUploadUrl(context, getUrl);
                         } else {
                             LogPrompt.showErrLog(LogPrompt.URL_ERR);
                         }

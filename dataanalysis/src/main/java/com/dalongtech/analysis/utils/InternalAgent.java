@@ -40,7 +40,7 @@ public class InternalAgent {
     /**
      * 获取AppKey
      */
-    public static String getAppId(Context context) {
+    public static String getAppKey(Context context) {
         return CommonUtils.getAppKey(context);
     }
 
@@ -177,10 +177,7 @@ public class InternalAgent {
      * 获取 IMEI
      */
     public static String getIMEI(Context context) {
-        if (CommonUtils.isAutoCollect(context, Constants.META_DATA_IMEI)) {
-            return CommonUtils.getIMEI(context);
-        }
-        return Constants.EMPTY;
+        return CommonUtils.getIMEI(context);
     }
 
     /**

@@ -7,6 +7,7 @@ import com.dalongtech.analysis.constants.Constants;
 import com.dalongtech.analysis.constants.ExtraConst;
 import com.dalongtech.analysis.utils.CheckUtils;
 import com.dalongtech.analysis.utils.CommonUtils;
+import com.dalongtech.analysis.utils.InternalAgent;
 import com.dalongtech.analysis.utils.LogPrompt;
 import com.dalongtech.analysis.utils.ParameterAddUtil;
 import com.dalongtech.analysis.utils.SharedUtil;
@@ -128,9 +129,16 @@ public class DataAssemble {
     }
 
     private void putBaseInfo(JSONObject allJob, String eventName) {
-        CommonUtils.pushToJSON(allJob, Constants.APP_ID, CommonUtils.getAppKey(mContext));
-        CommonUtils.pushToJSON(allJob, Constants.X_WHO, CommonUtils.getUserId(mContext));
-        CommonUtils.pushToJSON(allJob, Constants.X_WHAT, eventName);
-        CommonUtils.pushToJSON(allJob, Constants.X_WHEN, System.currentTimeMillis());
+        CommonUtils.pushToJSON(allJob, Constants.EVENT, eventName);
+        CommonUtils.pushToJSON(allJob, ExtraConst.PLATFORM, ExtraConst.C_V_PLATFORM);
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_CID, InternalAgent.getIMEI(mContext));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, CommonUtils.getCAgent(mContext));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_APP_VERSION, CommonUtils.getVersionName(mContext));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_PARTNER_CODE, CommonUtils.getPartnerCode(mContext));
+        CommonUtils.pushToJSON(allJob, Constants.APP_KEY, CommonUtils.getAppKey(mContext));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_CHANNEL, CommonUtils.getChannel(mContext));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_SDK_VERSION, Constants.DEV_SDK_VERSION);
+        CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, System.currentTimeMillis() / 1000);
+        CommonUtils.pushToJSON(allJob, Constants.USER, CommonUtils.getUserId(mContext));
     }
 }

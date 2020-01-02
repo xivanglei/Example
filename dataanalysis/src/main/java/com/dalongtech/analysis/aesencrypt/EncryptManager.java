@@ -24,10 +24,10 @@ public class EncryptManager {
     /**
      * 获取加密key
      */
-    private static String getEncryptKey(String platform, String appId, String sdkVersionName,
+    private static String getEncryptKey(String platform, String appKey, String sdkVersionName,
                                         String time) {
         try {
-            String originalKey = platform + appId + sdkVersionName + time;
+            String originalKey = platform + appKey + sdkVersionName + time;
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             String md5Code = AESEncrypt.toHex(md5.digest(originalKey.getBytes("utf-8")));
             String encodeKey = Base64Utils.encode(md5Code.getBytes());
@@ -107,10 +107,10 @@ public class EncryptManager {
     /**
      * aes加密
      */
-    public String dataEncrypt(String appId, String version, String data, int encryptType) {
+    public String dataEncrypt(String appKey, String version, String data, int encryptType) {
         String encrypt = null;
         try {
-            String pwd = getEncryptKey("Android", appId, version, requestTime());
+            String pwd = getEncryptKey("Android", appKey, version, requestTime());
             if (pwd != null) {
                 type = encryptType;
                 if (encryptType == 1) {

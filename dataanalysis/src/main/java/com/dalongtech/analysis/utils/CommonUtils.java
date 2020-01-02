@@ -231,7 +231,7 @@ public class CommonUtils {
      */
     public static String getSpvInfo(Context context) {
         try {
-            String appId = getAppKey(context);
+            String appkey = getAppKey(context);
             String sdkVersion = Constants.DEV_SDK_VERSION;
             String policyVersion = SharedUtil.getString(context, Constants.SP_SERVICE_HASH,
                     null);
@@ -239,7 +239,7 @@ public class CommonUtils {
             PackageManager manager = context.getPackageManager();
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             String appVersion = info.versionName;
-            String spv = Constants.PLATFORM + "|" + appId + "|" + sdkVersion + "|" + policyVersion +
+            String spv = Constants.PLATFORM + "|" + appkey + "|" + sdkVersion + "|" + policyVersion +
                             "|" + appVersion;
             return new String(Base64.encode(spv.getBytes(), Base64.DEFAULT));
         } catch (Throwable throwable) {
@@ -795,6 +795,22 @@ public class CommonUtils {
         } catch (Throwable throwable) {
         }
         return channel;
+    }
+
+    /**
+     * 获取 c_agent
+     */
+    public static String getCAgent(Context context) {
+        String channel = "";
+        channel = SharedUtil.getString(context, Constants.SP_C_AGENT, "");
+        return channel;
+    }
+
+    /**
+     * 获取 商户号
+     */
+    public static String getPartnerCode(Context context) {
+        return SharedUtil.getString(context, Constants.SP_PARTNER_CODE, "");
     }
 
     /**

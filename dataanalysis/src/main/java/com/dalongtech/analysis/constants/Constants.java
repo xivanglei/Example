@@ -14,9 +14,9 @@ public class Constants {
 
     public static final String DEV_SDK_VERSION = "1.0.0";
 
-    public static final String PAGE_VIEW = "$pageview";
+    public static final String PAGE_VIEW = "pageview";
     public static final String STARTUP = "$startup";
-    public static final String END = "$end";
+    public static final String END = "end";
     public static final String ALIAS = "$alias";
     public static final String ORIGINAL_ID = "$original_id";
     public static final String TRACK = "$track";
@@ -59,15 +59,17 @@ public class Constants {
     public static final String TOUCH_ELEMENT_TYPE = "$element_type";
     public static final String TOUCH_ELEMENT_CONTENT = "$element_content";
 
-    public static final String X_CONTEXT = "xcontext";
-    public static final String APP_ID = "appid";
-    public static final String X_WHO = "xwho";
-    public static final String X_WHAT = "xwhat";
-    public static final String X_WHEN = "xwhen";
+    public static final String X_CONTEXT = "$content";
+    public static final String APP_KEY = "$appkey";
+    public static final String USER = "$uid";
+    public static final String EVENT = "$event";
+    public static final String TIME_STAMP = "$time_stamp";
 
     public static final String SP_FIRST_START_TIME = "firstStartTime";
     public static final String SP_AUTO_PROFILE = "autoProfile";
 
+    public static final String SP_C_AGENT = "c_agent";
+    public static final String SP_PARTNER_CODE = "partner_code";
     public static final String SP_CHANNEL = "appChannel";
     public static final String SP_APP_KEY = "appKey";
     public static final String SP_SEND_TIME = "uploadTime";
@@ -119,7 +121,7 @@ public class Constants {
 
     public static final String DEV_SYSTEM = "Android";
     public static final String DEV_IS_FIRST_DAY = "$is_first_day";
-    public static final String DEV_IS_FROM_BACKGROUND = "$is_from_background";
+    public static final String DEV_IS_FROM_BACKGROUND = "from_back";
     public static final String DEV_DURATION = "$duration";
     public static final String DEV_FIRST_VISIT_TIME = "$first_visit_time";
     public static final String DEV_RESET_TIME = "$reset_time";

@@ -24,6 +24,12 @@ public class LogPrompt {
     private static final String CHANNEL_SUCCESS = SUCCESS + " Current channel: ";
     private static final String CHANNEL_FAILED = FAILED + " Current channel: ";
 
+    private static final String C_AGENT_SUCCESS = SUCCESS + " Current cAgent: ";
+    private static final String C_AGENT_FAILED = FAILED + " Current cAgent: ";
+
+    private static final String PARTNER_CODE_SUCCESS = SUCCESS + " Current partner_code: ";
+    private static final String PARTNER_CODE_FAILED = FAILED + " Current partner_code: ";
+
     private static final String NOT_EMPTY = FAILED + " Can not be empty!";
 
     private static final String ID_EMPTY = FAILED + " Id can not be empty!";
@@ -114,6 +120,22 @@ public class LogPrompt {
             ANSLog.d(Constants.API_INIT + CHANNEL_SUCCESS + channel);
         } else {
             ANSLog.w(Constants.API_INIT + CHANNEL_FAILED + channel);
+        }
+    }
+
+    public static void showCAgentLog(boolean success, String cAgent) {
+        if (success) {
+            ANSLog.d(Constants.API_INIT + C_AGENT_SUCCESS + cAgent);
+        } else {
+            ANSLog.w(Constants.API_INIT + C_AGENT_FAILED + cAgent);
+        }
+    }
+
+    public static void showPartnerCodeLog(boolean success, String partnerCode) {
+        if (success) {
+            ANSLog.d(Constants.API_INIT + PARTNER_CODE_SUCCESS + partnerCode);
+        } else {
+            ANSLog.w(Constants.API_INIT + PARTNER_CODE_FAILED + partnerCode);
         }
     }
 

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.text.TextUtils;
 
 import com.dalongtech.analysis.aesencrypt.EncryptAgent;
 import com.dalongtech.analysis.constants.Constants;
@@ -18,6 +19,7 @@ import com.dalongtech.analysis.utils.CheckUtils;
 import com.dalongtech.analysis.utils.CommonUtils;
 import com.dalongtech.analysis.utils.LogPrompt;
 import com.dalongtech.analysis.utils.LogUtil;
+import com.dalongtech.analysis.utils.MD5Util;
 import com.dalongtech.analysis.utils.SharedUtil;
 
 import org.json.JSONArray;
@@ -25,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -179,6 +182,8 @@ public class UploadManager {
             eventArray = checkUploadData(eventArray);
             if (!CommonUtils.isEmpty(eventArray)) {
                 LogPrompt.showSendMessage(url, eventArray);
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put("data", eventArray);
                 encryptData(url, String.valueOf(eventArray));
             } else {
                 TableAllInfo.getInstance(mContext).deleteData();
@@ -201,8 +206,8 @@ public class UploadManager {
                 // 过滤异常数据
                 eventInfo = CheckUtils.checkField(eventInfo);
                 if (eventInfo != null) {
-                    long xWhen = eventInfo.optLong(Constants.X_WHEN);
-                    eventInfo.put(Constants.X_WHEN, calibrationTime(xWhen));
+                    long timeStamp = eventInfo.optLong(Constants.TIME_STAMP);
+                    eventInfo.put(Constants.TIME_STAMP, calibrationTime(timeStamp));
                     xContext = eventInfo.optJSONObject(Constants.X_CONTEXT);
                     if (xContext != null && xContext.has(Constants.TIME_CALIBRATED)) {
                         xContext.put(Constants.TIME_CALIBRATED, Constants.isCalibration);
@@ -215,7 +220,7 @@ public class UploadManager {
     }
 
     /**
-     * 校准XWhen时间
+     * 校准timeStamp时间
      */
     private long calibrationTime(long time) {
         if (Constants.isTimeCheck) {
@@ -254,13 +259,14 @@ public class UploadManager {
             spv = CommonUtils.getSpvInfo(mContext);
         }
         Map<String, String> headInfo = getHeadInfo(value);
-        sendRequest(url, value, headInfo);
+        sendRequest(url, "data=" + URLEncoder.encode(value, "UTF-8"), headInfo);
     }
 
     /**
      * 发送数据
      */
     private void sendRequest(String url, String dataInfo, Map<String, String> headInfo) {
+        LogUtil.d(dataInfo);
         try {
             String returnInfo;
             if (url.startsWith(Constants.HTTP)) {
@@ -288,7 +294,7 @@ public class UploadManager {
         Map<String, String> headInfo = new HashMap<>();
         headInfo.put(KeyConst.HEAD_DATA_EN_WAY, TypeConst.ENCRYPT_NONE);
         headInfo.put(KeyConst.HEAD_DATA_LENGTH, String.valueOf(dataInfo.length()));
-
+        headInfo.put(KeyConst.HEAD_DATA_MD5, MD5Util.md5ToStr(dataInfo));
         return headInfo;
     }
 
@@ -319,7 +325,7 @@ public class UploadManager {
         try {
             if (!CommonUtils.isEmpty(json)) {
                 int code = json.optInt(Constants.SERVICE_CODE, -1);
-                if (code == 200 || code == 4200 || code == 400) {
+                if (code == 10000) {
                     resetReUploadParams();
                     TableAllInfo.getInstance(mContext).deleteData();
                     SharedUtil.setLong(mContext, Constants.SP_SEND_TIME,
@@ -417,6 +423,26 @@ public class UploadManager {
 
     private static class Holder {
         public static final UploadManager INSTANCE = new UploadManager();
+    }
+
+    /**
+     * 获取字符数
+     */
+
+    public static int getByteLength(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char item = str.charAt(i);
+            if (item < 128) {
+                count = count + 1;
+            } else {
+                count = count + 2;
+            }
+        }
+        return count;
     }
 
 }

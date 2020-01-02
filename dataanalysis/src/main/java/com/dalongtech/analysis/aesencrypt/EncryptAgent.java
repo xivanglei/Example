@@ -13,8 +13,8 @@ public class EncryptAgent {
     /**
      * 数据AES加密
      */
-    public static String dataEncrypt(String appId, String version, String data, int type) {
-        return EncryptManager.getInstance().dataEncrypt(appId, version, data, type);
+    public static String dataEncrypt(String appKey, String version, String data, int type) {
+        return EncryptManager.getInstance().dataEncrypt(appKey, version, data, type);
     }
 
     /**
