@@ -28,12 +28,10 @@ public class CheckUtils {
         if (eventInfo != null) {
             String appkey = eventInfo.optString(Constants.APP_KEY);
             long timeStamp = eventInfo.optLong(Constants.TIME_STAMP);
-            String user = eventInfo.optString(Constants.USER);
             String event = eventInfo.optString(Constants.EVENT);
             JSONObject xContext = eventInfo.optJSONObject(Constants.X_CONTEXT);
             if (TextUtils.isEmpty(appkey) || TextUtils.isEmpty(appkey.trim())
                     || timeStamp == 0
-                    || TextUtils.isEmpty(user) || TextUtils.isEmpty(user.trim())
                     || TextUtils.isEmpty(event) || TextUtils.isEmpty(event.trim())) {
                 return null;
             }

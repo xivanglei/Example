@@ -169,7 +169,7 @@ public class InternalAgent {
     /**
      * 是否登录
      */
-    public static boolean getLogin(Context context) {
+    public static int getLogin(Context context) {
         return CommonUtils.getLogin(context);
     }
 

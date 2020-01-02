@@ -979,9 +979,8 @@ public class CommonUtils {
     /**
      * 是否登录
      */
-    public static boolean getLogin(Context context) {
-        int isLogin = SharedUtil.getInt(context, Constants.SP_IS_LOGIN, 0);
-        return isLogin == 1;
+    public static int getLogin(Context context) {
+        return SharedUtil.getInt(context, Constants.SP_IS_LOGIN, 0);
     }
 
     /**
