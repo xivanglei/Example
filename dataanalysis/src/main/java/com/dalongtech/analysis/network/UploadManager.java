@@ -22,6 +22,7 @@ import com.dalongtech.analysis.utils.LogPrompt;
 import com.dalongtech.analysis.utils.LogUtil;
 import com.dalongtech.analysis.utils.MD5Util;
 import com.dalongtech.analysis.utils.SharedUtil;
+import com.dalongtech.analysis.utils.WebSocketAESUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +30,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -48,6 +51,7 @@ public class UploadManager {
     private int uploadData = 0x01;
     private int updateTime = 0x03;
     private String spv = "";
+    private static final int LENGTH_COUNT = 4;
 
     private UploadManager() {
         HandlerThread thread = new HandlerThread(Constants.THREAD_NAME, Thread.MIN_PRIORITY);
@@ -257,13 +261,19 @@ public class UploadManager {
      */
     private void encryptDataAndRequest(String url, String value) throws IOException {
         Map<String, String> headInfo = getHeadInfo(value);
-        String encryptData = encryptData("data=" + URLEncoder.encode(value, "UTF-8"));
+        String encryptData = "data=" + URLEncoder.encode(encryptData(value), "UTF-8");
         sendRequest(url, encryptData, headInfo);
     }
 
     private String encryptData(String value) {
-        return value;
+        String encryptData = WebSocketAESUtil.encryptAES(value);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(LENGTH_COUNT + encryptData.length());
+        byteBuffer.putInt(encryptData.length());
+        byteBuffer.put(encryptData.getBytes());
+        return new String(byteBuffer.array());
     }
+
+
 
     /**
      * 发送数据
@@ -275,7 +285,7 @@ public class UploadManager {
                 LogUtil.d(value);
                 Map<String, String> headInfo = getHeadInfo(value);
                 try {
-                    String encryptData = encryptData("data=" + URLEncoder.encode(value, "UTF-8"));
+                    String encryptData = "data=" + URLEncoder.encode(encryptData(value), "UTF-8");
                     String returnInfo;
                     if (url.startsWith(Constants.HTTP)) {
                         returnInfo = RequestUtils.postRequest(url, encryptData, headInfo);
@@ -342,9 +352,11 @@ public class UploadManager {
             if (CommonUtils.isEmpty(policy)) {
                 return null;
             }
-            String unzip = CommonUtils.messageUnzip(policy);
-            LogPrompt.showReturnCode(unzip);
-            return new JSONObject(unzip);
+//            String unzip = CommonUtils.messageUnzip(policy);
+            byte[] bytes = policy.getBytes();
+            String data = WebSocketAESUtil.decryptAES(new String(Arrays.copyOfRange(bytes, LENGTH_COUNT, bytes.length)));
+            LogPrompt.showReturnCode(data);
+            return new JSONObject(data);
         } catch (Throwable e) {
             try {
                 return new JSONObject(policy);
