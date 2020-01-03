@@ -284,6 +284,22 @@ public class CommonUtils {
     }
 
     /**
+     * 获取首次启动时间
+     */
+    public static long getFirstStartTimeStamp(Context context) {
+        String firstTime = getFirstStartTime(context);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.getDefault());
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+        try {
+            return simpleDateFormat.parse(firstTime).getTime();
+        } catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
      * 获取当前日期,格式 yyyy/MM/dd
      */
     public static String getDay(Context context) {

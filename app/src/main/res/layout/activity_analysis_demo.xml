@@ -5,29 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_send_event"
+<!--    <Button-->
+<!--        android:id="@+id/btn_send_event"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="发送普通事件"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_send_profile"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="发送属性事件"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_set_super_properties"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="设置super参数"/>-->
+
+    <EditText
+        android:id="@+id/et_nickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="发送普通事件"/>
+        android:hint="输入用户名"/>
 
-    <Button
-        android:id="@+id/btn_send_profile"
+    <EditText
+        android:id="@+id/et_vip_grade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="发送属性事件"/>
-
-    <Button
-        android:id="@+id/btn_set_super_properties"
+        android:hint="输入会员等级"/>
+    <EditText
+        android:id="@+id/et_is_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="设置super参数"/>
-
+        android:hint="输入1或0表示会员登录或游客登录"/>
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登录设置"/>
+        android:text="登录"/>
 
 
 

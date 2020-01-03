@@ -69,3 +69,5 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["glide-compiler"]
     implementation rootProject.ext.dependencies["cardview-v7"]
 }
+
+

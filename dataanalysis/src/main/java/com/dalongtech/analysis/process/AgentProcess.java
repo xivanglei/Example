@@ -109,7 +109,7 @@ public class AgentProcess {
             startUpMap.put(Constants.DEV_IS_FROM_BACKGROUND, isFromBackground);
             JSONObject eventData = DataAssemble.getInstance(context).getEventData(
                     Constants.API_APP_START, Constants.STARTUP, null, startUpMap);
-            eventData.put(Constants.TIME_STAMP, startTime);
+            eventData.put(Constants.TIME_STAMP, startTime / 1000);
             trackEvent(context, Constants.API_APP_START, Constants.STARTUP, eventData);
             if (CommonUtils.isFirstStart(context) || TextUtils.isEmpty(CommonUtils.getCId(context))) {
                 sendFirstInstall(context);
@@ -129,7 +129,7 @@ public class AgentProcess {
                 if (context != null && realTimeField != null) {
                     JSONObject endData = DataAssemble.getInstance(context).getEventData(
                             Constants.API_APP_END, Constants.END, null, null);
-                    endData.put(Constants.TIME_STAMP, time);
+                    endData.put(Constants.TIME_STAMP, time / 1000);
                     JSONObject xContData = endData.optJSONObject(Constants.X_CONTEXT);
                     CommonUtils.mergeJson(realTimeField, xContData);
                     endData.put(Constants.X_CONTEXT, xContData);
@@ -356,7 +356,7 @@ public class AgentProcess {
         CommonUtils.pushToJSON(allJob, Constants.APP_KEY, CommonUtils.getAppKey(context));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_PARTNER_CODE, CommonUtils.getPartnerCode(context));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, CommonUtils.getCAgent(context));
-        CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, System.currentTimeMillis() / 1000);
+        CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, CommonUtils.getFirstStartTimeStamp(context) / 1000);
         return String.valueOf(allJob);
     }
 
