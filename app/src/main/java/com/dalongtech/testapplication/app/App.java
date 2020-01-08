@@ -1,9 +1,12 @@
 package com.dalongtech.testapplication.app;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 
 import com.dalongtech.analysis.AnalysisAgent;
 import com.dalongtech.analysis.AnalysysConfig;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Author:xianglei
@@ -11,6 +14,8 @@ import com.dalongtech.analysis.AnalysysConfig;
  * Description:
  */
 public class App extends Application {
+
+    private static App instance;
 
     @Override
     public void onCreate() {
@@ -26,5 +31,29 @@ public class App extends Application {
         AnalysisAgent.setMaxEventSize(this, 10);
         AnalysisAgent.setIntervalTime(this, 10);
         AnalysisAgent.setDebugMode(this, 0);
+    }
+
+    public static synchronized App get() {
+        if(instance != null) return instance;
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> activityThread = Class.forName("android.app.ActivityThread");
+            Object at = activityThread.getMethod("currentActivityThread").invoke(null);
+            Object app = activityThread.getMethod("getApplication").invoke(at);
+            if (app == null) {
+                throw new NullPointerException("u should init first");
+            }
+            instance = (App) app;
+            return instance;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("u should init first");
     }
 }
