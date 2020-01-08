@@ -19,7 +19,7 @@ public class CommonUtil {
             URL url = new URL(strUrl);
             URLConnection urlConnection = url.openConnection();
             //处理下载读取长度为-1 问题
-            urlConnection.setRequestProperty("Accept-Encoding", "identity");
+            urlConnection.setRequestProperty("Accept-Encoding", "IDENTITIES");
             urlConnection.connect();
             long fileSize = urlConnection.getContentLength();
             LogUtil.d(fileSize);

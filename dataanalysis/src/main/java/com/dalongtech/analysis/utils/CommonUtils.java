@@ -15,6 +15,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -1029,6 +1030,16 @@ public class CommonUtils {
         } catch (Throwable throwable) {
         }
         return Constants.EMPTY;
+    }
+
+    public static String getDeviceId(Context var0) {
+        try {
+            String var1 = Settings.Secure.getString(var0.getContentResolver(), "android_id");
+            String var2 = Build.SERIAL;
+            return MD5Util.md5ToStr(var1 + var2);
+        } catch (Exception var3) {
+            return null;
+        }
     }
 
     private static String getMacBySystemInterface(Context context) {

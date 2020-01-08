@@ -44,8 +44,10 @@ public interface ExtraConst {
 
     String C_V_PLATFORM = "Android";
     String C_V_OS = "Android";
-    String IDENT_KEY = "ident_key";
-    String IDENT_VALUE = "ident_value";
+    String IDENTITIES = "identities";
+    String MAC_ADDRESS = "mac_address";
+    String IMEI = "imei";
+    String DEVICE_ID = "device_id";
 
     String URL_EVENT = "/report";       //用户事件上报
     String URL_GET_CID = "/client";     //获取cid

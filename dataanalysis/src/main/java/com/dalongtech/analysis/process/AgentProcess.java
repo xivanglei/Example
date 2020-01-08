@@ -17,7 +17,6 @@ import com.dalongtech.analysis.utils.ANSLog;
 import com.dalongtech.analysis.utils.ANSThreadPool;
 import com.dalongtech.analysis.utils.CheckUtils;
 import com.dalongtech.analysis.utils.CommonUtils;
-import com.dalongtech.analysis.utils.DeviceInfoUtils;
 import com.dalongtech.analysis.utils.InternalAgent;
 import com.dalongtech.analysis.utils.LogPrompt;
 import com.dalongtech.analysis.utils.NumberFormat;
@@ -348,8 +347,7 @@ public class AgentProcess {
     private String getFirstInstallParam(Context context) {
         JSONObject allJob = new JSONObject();
         CommonUtils.pushToJSON(allJob, ExtraConst.PLATFORM, ExtraConst.C_V_PLATFORM);
-        CommonUtils.pushToJSON(allJob, ExtraConst.IDENT_KEY, DeviceInfoUtils.getDeviceID(context));
-        CommonUtils.pushToJSON(allJob, ExtraConst.IDENT_VALUE, DeviceInfoUtils.getAndroidID(context));
+        CommonUtils.pushToJSON(allJob, ExtraConst.IDENTITIES, getIdentities(context));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_APP_VERSION, CommonUtils.getVersionName(context));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_CHANNEL, CommonUtils.getChannel(context));
         CommonUtils.pushToJSON(allJob, Constants.APP_KEY, CommonUtils.getAppKey(context));
@@ -357,6 +355,14 @@ public class AgentProcess {
         CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, CommonUtils.getCAgent(context));
         CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, CommonUtils.getFirstStartTimeStamp(context) / 1000);
         return String.valueOf(allJob);
+    }
+
+    private JSONObject getIdentities(Context context) {
+        JSONObject jsonObject = new JSONObject();
+        CommonUtils.pushToJSON(jsonObject, ExtraConst.MAC_ADDRESS, CommonUtils.getMac(context));
+        CommonUtils.pushToJSON(jsonObject, ExtraConst.IMEI, CommonUtils.getIMEI(context));
+        CommonUtils.pushToJSON(jsonObject, ExtraConst.DEVICE_ID, CommonUtils.getDeviceId(context));
+        return jsonObject;
     }
 
     /**
