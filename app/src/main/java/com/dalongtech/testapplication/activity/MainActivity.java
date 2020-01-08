@@ -38,7 +38,7 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        if(isTest) startActivity(GetMacActivity.class);
+        if(isTest) startActivity(AnalysisDemoActivity.class);
     }
 
     @OnClick(R.id.btn_test)
