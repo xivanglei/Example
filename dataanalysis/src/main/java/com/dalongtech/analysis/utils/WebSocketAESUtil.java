@@ -37,7 +37,8 @@ public class WebSocketAESUtil {
     }
 
     private static byte[] getKeyBytes(String pw, byte[] salt) {
-        byte[] hash = md5(pw);
+//        byte[] hash = md5(pw);
+        byte[] hash = MD5Util.md5ToStr(pw).getBytes();
         byte[] salted;
         byte[] dx;
         byte[] tp = addByte(hash , salt);
@@ -114,4 +115,6 @@ public class WebSocketAESUtil {
             return null;
         }
     }
+
+
 }

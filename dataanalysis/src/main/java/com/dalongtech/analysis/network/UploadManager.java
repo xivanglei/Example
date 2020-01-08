@@ -30,8 +30,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -260,6 +258,7 @@ public class UploadManager {
      * 数据加密
      */
     private void encryptDataAndRequest(String url, String value) throws IOException {
+        LogUtil.d(value);
         Map<String, String> headInfo = getHeadInfo(value);
         String encryptData = "data=" + URLEncoder.encode(encryptData(value), "UTF-8");
         sendRequest(url, encryptData, headInfo);
@@ -267,10 +266,11 @@ public class UploadManager {
 
     private String encryptData(String value) {
         String encryptData = WebSocketAESUtil.encryptAES(value);
-        ByteBuffer byteBuffer = ByteBuffer.allocate(LENGTH_COUNT + encryptData.length());
-        byteBuffer.putInt(encryptData.length());
-        byteBuffer.put(encryptData.getBytes());
-        return new String(byteBuffer.array());
+        return encryptData;
+//        ByteBuffer byteBuffer = ByteBuffer.allocate(LENGTH_COUNT + encryptData.length());
+//        byteBuffer.putInt(encryptData.length());
+//        byteBuffer.put(encryptData.getBytes());
+//        return new String(byteBuffer.array());
     }
 
 
@@ -338,7 +338,7 @@ public class UploadManager {
      */
     private Map<String, String> getHeadInfo(String dataInfo) {
         Map<String, String> headInfo = new HashMap<>();
-        headInfo.put(KeyConst.HEAD_DATA_EN_WAY, TypeConst.ENCRYPT_NONE);
+        headInfo.put(KeyConst.HEAD_DATA_EN_WAY, MD5Util.md5ToStr(TypeConst.ENCRYPT_AES));
         headInfo.put(KeyConst.HEAD_DATA_LENGTH, String.valueOf(dataInfo.length()));
         headInfo.put(KeyConst.HEAD_DATA_MD5, MD5Util.md5ToStr(dataInfo));
         return headInfo;
@@ -353,8 +353,7 @@ public class UploadManager {
                 return null;
             }
 //            String unzip = CommonUtils.messageUnzip(policy);
-            byte[] bytes = policy.getBytes();
-            String data = WebSocketAESUtil.decryptAES(new String(Arrays.copyOfRange(bytes, LENGTH_COUNT, bytes.length)));
+            String data = WebSocketAESUtil.decryptAES(policy);
             LogPrompt.showReturnCode(data);
             return new JSONObject(data);
         } catch (Throwable e) {
@@ -479,5 +478,4 @@ public class UploadManager {
         }
         return count;
     }
-
 }
