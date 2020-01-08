@@ -5,11 +5,11 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.dalongtech.analysis.ANSAutoPageTracker;
-import com.dalongtech.analysis.AnalysisAgent;
+import com.dalongtech.analysis.utils.CommonUtils;
+import com.dalongtech.analysis.utils.InternalAgent;
+import com.dalongtech.analysis.utils.LogUtil;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
-import com.dalongtech.testapplication.utils.ParseUtil;
-import com.dalongtech.testapplication.utils.ViewUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +51,7 @@ public class AnalysisDemoActivity extends SimpleActivity implements ANSAutoPageT
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
+        LogUtil.d(CommonUtils.getIdFile(this, "88888"));
     }
 
 //    @OnClick(R.id.btn_send_event)
@@ -76,8 +77,10 @@ public class AnalysisDemoActivity extends SimpleActivity implements ANSAutoPageT
 
     @OnClick(R.id.btn_login)
     public void login() {
-        AnalysisAgent.login(this, ViewUtil.getText(et_nickname), ViewUtil.getText(et_vip_grade),
-                ParseUtil.toInt(ViewUtil.getText(et_is_register)));
+//        AnalysisAgent.login(this, ViewUtil.getText(et_nickname), ViewUtil.getText(et_vip_grade),
+//                ParseUtil.toInt(ViewUtil.getText(et_is_register)));
+        LogUtil.d(InternalAgent.getMac(this));
+//        CommonUtils.setIdFile(this, "88888", "99999");
     }
 
 

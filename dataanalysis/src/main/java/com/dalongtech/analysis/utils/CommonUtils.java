@@ -1017,7 +1017,7 @@ public class CommonUtils {
     /**
      * 获取mac地址
      */
-    public static Object getMac(Context context) {
+    public static String getMac(Context context) {
         try {
             if (Build.VERSION.SDK_INT < 23) {
                 return getMacBySystemInterface(context);

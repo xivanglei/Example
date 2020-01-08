@@ -183,11 +183,8 @@ public class InternalAgent {
     /**
      * 获取mac地址
      */
-    public static Object getMac(Context context) {
-        if (CommonUtils.isAutoCollect(context, Constants.META_DATA_MAC)) {
-            return CommonUtils.getMac(context);
-        }
-        return Constants.EMPTY;
+    public static String getMac(Context context) {
+        return CommonUtils.getMac(context);
     }
 
     /**

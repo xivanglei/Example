@@ -19,7 +19,6 @@ import com.dalongtech.analysis.strategy.PolicyManager;
 import com.dalongtech.analysis.utils.CheckUtils;
 import com.dalongtech.analysis.utils.CommonUtils;
 import com.dalongtech.analysis.utils.LogPrompt;
-import com.dalongtech.analysis.utils.LogUtil;
 import com.dalongtech.analysis.utils.MD5Util;
 import com.dalongtech.analysis.utils.SharedUtil;
 import com.dalongtech.analysis.utils.WebSocketAESUtil;
@@ -88,12 +87,12 @@ public class UploadManager {
         }
         dbCacheCheck();
         TableAllInfo.getInstance(mContext).insert(sendData.toString(), type);
-        LogUtil.d(TableAllInfo.getInstance(mContext).selectCount());
+//        LogUtil.d(TableAllInfo.getInstance(mContext).selectCount());
         if (CommonUtils.isMainProcess(mContext)) {
             BaseSendStatus sendStatus = PolicyManager.getPolicyType(mContext);
             if (sendStatus.isSend(mContext)) {
                 sendUploadMessage();
-                LogUtil.d("开始发送");
+//                LogUtil.d("开始发送");
             }
         } else {
             LogPrompt.processFailed();
@@ -103,7 +102,7 @@ public class UploadManager {
     private void dbCacheCheck() {
         long maxCount = AgentProcess.getInstance(mContext).getMaxCacheSize();
         long count = TableAllInfo.getInstance(mContext).selectCount();
-        LogUtil.d(count + "--最大缓存--" + maxCount);
+//        LogUtil.d(count + "--最大缓存--" + maxCount);
         if (maxCount <= count) {
             TableAllInfo.getInstance(mContext).delete(Constants.DELETE_COUNT);
         }
@@ -258,7 +257,7 @@ public class UploadManager {
      * 数据加密
      */
     private void encryptDataAndRequest(String url, String value) throws IOException {
-        LogUtil.d(value);
+//        LogUtil.d(value);
         Map<String, String> headInfo = getHeadInfo(value);
         String encryptData = "data=" + URLEncoder.encode(encryptData(value), "UTF-8");
         sendRequest(url, encryptData, headInfo);
@@ -282,7 +281,7 @@ public class UploadManager {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                LogUtil.d(value);
+//                LogUtil.d(value);
                 Map<String, String> headInfo = getHeadInfo(value);
                 try {
                     String encryptData = "data=" + URLEncoder.encode(encryptData(value), "UTF-8");
@@ -292,7 +291,7 @@ public class UploadManager {
                     } else {
                         returnInfo = RequestUtils.postRequestHttps(mContext, url, encryptData, headInfo);
                     }
-                    LogUtil.d(returnInfo);
+//                    LogUtil.d(returnInfo);
                     JSONObject json = analysisStrategy(returnInfo);
                     if(callback == null) return;
                     if(json == null) {
@@ -314,7 +313,7 @@ public class UploadManager {
      * 发送数据
      */
     private void sendRequest(String url, String dataInfo, Map<String, String> headInfo) {
-        LogUtil.d(dataInfo);
+//        LogUtil.d(dataInfo);
         try {
             String returnInfo;
             if (url.startsWith(Constants.HTTP)) {

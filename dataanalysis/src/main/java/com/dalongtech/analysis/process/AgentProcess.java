@@ -20,7 +20,6 @@ import com.dalongtech.analysis.utils.CommonUtils;
 import com.dalongtech.analysis.utils.DeviceInfoUtils;
 import com.dalongtech.analysis.utils.InternalAgent;
 import com.dalongtech.analysis.utils.LogPrompt;
-import com.dalongtech.analysis.utils.LogUtil;
 import com.dalongtech.analysis.utils.NumberFormat;
 import com.dalongtech.analysis.utils.SharedUtil;
 
@@ -193,7 +192,7 @@ public class AgentProcess {
             if (LogBean.getCode() == Constants.CODE_SUCCESS) {
                 LogPrompt.showLog(apiName, true);
             }
-            LogUtil.d(eventName + "----" + eventData.toString());
+//            LogUtil.d(eventName + "----" + eventData.toString());
             UploadManager.getInstance(context).sendManager(eventName, eventData);
         }
     }

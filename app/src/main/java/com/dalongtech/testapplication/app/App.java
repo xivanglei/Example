@@ -19,7 +19,7 @@ public class App extends Application {
         config.setAppKey("test-key");
         config.setAutoProfile(true);
         config.setChannel("testChannel");
-//        config.setPartnerCode("随便传传");
+        config.setPartnerCode("随便传传");
         AnalysisAgent.init(this, config);
         AnalysisAgent.setUploadURL(this, "http://116.62.6.159:18306/v1");
         AnalysisAgent.setMaxCacheSize(this, 101);
