@@ -14,6 +14,9 @@ import java.util.Map;
  */
 public class AnalysisAgent {
 
+    public static final int LOGIN_MEMBER = 1;
+    public static final int LOGIN_VISITOR = 0;
+
     /**
      * 初始化接口
      *

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.dalongtech.analysis.AnalysisAgent;
 import com.dalongtech.analysis.AnalysysConfig;
 import com.dalongtech.analysis.AutomaticAcquisition;
 import com.dalongtech.analysis.constants.Constants;
@@ -621,8 +622,8 @@ public class AgentProcess {
                         }
                         CommonUtils.setIdFile(context, Constants.SP_USER_ID, userId);
                         SharedUtil.setInt(context, Constants.SP_IS_LOGIN, is_register);
-                        CommonUtils.setVipGrade(context, vip_grade);
-                        if(is_register == 1) bindCidAndUserId(context);
+                        if(vip_grade != null) CommonUtils.setVipGrade(context, vip_grade);
+                        if(is_register == AnalysisAgent.LOGIN_MEMBER) bindCidAndUserId(context);
                         Map<String, Object> loginMap = new HashMap<>();
                         JSONObject eventData = DataAssemble.getInstance(context).getEventData(
                                 Constants.API_LOGIN, Constants.LOGIN, loginMap, null);
