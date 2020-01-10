@@ -12,7 +12,7 @@ import android.content.SharedPreferences;
  */
 public class SharedUtil {
 
-    private static final String FILE_NAME = "fz.d";
+    private static final String FILE_NAME = "dl_analysis.d";
     private static SharedPreferences.Editor mEditor = null;
     private static SharedPreferences mPreferences = null;
 

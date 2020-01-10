@@ -10,7 +10,7 @@ package com.dalongtech.analysis.database;
 class DBConfig {
 
     public static class TableAllInfo {
-        public static final String TABLE_NAME = " e_fz ";
+        public static final String TABLE_NAME = " dl_analysis ";
         //建表
         public static final String CREATE_TABLE = "create table if not exists " +
                 TABLE_NAME + " (" +
