@@ -24,11 +24,11 @@ import javax.net.ssl.HttpsURLConnection;
  * @Create: 2018/2/3 17:31
  * @Author: Wang-X-C
  */
-class RequestUtils {
+public class RequestUtils {
     /**
      * HTTP
      */
-    static String postRequest(String url, String value,
+    public static String postRequest(String url, String value,
                               Map<String, String> headInfo) {
         String response = null;
         InputStream is = null;
