@@ -131,7 +131,7 @@ public class DataAssemble {
         CommonUtils.pushToJSON(allJob, Constants.EVENT, eventName);
         CommonUtils.pushToJSON(allJob, ExtraConst.PLATFORM, ExtraConst.C_V_PLATFORM);
         CommonUtils.pushToJSON(allJob, ExtraConst.C_CID, CommonUtils.getCId(mContext));
-        CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, CommonUtils.getCAgent(mContext));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, ParameterAddUtil.getAgentInfo());
         CommonUtils.pushToJSON(allJob, ExtraConst.C_APP_VERSION, CommonUtils.getVersionName(mContext));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_PARTNER_CODE, CommonUtils.getPartnerCode(mContext));
         CommonUtils.pushToJSON(allJob, Constants.APP_KEY, CommonUtils.getAppKey(mContext));

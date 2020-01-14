@@ -39,7 +39,7 @@ public class GetMacActivity extends SimpleActivity {
     protected void initViewAndData(Bundle savedInstanceState) {
         LogUtil.d(tv_mac_address.getText().toString());
         tv_mac_address.setText(InternalAgent.getMac(this));
-        tv_manufacturer.setText(Build.MANUFACTURER);
+        tv_manufacturer.setText(Build.BRAND);
         tv_model.setText(Build.MODEL);
         tv_android_version.setText(String.valueOf(Build.VERSION.SDK_INT));
         LogUtil.d(getData());

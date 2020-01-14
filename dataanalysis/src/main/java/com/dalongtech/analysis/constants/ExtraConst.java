@@ -23,15 +23,18 @@ public interface ExtraConst {
     String C_APP_VERSION = "$app_version";
     String C_AGENT = "$c_agent";
     String C_PARTNER_CODE = "$partner_code";
-    String C_MODEL = "$model";
-    String C_OS = "$os";
-    String C_OS_VERSION = "$os_version";
+    String C_MODEL = "mobileModel";
+    String C_OS = "os";
+    String C_OS_VERSION = "androidVersion";
 
     String C_NETWORK = "nstatus";
-    String C_CARRIER_NAME = "$carrier_name";
-    String C_SCREEN_WIDTH = "$screen_width";
-    String C_SCREEN_HEIGHT = "$screen_height";
-    String C_BRAND = "$brand";
+    String C_CARRIER_NAME = "carrier_name";
+    String SCREEN_WIDTH = "$screen_width";
+    String SCREEN_HEIGHT = "$screen_height";
+    String C_SCREEN_WIDTH = "screen_width";
+    String C_SCREEN_HEIGHT = "screen_height";
+    String C_BRAND = "mobileBrand";
+
     String C_LANGUAGE = "$language";
     String C_IS_FIRST_DAY = "install_first_day";
     String C_SESSION_ID = "$session_id";
@@ -41,6 +44,9 @@ public interface ExtraConst {
     String C_PAGENAME = "$pagename";
     String C_CID = "$cid";
     String C_MAC = "$mac";
+
+    String C_PLATFORM = "platform";
+
 
     String C_V_PLATFORM = "Android";
     String C_V_OS = "Android";

@@ -7,6 +7,9 @@ import com.dalongtech.analysis.constants.Constants;
 import com.dalongtech.analysis.constants.ExtraConst;
 import com.dalongtech.analysis.process.ContextManager;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,8 +27,8 @@ public class ParameterAddUtil {
                 map.put(ExtraConst.C_NETWORK, CommonUtils.networkType(context));
                 map.put(ExtraConst.C_IS_FIRST_DAY, CommonUtils.isFirstDay(context));
                 map.put(ExtraConst.C_IS_FIRST_TIME, CommonUtils.isFirstStart(context));
-                map.put(ExtraConst.C_SCREEN_WIDTH, CommonUtils.getScreenWidth(context));
-                map.put(ExtraConst.C_SCREEN_HEIGHT, CommonUtils.getScreenHeight(context));
+                map.put(ExtraConst.SCREEN_WIDTH, CommonUtils.getScreenWidth(context));
+                map.put(ExtraConst.SCREEN_HEIGHT, CommonUtils.getScreenHeight(context));
                 map.put(Constants.USER, CommonUtils.getUserId(context));
                 map.put(ExtraConst.IS_REGISTER, InternalAgent.getLogin(context));
                 break;
@@ -40,8 +43,8 @@ public class ParameterAddUtil {
                 map.put(ExtraConst.C_NETWORK, CommonUtils.networkType(context));
                 map.put(ExtraConst.C_IS_FIRST_DAY, CommonUtils.isFirstDay(context));
                 map.put(ExtraConst.C_IS_FIRST_TIME, CommonUtils.isFirstStart(context));
-                map.put(ExtraConst.C_SCREEN_WIDTH, CommonUtils.getScreenWidth(context));
-                map.put(ExtraConst.C_SCREEN_HEIGHT, CommonUtils.getScreenHeight(context));
+                map.put(ExtraConst.SCREEN_WIDTH, CommonUtils.getScreenWidth(context));
+                map.put(ExtraConst.SCREEN_HEIGHT, CommonUtils.getScreenHeight(context));
                 map.put(Constants.USER, CommonUtils.getUserId(context));
                 map.put(ExtraConst.IS_REGISTER, InternalAgent.getLogin(context));
                 break;
@@ -64,6 +67,25 @@ public class ParameterAddUtil {
 //        map.put(ExtraConst.C_BRAND, Build.BRAND);
 //        map.put(ExtraConst.C_LANGUAGE, Locale.getDefault().getLanguage());
 //        map.put(ExtraConst.C_IS_TIME_CALIBRATED, Constants.isCalibration);
+    }
+
+    public static JSONObject getAgentInfo() {
+        Context context = ContextManager.getContext();
+        Map<String, Object> map = new HashMap<>();
+        map.put(ExtraConst.IMEI, CommonUtils.getIMEI(context));
+        map.put(ExtraConst.DEVICE_ID, CommonUtils.getDeviceId(context));
+        map.put(ExtraConst.MAC_ADDRESS, CommonUtils.getMac(context));
+        map.put(ExtraConst.C_PLATFORM, ExtraConst.C_V_PLATFORM);
+        map.put(ExtraConst.C_BRAND, Build.BRAND);
+        map.put(ExtraConst.C_MODEL, Build.MODEL);
+        map.put(ExtraConst.C_OS_VERSION, Build.VERSION.RELEASE);
+        map.put(ExtraConst.C_OS, ExtraConst.C_V_OS);
+        map.put(ExtraConst.C_NETWORK, CommonUtils.networkType(context));
+        map.put(ExtraConst.C_CARRIER_NAME, CommonUtils.getCarrierName(context));
+        map.put(ExtraConst.C_SCREEN_WIDTH, CommonUtils.getScreenWidth(context));
+        map.put(ExtraConst.C_SCREEN_HEIGHT, CommonUtils.getScreenHeight(context));
+        CommonUtils.clearEmptyValue(map);
+        return new JSONObject(map);
     }
 
 

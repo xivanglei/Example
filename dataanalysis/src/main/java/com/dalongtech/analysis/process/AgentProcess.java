@@ -22,6 +22,7 @@ import com.dalongtech.analysis.utils.InternalAgent;
 import com.dalongtech.analysis.utils.LogPrompt;
 import com.dalongtech.analysis.utils.LogUtil;
 import com.dalongtech.analysis.utils.NumberFormat;
+import com.dalongtech.analysis.utils.ParameterAddUtil;
 import com.dalongtech.analysis.utils.SharedUtil;
 
 import org.json.JSONObject;
@@ -354,7 +355,7 @@ public class AgentProcess {
         CommonUtils.pushToJSON(allJob, ExtraConst.C_CHANNEL, CommonUtils.getChannel(context));
         CommonUtils.pushToJSON(allJob, Constants.APP_KEY, CommonUtils.getAppKey(context));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_PARTNER_CODE, CommonUtils.getPartnerCode(context));
-        CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, CommonUtils.getCAgent(context));
+        CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, ParameterAddUtil.getAgentInfo());
         CommonUtils.pushToJSON(allJob, Constants.TIME_STAMP, CommonUtils.getFirstStartTimeStamp(context) / 1000);
         return String.valueOf(allJob);
     }

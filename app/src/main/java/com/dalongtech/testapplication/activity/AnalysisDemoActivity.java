@@ -1,15 +1,15 @@
 package com.dalongtech.testapplication.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.dalongtech.analysis.ANSAutoPageTracker;
-import com.dalongtech.analysis.utils.CommonUtils;
 import com.dalongtech.analysis.utils.InternalAgent;
-import com.dalongtech.analysis.utils.LogUtil;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
+import com.dalongtech.testapplication.utils.LogUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +51,7 @@ public class AnalysisDemoActivity extends SimpleActivity implements ANSAutoPageT
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        LogUtil.d(CommonUtils.getIdFile(this, "88888"));
+        LogUtil.d(Build.VERSION.RELEASE);
     }
 
 //    @OnClick(R.id.btn_send_event)
