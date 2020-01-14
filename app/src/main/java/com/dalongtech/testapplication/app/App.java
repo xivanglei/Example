@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.dalongtech.analysis.AnalysisAgent;
 import com.dalongtech.analysis.AnalysysConfig;
+import com.dalongtech.analysis.BuildConfig;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -30,7 +31,7 @@ public class App extends Application {
         AnalysisAgent.setMaxCacheSize(this, 101);
         AnalysisAgent.setMaxEventSize(this, 10);
         AnalysisAgent.setIntervalTime(this, 10);
-        AnalysisAgent.setDebugMode(this, 0);
+        AnalysisAgent.setDebugMode(this, BuildConfig.DEBUG ? 1 : 0);
     }
 
     public static synchronized App get() {

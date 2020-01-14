@@ -68,7 +68,7 @@ public class ANSLog {
     // 是否打印bug.建议在application中调用init接口初始化
     public static boolean isShowLog = false;
     // 默认tag
-    public static String DEFAULT_TAG = "analysys";
+    public static String DEFAULT_TAG = "DL_ANA";
     /** 查找%个数 */
     static Pattern p = Pattern.compile("%", Pattern.CASE_INSENSITIVE);
     // 是否接受shell控制打印

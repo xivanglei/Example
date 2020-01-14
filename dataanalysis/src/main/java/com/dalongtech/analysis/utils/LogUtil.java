@@ -9,7 +9,9 @@ import android.util.Log;
  */
 public class LogUtil {
 
-    private static final String TAG = "祥雷测试";
+    public static boolean DEBUG;
+
+    private static final String TAG = "DL_ANALYSIS";
     /**
      * 得到tag（所在类.方法（L:行））
      * @return
@@ -26,65 +28,78 @@ public class LogUtil {
     }
 
     public static void v(String msg) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.v(tag, msg);
     }
 
     public static void v(String msg, Throwable tr) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.v(tag, msg, tr);
     }
 
     public static void d(String msg) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.d(tag, msg == null ? "空" : msg);
     }
     public static void d(Object msg) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.d(tag, msg == null ? "空" : msg.toString());
     }
 
     public static void d(String msg, Throwable tr) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.d(tag, msg, tr);
     }
 
     public static void i(String msg) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.i(tag, msg);
     }
 
     public static void i(String msg, Throwable tr) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.i(tag, msg, tr);
     }
 
     public static void w(String msg) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.w(tag, msg);
     }
 
     public static void w(String msg, Throwable tr) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.w(tag, msg, tr);
     }
 
     public static void e(String msg) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.e(tag, msg);
     }
 
     public static void e(String msg, Throwable tr) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.e(tag, msg, tr);
     }
 
     public static void wtf(String msg) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.wtf(tag, msg);
     }
 
     public static void wtf(String msg, Throwable tr) {
+        if(!DEBUG) return;
             String tag = generateTag();
             Log.wtf(tag, msg, tr);
     }

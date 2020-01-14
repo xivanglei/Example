@@ -15,7 +15,7 @@ public class Constants {
     public static final String DEV_SDK_VERSION = "1.0.0";
 
     public static final String PAGE_VIEW = "pageview";
-    public static final String STARTUP = "$startup";
+    public static final String STARTUP = "startup";
     public static final String END = "end";
     public static final String LOGIN = "login";
     public static final String ORIGINAL_ID = "$original_id";
