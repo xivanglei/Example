@@ -20,8 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DisputeMachineActivity"></activity>
-        <activity android:name=".activity.GetMacActivity"></activity>
+
+
+        <activity android:name=".activity.DisputeMachineActivity" />
+        <activity android:name=".activity.GetMacActivity" />
         <activity android:name=".activity.TestActivity" />
         <activity
             android:name=".activity.CustomKayboardActivity"
@@ -50,12 +52,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ScrollConflictActivity" />
-        <activity android:name=".activity.AnalysisDemoActivity"></activity>
+        <activity android:name=".activity.AnalysisDemoActivity" />
         <activity android:name=".activity.ActionQueueActivity" /> <!-- 角标设置服务 -->
         <service
             android:name=".component.BadgeIntentService"
             android:exported="false" />
         <service android:name=".service.TestService" />
+        <service
+            android:name=".activity.NotWaitService"
+            android:enabled="true"
+            android:exported="false"/>
 
         <meta-data
             android:name="ANALYSYS_AUTO_COLLECTION_MAC"

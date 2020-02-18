@@ -133,6 +133,12 @@
             android:layout_height="wrap_content"
             android:text="动作队列"/>
 
+        <Button
+            android:id="@+id/btn_service_not_wait"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="服务息屏后不停"/>
+
     </LinearLayout>
 
 </ScrollView>

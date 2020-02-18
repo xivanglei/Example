@@ -9,14 +9,18 @@ import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
-import com.dalongtech.testapplication.service.TestService;
+import com.dalongtech.testapplication.utils.LogUtil;
 import com.dalongtech.testapplication.widget.RoundedImageView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 public class MainActivity extends SimpleActivity {
@@ -39,13 +43,33 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        if(isTest) startActivity(GetMacActivity.class);
+        if(isTest) startServiceNotWait();
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
-        Intent start = new Intent(this, TestService.class);
-        startService(start);
+        Observable.interval(1000, 5000, TimeUnit.MILLISECONDS)
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        LogUtil.d(aLong);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @OnClick(R.id.btn_test_page)
@@ -121,5 +145,11 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_action_queue)
     public void startActionQueueActivity() {
         startActivity(ActionQueueActivity.class);
+    }
+
+    @OnClick(R.id.btn_service_not_wait)
+    public void startServiceNotWait() {
+        Intent start = new Intent(this, NotWaitService.class);
+        startService(start);
     }
 }
