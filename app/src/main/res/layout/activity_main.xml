@@ -138,6 +138,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="服务息屏后不停"/>
+        <Button
+            android:id="@+id/btn_qr_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字符串转二维码"/>
 
     </LinearLayout>
 
