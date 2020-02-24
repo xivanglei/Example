@@ -10,17 +10,14 @@ import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
 import com.dalongtech.testapplication.utils.LogUtil;
+import com.dalongtech.testapplication.utils.StartActivityUtils;
 import com.dalongtech.testapplication.widget.RoundedImageView;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 
 public class MainActivity extends SimpleActivity {
@@ -43,33 +40,20 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        if(isTest) startServiceNotWait();
+        if(isTest) startActivity(TestActivity.class);
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LogUtil.d("有没有");
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
-        Observable.interval(1000, 5000, TimeUnit.MILLISECONDS)
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Long aLong) {
-                        LogUtil.d(aLong);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        StartActivityUtils.startActivity(this, "com.dalongtech.testapplication.activity.TestActivity");
     }
 
     @OnClick(R.id.btn_test_page)

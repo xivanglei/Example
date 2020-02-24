@@ -1,5 +1,6 @@
 package com.dalongtech.testapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.dalongtech.testapplication.R;
@@ -29,10 +30,14 @@ public class TestActivity extends SimpleActivity {
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
     @OnClick(R.id.btn_test)
     public void test() {
-        LogUtil.d(Integer.toHexString(250));
-        mData = AESUtil.encryptAES(content);
+        startActivity(TestActivity.class);
     }
 
     @OnClick(R.id.btn_test2)
