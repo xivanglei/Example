@@ -144,6 +144,12 @@
             android:layout_height="wrap_content"
             android:text="字符串转二维码"/>
 
+        <Button
+            android:id="@+id/btn_reflect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="反射相关示例"/>
+
     </LinearLayout>
 
 </ScrollView>

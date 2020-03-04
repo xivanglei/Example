@@ -9,7 +9,6 @@ import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
-import com.dalongtech.testapplication.utils.LogUtil;
 import com.dalongtech.testapplication.utils.StartActivityUtils;
 import com.dalongtech.testapplication.widget.RoundedImageView;
 
@@ -41,12 +40,12 @@ public class MainActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
         if(isTest) startActivity(TestActivity.class);
+        startActivity(ReflectDemoActivity.class);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtil.d("有没有");
     }
 
     @OnClick(R.id.btn_test)
@@ -137,5 +136,10 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_qr_code)
     public void strToQRCode() {
         startActivity(QRCodeActivity.class);
+    }
+
+    @OnClick(R.id.btn_reflect)
+    public void startReflectActivity() {
+        startActivity(ReflectDemoActivity.class);
     }
 }
