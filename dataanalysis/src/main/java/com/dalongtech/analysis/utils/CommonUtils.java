@@ -267,7 +267,7 @@ public class CommonUtils {
             return "";
         }
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(new Date(timeStamp));
     }
 
@@ -290,7 +290,7 @@ public class CommonUtils {
     public static long getFirstStartTimeStamp(Context context) {
         String firstTime = getFirstStartTime(context);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd", Locale.getDefault());
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
         try {
             return simpleDateFormat.parse(firstTime).getTime();
