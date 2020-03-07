@@ -22,9 +22,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected AppCompatActivity mContext;
     private Unbinder mUnBinder;
     protected Bundle mSavedInstanceState;
-    private boolean isStopDispatchKeyEvent = false;
-    private boolean isInterceptKeyEventHandleSelf = false;
-    private boolean isInterceptKeyEvent = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
