@@ -17,6 +17,7 @@ import com.dalongtech.analysis.utils.ANSLog;
 import com.dalongtech.analysis.utils.ANSThreadPool;
 import com.dalongtech.analysis.utils.CommonUtils;
 import com.dalongtech.analysis.utils.NumberFormat;
+import com.dalongtech.analysis.utils.ParseUtil;
 import com.dalongtech.analysis.utils.SharedUtil;
 
 import org.json.JSONException;
@@ -281,7 +282,7 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
                 // 获取应用启动时间
                 String startTime = CommonUtils.getIdFile(context, Constants.APP_START_TIME);
                 if (startTime != null) {
-                    appStartTime = Long.valueOf(startTime);
+                    appStartTime = ParseUtil.toLong(startTime);
                 }
             }
             realTimeData.put(Constants.DURATION_TIME, time - appStartTime);

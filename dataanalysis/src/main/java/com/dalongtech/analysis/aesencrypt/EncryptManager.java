@@ -1,5 +1,7 @@
 package com.dalongtech.analysis.aesencrypt;
 
+import com.dalongtech.analysis.utils.ParseUtil;
+
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,8 +37,8 @@ public class EncryptManager {
             int length = versionCode.length;
             String key = "";
             if (length > 2) {
-                int valuePosition = Integer.parseInt(versionCode[length - 1]);
-                int startPosition = Integer.parseInt(versionCode[length - 2]);
+                int valuePosition = ParseUtil.toInt(versionCode[length - 1]);
+                int startPosition = ParseUtil.toInt(versionCode[length - 2]);
                 key = getEncryptCode(encodeKey, startPosition, valuePosition);
             }
             return key;
