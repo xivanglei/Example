@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ReflectDemoActivity"></activity>
+        <activity android:name=".activity.DisplayCutoutActivity"></activity>
+        <activity android:name=".activity.ReflectDemoActivity" />
         <activity android:name=".activity.QRCodeActivity" />
         <activity android:name=".activity.DisputeMachineActivity" />
         <activity android:name=".activity.GetMacActivity" />
