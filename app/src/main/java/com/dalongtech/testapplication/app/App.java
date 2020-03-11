@@ -27,7 +27,7 @@ public class App extends Application {
         config.setChannel("testChannel");
         config.setPartnerCode("随便传传");
         MagicMirrorAgent.init(this, config);
-        MagicMirrorAgent.setUploadURL(this, "http://116.62.6.159:18306/v1");
+        MagicMirrorAgent.setUploadURL(this, "http://mjtest.dalongyun.com:18306/v1");
         MagicMirrorAgent.setMaxCacheSize(this, 101);
         MagicMirrorAgent.setMaxEventSize(this, 10);
         MagicMirrorAgent.setIntervalTime(this, 10);
