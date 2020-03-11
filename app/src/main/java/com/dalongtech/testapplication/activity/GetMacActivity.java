@@ -4,9 +4,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.dalongtech.analysis.network.RequestUtils;
-import com.dalongtech.analysis.utils.ANSThreadPool;
-import com.dalongtech.analysis.utils.InternalAgent;
+import com.dalongtech.magicmirror.network.RequestUtils;
+import com.dalongtech.magicmirror.utils.MMThreadPool;
+import com.dalongtech.magicmirror.utils.InternalAgent;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.utils.LogUtil;
@@ -47,7 +47,7 @@ public class GetMacActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_send)
     public void sendData() {
-        ANSThreadPool.execute(new Runnable() {
+        MMThreadPool.execute(new Runnable() {
             @Override
             public void run() {
                 try {

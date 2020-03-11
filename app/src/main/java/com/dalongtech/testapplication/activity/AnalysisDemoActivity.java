@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 
-import com.dalongtech.analysis.ANSAutoPageTracker;
-import com.dalongtech.analysis.utils.InternalAgent;
+import com.dalongtech.magicmirror.MMAutoPageTracker;
+import com.dalongtech.magicmirror.utils.InternalAgent;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.utils.LogUtil;
@@ -22,7 +22,7 @@ import butterknife.OnClick;
  * Date: 2019-12-14 17:42
  * Description:
  */
-public class AnalysisDemoActivity extends SimpleActivity implements ANSAutoPageTracker {
+public class AnalysisDemoActivity extends SimpleActivity implements MMAutoPageTracker {
 
     @BindView(R.id.et_nickname)
     EditText et_nickname;
