@@ -62,6 +62,7 @@ public class Constants {
     public static final String X_CONTEXT = "$content";
     public static final String APP_KEY = "$appkey";
     public static final String USER = "$uid";
+    public static final String ACCOUNT = "$account";
     public static final String EVENT = "$event";
     public static final String TIME_STAMP = "$time_stamp";
 
@@ -76,6 +77,7 @@ public class Constants {
     public static final String SP_APP_KEY = "appKey";
     public static final String SP_SEND_TIME = "uploadTime";
     public static final String SP_USER_ID = "userId";
+    public static final String SP_CLIENT_ACCOUNT = "client_account";
     public static final String SP_DISTINCT_ID = "distinctId";
     public static final String SP_UUID = "uuid";
     public static final String SP_ORIGINAL_ID = "originalId";

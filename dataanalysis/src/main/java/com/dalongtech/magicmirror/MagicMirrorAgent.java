@@ -100,8 +100,8 @@ public class MagicMirrorAgent {
      * @param userId 长度大于0且小于255字符
      * 若为空则使用本地的distinctId,长度大于0且小于255字符
      */
-    public static void login(Context context, String userId, String vip_grade, int is_register) {
-        AgentProcess.getInstance(context).login(userId, vip_grade, is_register);
+    public static void login(Context context, String clientAccount, String userId, String vip_grade, int is_register) {
+        AgentProcess.getInstance(context).login(clientAccount, userId, vip_grade, is_register);
     }
 
     /**

@@ -29,11 +29,10 @@ public class ParameterAddUtil {
                 map.put(ExtraConst.C_IS_FIRST_TIME, CommonUtils.isFirstStart(context));
                 map.put(ExtraConst.SCREEN_WIDTH, CommonUtils.getScreenWidth(context));
                 map.put(ExtraConst.SCREEN_HEIGHT, CommonUtils.getScreenHeight(context));
-                map.put(Constants.USER, CommonUtils.getUserId(context));
                 break;
             case Constants.LOGIN:
                 map.put(ExtraConst.SYSTEM_VERSION, Build.VERSION.SDK_INT);
-                map.put(Constants.USER, CommonUtils.getUserId(context));
+
                 break;
         }
     }
@@ -43,6 +42,8 @@ public class ParameterAddUtil {
         map.put(ExtraConst.VIP_GRADE, CommonUtils.getVipGrade(context));
         map.put(ExtraConst.C_NETWORK, CommonUtils.networkType(context));
         map.put(ExtraConst.IS_REGISTER, InternalAgent.getLogin(context));
+        map.put(Constants.USER, CommonUtils.getUserId(context));
+        map.put(Constants.ACCOUNT, CommonUtils.getClientAccount(context));
     }
 
     public static JSONObject getAgentInfo() {

@@ -848,38 +848,20 @@ public class CommonUtils {
         return SharedUtil.getString(context, Constants.SP_VIP_GRADE, "");
     }
 
-    /**
-     * 获取distinct id 如果用户没有调用，获取androidId
-     */
     public static String getUserId(Context context) {
         return getIdFile(context, Constants.SP_USER_ID);
     }
 
-    /**
-     * 转存id
-     */
-    private static String transSaveId(Context context) {
-        String userId = SharedUtil.getString(context, Constants.SP_USER_ID, null);
-        if (!TextUtils.isEmpty(userId)) {
-            setIdFile(context, Constants.SP_USER_ID, userId);
-        }
-        String distinctId = SharedUtil.getString(context, Constants.SP_DISTINCT_ID, null);
-        if (!TextUtils.isEmpty(distinctId)) {
-            setIdFile(context, Constants.SP_DISTINCT_ID, distinctId);
-        }
-        String uuid = SharedUtil.getString(context, Constants.SP_UUID, null);
-        if (TextUtils.isEmpty(uuid)) {
-            uuid = String.valueOf(java.util.UUID.randomUUID());
-        }
-        setIdFile(context, Constants.SP_UUID, uuid);
+    public static void setUserId(Context context, String userId) {
+        setIdFile(context, Constants.SP_USER_ID, userId);
+    }
 
-        if (!TextUtils.isEmpty(userId)) {
-            return userId;
-        }
-        if (!TextUtils.isEmpty(distinctId)) {
-            return distinctId;
-        }
-        return uuid;
+    public static String getClientAccount(Context context) {
+        return getIdFile(context, Constants.SP_CLIENT_ACCOUNT);
+    }
+
+    public static void setClientAccount(Context context, String clientAccount) {
+        setIdFile(context, Constants.SP_CLIENT_ACCOUNT, clientAccount);
     }
 
     /**

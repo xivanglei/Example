@@ -166,9 +166,9 @@ public class AgentProcess {
     private void savePartnerCode(Context context, String partnerCode) {
         if (!CommonUtils.isEmpty(partnerCode)) {
             SharedUtil.setString(context, Constants.SP_PARTNER_CODE, partnerCode);
-            LogPrompt.showCAgentLog(true, partnerCode);
+            LogPrompt.showPartnerCodeLog(true, partnerCode);
         } else {
-            LogPrompt.showCAgentLog(false, partnerCode);
+            LogPrompt.showPartnerCodeLog(false, partnerCode);
         }
     }
 
@@ -228,7 +228,7 @@ public class AgentProcess {
         // 重置 通用属性
         SharedUtil.remove(context, Constants.SP_SUPER_PROPERTY);
         // 重置 alias id
-        CommonUtils.setIdFile(context, Constants.SP_USER_ID, "");
+        CommonUtils.setUserId(context, "");
         // 重置identify
         CommonUtils.setIdFile(context, Constants.SP_DISTINCT_ID, "");
         // 修改 isLogin
@@ -611,8 +611,10 @@ public class AgentProcess {
      * alias id
      * is_register 1注册用户/0游客
      * vip_grade 会员等级
+     * clientAccount 客户端账号，作为sdk使用时用到
      */
-    public void login(final String userId, final String vip_grade, final int is_register) {
+    public void login(final String clientAccount, final String userId, final String vip_grade, final int is_register) {
+        LogUtil.d("start_login---clientAccount: " + clientAccount + "---userId: " + userId + "---vip_grade: " + vip_grade + "---is_register: " + is_register);
         MMThreadPool.execute(new Runnable() {
             @Override
             public void run() {
@@ -623,7 +625,8 @@ public class AgentProcess {
                             LogPrompt.showLog(Constants.API_LOGIN, LogBean.getLog());
                             return;
                         }
-                        CommonUtils.setIdFile(context, Constants.SP_USER_ID, userId);
+                        if(!TextUtils.isEmpty(clientAccount)) CommonUtils.setClientAccount(context, clientAccount);
+                        CommonUtils.setUserId(context, userId);
                         SharedUtil.setInt(context, Constants.SP_IS_LOGIN, is_register);
                         if(vip_grade != null) CommonUtils.setVipGrade(context, vip_grade);
                         if(is_register == MagicMirrorAgent.LOGIN_MEMBER) bindCidAndUserId(context);
