@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -20,9 +21,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DisputeMachineActivity"></activity>
-        <activity android:name=".activity.GetMacActivity"></activity>
-        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.DisplayCutoutActivity"></activity>
+        <activity android:name=".activity.ReflectDemoActivity" />
+        <activity android:name=".activity.QRCodeActivity" />
+        <activity android:name=".activity.DisputeMachineActivity" />
+        <activity android:name=".activity.GetMacActivity" />
+        <activity
+            android:name=".activity.TestActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".activity.CustomKayboardActivity"
             android:screenOrientation="landscape" />
@@ -50,12 +56,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ScrollConflictActivity" />
-        <activity android:name=".activity.AnalysisDemoActivity"></activity>
+        <activity android:name=".activity.AnalysisDemoActivity" />
         <activity android:name=".activity.ActionQueueActivity" /> <!-- 角标设置服务 -->
         <service
             android:name=".component.BadgeIntentService"
             android:exported="false" />
         <service android:name=".service.TestService" />
+        <service
+            android:name=".activity.NotWaitService"
+            android:enabled="true"
+            android:exported="false" />
 
         <meta-data
             android:name="ANALYSYS_AUTO_COLLECTION_MAC"

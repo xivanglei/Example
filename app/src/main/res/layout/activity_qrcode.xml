@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dalongtech.testapplication.activity.QRCodeActivity">
+
+    <Button
+        android:id="@+id/btn_create_qr_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="生成二维码"/>
+
+    <EditText
+        android:id="@+id/et_qr_code_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入需要生成的字符"/>
+
+    <Button
+        android:id="@+id/btn_add_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="截图添加到相册"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    <ImageView
+        android:id="@+id/iv_qr_code"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+</LinearLayout>

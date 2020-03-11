@@ -9,7 +9,7 @@ import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
-import com.dalongtech.testapplication.service.TestService;
+import com.dalongtech.testapplication.utils.StartActivityUtils;
 import com.dalongtech.testapplication.widget.RoundedImageView;
 
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class MainActivity extends SimpleActivity {
     @BindView(R.id.iv_test_transform_animator)
     RoundedImageView iv_test_transform_animator;
 
-    boolean isTest = true;
+    boolean isTest = false;
 
     private String mImageUrl = "https://rongcloud-file.cn.ronghub.com/application_octet-stream__RC-2019-10-21_8228_1571652938959.mp4?attname=40dfc95cc9fb4ba497b445d10441782f.mp4&e=2147483647&token=CddrKW5AbOMQaDRwc3ReDNvo3-sL_SO1fSUBKV3H:YV8sUH1aAnYaVrh-7iJx0iB31N0=";
     private String srcFile = "/storage/emulated/0/DCIM/Camera/IMG_20191004_150413.jpg";
@@ -39,13 +39,18 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        if(isTest) startActivity(GetMacActivity.class);
+        if(isTest) startActivity(TestActivity.class);
+        startDisplayCutoutActivity();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
-        Intent start = new Intent(this, TestService.class);
-        startService(start);
+        StartActivityUtils.startActivity(this, "com.dalongtech.testapplication.activity.TestActivity");
     }
 
     @OnClick(R.id.btn_test_page)
@@ -121,5 +126,25 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_action_queue)
     public void startActionQueueActivity() {
         startActivity(ActionQueueActivity.class);
+    }
+
+    @OnClick(R.id.btn_service_not_wait)
+    public void startServiceNotWait() {
+        Intent start = new Intent(this, NotWaitService.class);
+        startService(start);
+    }
+    @OnClick(R.id.btn_qr_code)
+    public void strToQRCode() {
+        startActivity(QRCodeActivity.class);
+    }
+
+    @OnClick(R.id.btn_reflect)
+    public void startReflectActivity() {
+        startActivity(ReflectDemoActivity.class);
+    }
+
+    @OnClick(R.id.btn_display_cutout)
+    public void startDisplayCutoutActivity() {
+        startActivity(DisplayCutoutActivity.class);
     }
 }

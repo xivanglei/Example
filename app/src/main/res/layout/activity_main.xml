@@ -133,6 +133,29 @@
             android:layout_height="wrap_content"
             android:text="动作队列"/>
 
+        <Button
+            android:id="@+id/btn_service_not_wait"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="服务息屏后不停"/>
+        <Button
+            android:id="@+id/btn_qr_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="字符串转二维码"/>
+
+        <Button
+            android:id="@+id/btn_reflect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="反射相关示例"/>
+
+        <Button
+            android:id="@+id/btn_display_cutout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="流海屏适配"/>
+
     </LinearLayout>
 
 </ScrollView>
