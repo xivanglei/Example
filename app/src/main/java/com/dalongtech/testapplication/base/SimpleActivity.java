@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.dalongtech.testapplication.utils.LogUtil;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -29,6 +31,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtil.d("BaseActivity:" + getClass().getSimpleName());
         mContext = this;
         mSavedInstanceState = savedInstanceState;
         if(!isOnCreateContinue()) return;

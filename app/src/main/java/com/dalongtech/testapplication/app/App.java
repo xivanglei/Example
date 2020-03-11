@@ -1,10 +1,13 @@
 package com.dalongtech.testapplication.app;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 
-import com.dalongtech.analysis.AnalysisAgent;
-import com.dalongtech.analysis.AnalysysConfig;
-import com.dalongtech.analysis.EncryptEnum;
+import com.dalongtech.magicmirror.MagicMirrorAgent;
+import com.dalongtech.magicmirror.MagicMirrorConfig;
+import com.dalongtech.magicmirror.BuildConfig;
+
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Author:xianglei
@@ -13,21 +16,45 @@ import com.dalongtech.analysis.EncryptEnum;
  */
 public class App extends Application {
 
+    private static App instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        AnalysysConfig config = new AnalysysConfig();
+        MagicMirrorConfig config = new MagicMirrorConfig();
         config.setAppKey("test-key");
-        config.setAutoInstallation(true);
         config.setAutoProfile(true);
         config.setChannel("testChannel");
-        config.setEncryptType(EncryptEnum.EMPTY);
-        AnalysisAgent.init(this, config);
-        AnalysisAgent.setUploadURL(this, "http://www.baidu.com");
-        AnalysisAgent.setMaxCacheSize(this, 101);
-        AnalysisAgent.setMaxEventSize(this, 95);
-        AnalysisAgent.setIntervalTime(this, 60);
-        AnalysisAgent.setDebugMode(this, 0);
-        AnalysisAgent.identify(this, "我是默认身份，登录后替换");
+        config.setPartnerCode("随便传传");
+        MagicMirrorAgent.init(this, config);
+        MagicMirrorAgent.setUploadURL(this, "http://mjtest.dalongyun.com:18306/v1");
+        MagicMirrorAgent.setMaxCacheSize(this, 101);
+        MagicMirrorAgent.setMaxEventSize(this, 10);
+        MagicMirrorAgent.setIntervalTime(this, 10);
+        MagicMirrorAgent.setDebugMode(this, BuildConfig.DEBUG ? 1 : 0);
+    }
+
+    public static synchronized App get() {
+        if(instance != null) return instance;
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> activityThread = Class.forName("android.app.ActivityThread");
+            Object at = activityThread.getMethod("currentActivityThread").invoke(null);
+            Object app = activityThread.getMethod("getApplication").invoke(at);
+            if (app == null) {
+                throw new NullPointerException("u should init first");
+            }
+            instance = (App) app;
+            return instance;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException("u should init first");
     }
 }

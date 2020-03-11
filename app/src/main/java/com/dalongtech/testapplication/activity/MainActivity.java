@@ -9,6 +9,7 @@ import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
+import com.dalongtech.testapplication.service.TestService;
 import com.dalongtech.testapplication.widget.RoundedImageView;
 
 import java.util.HashMap;
@@ -38,12 +39,13 @@ public class MainActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-        if(isTest) startActivity(TestActivity.class);
+        if(isTest) startActivity(GetMacActivity.class);
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
-
+        Intent start = new Intent(this, TestService.class);
+        startService(start);
     }
 
     @OnClick(R.id.btn_test_page)

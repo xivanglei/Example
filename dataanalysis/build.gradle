@@ -22,6 +22,16 @@ android {
         }
     }
 
+//    //生成jar包
+//    task makeJar(type: Copy) {
+//        delete 'build/outputs/dl_analysis.jar'
+//        from('build/intermediates/packaged-classes/release/') //jar文件来源
+//        into('build/libs/') //生成路径
+//        include('classes.jar')
+//        rename('classes.jar', 'dl_analysis.jar') //命名为dl_analysis.jar
+//    }
+//    makeJar.dependsOn(build)
+
 }
 
 dependencies {

@@ -1,21 +1,20 @@
 package com.dalongtech.testapplication.activity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.CheckBox;
 
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
-import com.dalongtech.testapplication.utils.AES256;
+import com.dalongtech.testapplication.utils.AESUtil;
 import com.dalongtech.testapplication.utils.LogUtil;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 public class TestActivity extends SimpleActivity {
 
     private String content = "{\"cmd\":\"test\",\"data\":{\"a\":\"cc\"},\"ext\":{}}";
     private String password = "DlClientPost2019";
+
+    private String mData;
 
     private byte[] encryptResult;
 
@@ -28,23 +27,40 @@ public class TestActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
 
-
-
-
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
-        LogUtil.d("明文：" + content);
-        LogUtil.d("key：" + password);
-
-        encryptResult = AES256.AES_cbc_encrypt(content, password);
-        LogUtil.d("密文：" + new String(encryptResult));
+        LogUtil.d(Integer.toHexString(250));
+        mData = AESUtil.encryptAES(content);
     }
 
     @OnClick(R.id.btn_test2)
     public void test2() {
-        String decryptResult = AES256.AES_cbc_decrypt(encryptResult, password);
-        LogUtil.d("解密：" + decryptResult);
+        String deData = AESUtil.decryptAES(mData);
+        LogUtil.d(deData);
     }
+
+    public static byte[] hexStringToBytes(String hexString) {
+        if (hexString == null || hexString.equals("")) {
+            return null;
+        }
+        hexString = hexString.toUpperCase();
+        int length = hexString.length() / 2;
+        char[] hexChars = hexString.toCharArray();
+        byte[] d = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
+
+        }
+        return d;
+    }
+
+    private static byte charToByte(char c) {
+        byte result = (byte) "0123456789ABCDEF".indexOf(c);
+        LogUtil.d(result);
+        return result;
+    }
+
 }
