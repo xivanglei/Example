@@ -13,7 +13,7 @@
         <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             app:dl_keyboard_code="-1001"
-            android:text="换行"
+            android:text="@string/dl_key_line_feed"
             android:background="@drawable/dl_key_bg_function"/>
 
         <com.dalongtech.customkeyboard.widget.Keyboard
@@ -80,7 +80,7 @@
         <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             app:dl_keyboard_code="-1007"
-            android:text="中/英"
+            android:text="@string/dl_key_language"
             android:background="@drawable/dl_key_bg_function"/>
 
         <com.dalongtech.customkeyboard.widget.Keyboard
@@ -149,7 +149,7 @@
             android:id="@+id/kb_shift"
             style="@style/KBBase"
             app:dl_keyboard_code="-1"
-            android:text="大写"
+            android:text="@string/dl_key_capital"
             android:background="@drawable/dl_key_bg_function"/>
 
         <com.dalongtech.customkeyboard.widget.Keyboard
@@ -191,7 +191,7 @@
             style="@style/KBBase"
             android:layout_weight="14"
             app:dl_keyboard_code="-4"
-            android:text="确定"
+            android:text="@string/dl_key_confirm"
             android:background="@drawable/dl_key_bg_function"/>
 
         <View
@@ -231,7 +231,7 @@
             style="@style/KBBase"
             android:layout_weight="49"
             app:dl_keyboard_code="32"
-            android:text="空格"/>
+            android:text="@string/dl_key_spacing"/>
 
         <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"

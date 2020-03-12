@@ -5,9 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/QRCode/QRCode.iml" filepath="$PROJECT_DIR$/QRCode/QRCode.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestApplication.iml" filepath="$PROJECT_DIR$/TestApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/customkeyboard/customkeyboard.iml" filepath="$PROJECT_DIR$/customkeyboard/customkeyboard.iml" />
       <module fileurl="file://$PROJECT_DIR$/dataanalysis/dataanalysis.iml" filepath="$PROJECT_DIR$/dataanalysis/dataanalysis.iml" />
       <module fileurl="file://$PROJECT_DIR$/shortcutbadge/shortcutbadge.iml" filepath="$PROJECT_DIR$/shortcutbadge/shortcutbadge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/textkeyboard/textkeyboard.iml" filepath="$PROJECT_DIR$/textkeyboard/textkeyboard.iml" />
     </modules>
   </component>
 </project>

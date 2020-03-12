@@ -48,7 +48,7 @@
         <com.dalongtech.customkeyboard.widget.Keyboard
             style="@style/KBBase"
             app:dl_keyboard_code="-1016"
-            android:text="中/英"
+            android:text="@string/dl_key_language"
             android:background="@drawable/dl_key_bg_function"/>
 
     </LinearLayout>
@@ -95,7 +95,7 @@
             android:id="@+id/kb_symbol_previous"
             style="@style/KBBase"
             app:dl_keyboard_code="-1010"
-            android:text="上翻"
+            android:text="@string/dl_key_upturning"
             android:background="@drawable/dl_key_bg_function"/>
 
     </LinearLayout>
@@ -142,7 +142,7 @@
             android:id="@+id/kb_symbol_next"
             style="@style/KBBase"
             app:dl_keyboard_code="-1011"
-            android:text="下翻"
+            android:text="@string/dl_key_page_down"
             android:background="@drawable/dl_key_bg_function"/>
 
     </LinearLayout>
@@ -189,7 +189,7 @@
             android:id="@+id/kb_symbol_return"
             style="@style/KBBase"
             app:dl_keyboard_code="-1017"
-            android:text="返回"
+            android:text="@string/dl_key_return"
             android:background="@drawable/dl_key_bg_function"/>
 
     </LinearLayout>

@@ -84,7 +84,7 @@ public class Keyboard extends android.support.v7.widget.AppCompatTextView {
                 KeyConst.KEY_CTRL_R,
                 KeyConst.KEY_ALT_L,
                 KeyConst.KEY_ALT_R
-        ).contains(code);
+                ).contains(code);
     }
 
     public interface OnKeyActionListener {

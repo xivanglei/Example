@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <View
             android:id="@+id/view_hide_keyboard"
@@ -19,10 +20,10 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:background="@color/dl_keyboard_bg"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:alpha="0.9">
+            android:paddingRight="5dp">
 
             <include layout="@layout/dl_include_keyboard_base" />
 
@@ -48,6 +49,5 @@
         android:textSize="30sp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp" />
-
 
 </merge>

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -116,7 +115,6 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     public void showKeyboard() {
         if(mOpenStatus == STATUS_OPEN && getTranslationY() < dp2px(280)) return;
         mOpenStatus = STATUS_OPEN;
-        Log.d(TAG, "showKeyboard: ");
         setVisibilityToView(this, true);
         resetAnimator();
         mAnimator = AnimatorUtil.yScroll(this, 250, dp2px(280), 0, new DecelerateInterpolator());
@@ -125,10 +123,11 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     public void setAutoClickBlankHide(boolean autoClickBlankHide) {
         mAutoClickBlankHide = autoClickBlankHide;
         if(mAutoClickBlankHide) {
-            mHintKeyboard.setOnClickListener(new View.OnClickListener() {
+            mHintKeyboard.setOnTouchListener(new OnTouchListener() {
                 @Override
-                public void onClick(View v) {
+                public boolean onTouch(View v, MotionEvent event) {
                     hideKeyboard(HIDE_TYPE_BLANK);
+                    return false;
                 }
             });
         } else {
@@ -148,10 +147,8 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         mAnimator = AnimatorUtil.yScroll(this, 250, (int)getTranslationY(), dp2px(280), new DecelerateInterpolator(), new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d(TAG, "onAnimationEnd: " );
                 if(mListener != null) mListener.onHide(hideType);
                 if(mOpenStatus == STATUS_CLOSE) {
-                    Log.d(TAG, "onAnimationEnd: " + "重置");
                     resetKeyStatus();
                     setVisibilityToView(DLKeyboardView.this, false);
                 }
@@ -288,7 +285,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
 
     private void changeShiftStatus() {
         mShiftIsOpen = !mShiftIsOpen;
-        mBaseShiftView.setText(mShiftIsOpen ? "小写" : "大写");
+        mBaseShiftView.setText(mShiftIsOpen ? R.string.dl_key_lower_case : R.string.dl_key_capital);
         changeCapitalAlphabet();
     }
 
@@ -357,7 +354,6 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
             callback(mCodeUtil.transformCode(primaryCode, false), false);
         }
         backAnalysisCodeIfNeed(primaryCode);
-//        Log.d(TAG, "onRelease: " + primaryCode);
     }
 
     //设置是否预览

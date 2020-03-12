@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Custom Keyboard</string>
+    <string name="dl_key_line_feed">换行</string>
+    <string name="dl_key_language">中\英</string>
+    <string name="dl_key_lower_case">小写</string>
+    <string name="dl_key_capital">大写</string>
+    <string name="dl_key_symbol">符</string>
+    <string name="dl_key_confirm">确定</string>
+    <string name="dl_key_spacing">空格</string>
+    <string name="dl_key_upturning">上翻</string>
+    <string name="dl_key_page_down">下翻</string>
+    <string name="dl_key_return">返回</string>
+</resources>

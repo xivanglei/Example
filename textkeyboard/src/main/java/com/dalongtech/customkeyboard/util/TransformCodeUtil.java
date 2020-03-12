@@ -86,16 +86,16 @@ public class TransformCodeUtil {
         mCodeTransform.put(KeyConst.KEY_Z, 90);
 
         //数字 0 - 9
-        mCodeTransform.put(KeyConst.KEY_0, 96);
-        mCodeTransform.put(KeyConst.KEY_1, 97);
-        mCodeTransform.put(KeyConst.KEY_2, 98);
-        mCodeTransform.put(KeyConst.KEY_3, 99);
-        mCodeTransform.put(KeyConst.KEY_4, 100);
-        mCodeTransform.put(KeyConst.KEY_5, 101);
-        mCodeTransform.put(KeyConst.KEY_6, 102);
-        mCodeTransform.put(KeyConst.KEY_7, 103);
-        mCodeTransform.put(KeyConst.KEY_8, 104);
-        mCodeTransform.put(KeyConst.KEY_9, 105);
+        mCodeTransform.put(KeyConst.KEY_0, 48);
+        mCodeTransform.put(KeyConst.KEY_1, 49);
+        mCodeTransform.put(KeyConst.KEY_2, 50);
+        mCodeTransform.put(KeyConst.KEY_3, 51);
+        mCodeTransform.put(KeyConst.KEY_4, 52);
+        mCodeTransform.put(KeyConst.KEY_5, 53);
+        mCodeTransform.put(KeyConst.KEY_6, 54);
+        mCodeTransform.put(KeyConst.KEY_7, 55);
+        mCodeTransform.put(KeyConst.KEY_8, 56);
+        mCodeTransform.put(KeyConst.KEY_9, 57);
 
         //符号
         mCodeTransform.put(KeyConst.KEY_AT, 50);
@@ -198,7 +198,7 @@ public class TransformCodeUtil {
         if(mCodeTransform.indexOfKey(code) >= 0) {
             return mCodeTransform.valueAt(mCodeTransform.indexOfKey(code));
         } else {
-            Log.d(TAG, "transformSingleCode: " + "转换错误！找不到code: " + code + "  对应的windows码");
+//            Log.d(TAG, "transformSingleCode: " + "转换错误！找不到code: " + code + "  对应的windows码");
             return KeyConst.NO_FIND_KEY;
         }
     }
