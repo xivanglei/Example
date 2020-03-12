@@ -3,10 +3,10 @@ package com.dalongtech.testapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.dalongtech.analysis.utils.WebSocketAESUtil;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.utils.LogUtil;
+import com.dalongtech.testapplication.utils.WebSocketAESUtil;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
