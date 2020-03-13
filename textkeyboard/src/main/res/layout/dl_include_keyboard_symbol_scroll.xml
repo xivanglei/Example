@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_keyboard_symbol"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_gravity="bottom">
+
+    <com.dalongtech.customkeyboard.widget.ObservableScrollView
+        android:id="@+id/sv_symbol"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="7"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/LLKeyboardBaseRowContainer">
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2001"
+                    android:text="`" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2002"
+                    android:text="~" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2003"
+                    android:text="!" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="96"
+                    android:text="\@" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2005"
+                    android:text="#" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2031"
+                    android:text="\?" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2007"
+                    android:text="%" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LLKeyboardBaseRowContainer">
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2008"
+                    android:text="^" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2009"
+                    android:text="&amp;" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2010"
+                    android:text="*" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2011"
+                    android:text="(" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2012"
+                    android:text=")" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2013"
+                    android:text="-" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2014"
+                    android:text="=" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LLKeyboardBaseRowContainer">
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2015"
+                    android:text="_" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2016"
+                    android:text="+" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2017"
+                    android:text="[" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2018"
+                    android:text="]" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2019"
+                    android:text="{" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2020"
+                    android:text="}" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2021"
+                    android:text="\\" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LLKeyboardBaseRowContainer">
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2022"
+                    android:text="|" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2023"
+                    android:text=";" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2024"
+                    android:text=":" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2026"
+                    android:text="'" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2027"
+                    android:text="&quot;" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2032"
+                    android:text="," />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2033"
+                    android:text="." />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LLKeyboardBaseRowContainer">
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2028"
+                    android:text="&lt;" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2029"
+                    android:text="&gt;" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2030"
+                    android:text="/" />
+
+                <com.dalongtech.customkeyboard.widget.KeyboardDelay
+                    style="@style/KBBase"
+                    app:dl_keyboard_code="-2006"
+                    android:text="$" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="28"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </com.dalongtech.customkeyboard.widget.ObservableScrollView>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <com.dalongtech.customkeyboard.widget.Keyboard
+            style="@style/KBBase"
+            app:dl_keyboard_code="-1016"
+            android:text="@string/dl_key_language"
+            android:background="@drawable/dl_key_bg_function"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"/>
+
+        <com.dalongtech.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_symbol_previous"
+            style="@style/KBBase"
+            app:dl_keyboard_code="-1010"
+            android:text="@string/dl_key_upturning"
+            android:background="@drawable/dl_key_bg_function"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"/>
+
+        <com.dalongtech.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_symbol_next"
+            style="@style/KBBase"
+            app:dl_keyboard_code="-1011"
+            android:text="@string/dl_key_page_down"
+            android:background="@drawable/dl_key_bg_function"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"/>
+
+        <com.dalongtech.customkeyboard.widget.Keyboard
+            android:id="@+id/kb_symbol_return"
+            style="@style/KBBase"
+            app:dl_keyboard_code="-1017"
+            android:text="@string/dl_key_return"
+            android:background="@drawable/dl_key_bg_function"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

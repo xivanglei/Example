@@ -35,8 +35,8 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     private static final String TAG = "DLKeyboard";
 
     private static final int INPUT_TYPE_BASE = 1001;
-    private static final int INPUT_TYPE_SYMBOL = 1002;
-    private static final int INPUT_TYPE_WIN = 1003;
+    protected static final int INPUT_TYPE_SYMBOL = 1002;
+    protected static final int INPUT_TYPE_WIN = 1003;
     private static final int INPUT_TYPE_SYMBOL_2 = 1004;
     private static final int INPUT_TYPE_WIN_2 = 1005;
 
@@ -47,14 +47,14 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     public static final int HIDE_TYPE_BLANK = 12;
     public static final int HIDE_TYPE_API = 13;
 
-    private List<Keyboard> mAlphaKeys;
+    protected List<Keyboard> mAlphaKeys;
 
-    private boolean mAutoClickBlankHide = true;
+    protected boolean mAutoClickBlankHide = true;
 
     //记录键盘打开状态
     private int mOpenStatus = STATUS_CLOSE;
     //键盘类型
-    private int mInputType;
+    protected int mInputType;
     //转换windows码工具
     private TransformCodeUtil mCodeUtil;
     //监听
@@ -98,18 +98,26 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         this(context, attrs, 0);
     }
 
+    protected int getLayoutId() {
+        return R.layout.dl_view_keyboard;
+    }
+
     public DLKeyboardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mCodeUtil = new TransformCodeUtil();
-        LayoutInflater.from(context).inflate(R.layout.dl_view_keyboard, this, true);
-        mPreviewText = findViewById(R.id.tv_preview);
-        mHintKeyboard = findViewById(R.id.view_hide_keyboard);
+        LayoutInflater.from(context).inflate(getLayoutId(), this, true);
+        bindView();
         setVisibilityToView(mPreviewText, false);
         initEvent();
         initCustomEvent();
         initContainerView();
         setInputType(INPUT_TYPE_BASE);
         setVisibilityToView(this, false);
+    }
+
+    protected void bindView() {
+        mPreviewText = findViewById(R.id.tv_preview);
+        mHintKeyboard = findViewById(R.id.view_hide_keyboard);
     }
 
     public void showKeyboard() {
@@ -169,7 +177,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         setInputType(INPUT_TYPE_BASE);
     }
 
-    private void initEvent() {
+    public void initEvent() {
         if(mAlphaKeys == null) {
             mAlphaKeys = new ArrayList<>();
         } else {
@@ -203,7 +211,8 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
 
     private void initCustomEvent() {
         for(int id : mClickableViews) {
-            findViewById(id).setOnClickListener(this);
+            View view = findViewById(id);
+            if(view != null) view.setOnClickListener(this);
         }
         mKbCtrlL = findViewById(R.id.kb_ctrl_l);
         mKbCtrlR = findViewById(R.id.kb_ctrl_r);
@@ -243,6 +252,23 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
                 changeShiftStatus();
                 break;
             case KeyConst.KEY_PREVIOUS_PAGE:
+            case KeyConst.KEY_NEXT_PAGE:
+                handlerPageTurning(code);
+                break;
+            case KeyConst.KEY_CTRL_L:
+            case KeyConst.KEY_CTRL_R:
+            case KeyConst.KEY_ALT_L:
+            case KeyConst.KEY_ALT_R:
+                changeHotKeyStatus((Keyboard) v);
+                if(mShiftIsOpen) changeShiftStatus();
+                break;
+        }
+        backAnalysisCodeIfNeed(code);
+    }
+
+    protected void handlerPageTurning(int code) {
+        switch (code) {
+            case KeyConst.KEY_PREVIOUS_PAGE:
                 if(mInputType == INPUT_TYPE_SYMBOL_2) {
                     setInputType(INPUT_TYPE_SYMBOL);
                 } else if(mInputType == INPUT_TYPE_WIN_2) {
@@ -256,18 +282,10 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
                     setInputType(INPUT_TYPE_WIN_2);
                 }
                 break;
-            case KeyConst.KEY_CTRL_L:
-            case KeyConst.KEY_CTRL_R:
-            case KeyConst.KEY_ALT_L:
-            case KeyConst.KEY_ALT_R:
-                changeHotKeyStatus((Keyboard) v);
-                if(mShiftIsOpen) changeShiftStatus();
-                break;
         }
-        backAnalysisCodeIfNeed(code);
     }
 
-    private void setInputType(int inputType) {
+    protected void setInputType(int inputType) {
         mInputType = inputType;
         setVisibilityToView(mKeyboardBase, inputType == INPUT_TYPE_BASE);
         setVisibilityToView(mKeyboardSymbol, inputType == INPUT_TYPE_SYMBOL);
@@ -320,7 +338,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         keyboard.setBackgroundResource(isDown ? R.drawable.dl_key_bg_cancel : R.drawable.dl_key_bg);
     }
 
-    private int dp2px(float dpValue) {
+    protected int dp2px(float dpValue) {
         float scale = getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5F);
     }
@@ -426,6 +444,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     }
 
     private void setVisibilityToView(View v, boolean isShow) {
+        if(v == null) return;
         v.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 

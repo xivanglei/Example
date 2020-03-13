@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.dalongtech.customkeyboard.listener.KeyListener;
-import com.dalongtech.customkeyboard.widget.DLKeyboardView;
+import com.dalongtech.customkeyboard.widget.DLKeyboardScrollView;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.utils.LogUtil;
@@ -19,7 +19,7 @@ public class CustomKayboardActivity extends SimpleActivity {
     @BindView(R.id.btn_hide_keyboard)
     Button btn_hide_keyboard;
     @BindView(R.id.kb_custom_keyboard)
-    DLKeyboardView kb_custom_keyboard;
+    DLKeyboardScrollView kb_custom_keyboard;
 
     @Override
     protected int getLayoutById() {

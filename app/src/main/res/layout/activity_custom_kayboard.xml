@@ -31,7 +31,7 @@
 
     </LinearLayout>
 
-    <com.dalongtech.customkeyboard.widget.DLKeyboardView
+    <com.dalongtech.customkeyboard.widget.DLKeyboardScrollView
         android:id="@+id/kb_custom_keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

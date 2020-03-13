@@ -18,9 +18,9 @@ import java.util.Arrays;
 public class Keyboard extends android.support.v7.widget.AppCompatTextView {
 
     private static final String TAG = "Keyboard";
-    private int code;
+    protected int code;
     //监听
-    private OnKeyActionListener mListener;
+    protected OnKeyActionListener mListener;
 
     public Keyboard(Context context) {
         this(context, null);
@@ -69,7 +69,7 @@ public class Keyboard extends android.support.v7.widget.AppCompatTextView {
         mListener = listener;
     }
 
-    private boolean isCustomClick() {
+    protected boolean isCustomClick() {
         return Arrays.asList(
                 android.inputmethodservice.Keyboard.KEYCODE_SHIFT,
                 android.inputmethodservice.Keyboard.KEYCODE_CANCEL,
