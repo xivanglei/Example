@@ -104,6 +104,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
 
     public DLKeyboardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        long time = System.currentTimeMillis();
         mCodeUtil = new TransformCodeUtil();
         LayoutInflater.from(context).inflate(getLayoutId(), this, true);
         bindView();
@@ -113,6 +114,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         initContainerView();
         setInputType(INPUT_TYPE_BASE);
         setVisibilityToView(this, false);
+//        Log.d(TAG, "DLKeyboardView: 加载时间: " + (System.currentTimeMillis() - time));
     }
 
     protected void bindView() {
