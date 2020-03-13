@@ -15,7 +15,7 @@ import android.view.MotionEvent;
  */
 public class KeyboardDelay extends Keyboard {
 
-    public static final String TAG = "KeyboardDelay";
+    public static final String TAG = "滑动";
     public static final int DOWN = 10;
     public static final int UP = 20;
 
@@ -28,6 +28,7 @@ public class KeyboardDelay extends Keyboard {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == DOWN) {
+                Log.d(TAG, "handleMessage: " + mScrollView.getScrollY());
                 if(mIsScroll) {
                     mDownIsExecute = false;
                 } else {
@@ -66,21 +67,17 @@ public class KeyboardDelay extends Keyboard {
         if(isCustomClick()) return super.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                Log.d(TAG, "onTouchEvent: " + mScrollView.getScrollY());
                 mIsScroll = false;
                 if(mScrollView != null) {
                     mScrollView.setScrollCallback(mScrollCallback);
                 }
-                Log.d(TAG, "onTouchEvent: down" + code);
+//                Log.d(TAG, "onTouchEvent: down" + code);
                 sendMessage(DOWN);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.d(TAG, "onTouchEvent: 移动了");
-                mIsScroll = true;
-                mHandler.removeMessages(DOWN);
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
-                Log.d(TAG, "onTouchEvent: " + "up");
+//                Log.d(TAG, "onTouchEvent: " + "up");
                 sendMessage(UP);
                 break;
         }
@@ -98,7 +95,7 @@ public class KeyboardDelay extends Keyboard {
         public void onScroll() {
             mIsScroll = true;
             mHandler.removeMessages(DOWN);
-            Log.d(TAG, "onScroll: " + getCode());
+//            Log.d(TAG, "onScroll: " + getCode());
         }
     };
 

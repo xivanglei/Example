@@ -2,6 +2,8 @@ package com.dalongtech.customkeyboard.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.ScrollView;
 
 /**
@@ -9,6 +11,7 @@ import android.widget.ScrollView;
  */
 public class ObservableScrollView extends ScrollView {
 
+    private static final String TAG = "滑动";
     private ScrollCallback mScrollCallback;
 
     public ObservableScrollView(Context context) {
@@ -24,9 +27,12 @@ public class ObservableScrollView extends ScrollView {
     }
 
     @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        super.onScrollChanged(l, t, oldl, oldt);
-        if(mScrollCallback != null) mScrollCallback.onScroll();
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if(ev.getAction() == MotionEvent.ACTION_MOVE){
+            Log.d(TAG, "onInterceptTouchEvent: move");
+            if (mScrollCallback != null) mScrollCallback.onScroll();
+        }
+        return super.onInterceptTouchEvent(ev);
     }
 
     public void setScrollCallback(ScrollCallback scrollCallback) {
