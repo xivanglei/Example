@@ -20,7 +20,7 @@ public class ContextManager {
         if (weakReference == null) {
             weakReference = new WeakReference<Context>(CommonUtils.getApplication());
         }
-        return (weakReference == null) ? null : weakReference.get();
+        return weakReference.get();
     }
 
     public static void setContext(Context context) {
