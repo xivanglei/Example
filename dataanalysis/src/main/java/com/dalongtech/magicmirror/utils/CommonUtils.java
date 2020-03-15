@@ -81,6 +81,7 @@ public class CommonUtils {
      * 应用上线渠道
      */
     public static String getManifestData(Context context, String type) {
+        context = checkContext(context);
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA);
@@ -96,6 +97,7 @@ public class CommonUtils {
      * 判断是否 自动采集 mac imei
      */
     public static boolean isAutoCollect(Context context, String type) {
+        context = checkContext(context);
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA);
@@ -111,6 +113,7 @@ public class CommonUtils {
      * 获取当前时间,格式 yyyy-MM-dd hh:mm:ss.SSS
      */
     public static String getTime(Context context) {
+        context = checkContext(context);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
@@ -233,6 +236,7 @@ public class CommonUtils {
      * 获取上传头
      */
     public static String getSpvInfo(Context context) {
+        context = checkContext(context);
         try {
             String appkey = getAppKey(context);
             String sdkVersion = Constants.DEV_SDK_VERSION;
@@ -254,6 +258,7 @@ public class CommonUtils {
      * 是否首次启动
      */
     public static boolean isFirstStart(Context context) {
+        context = checkContext(context);
         if (!isEmpty(context)) {
             String first = SharedUtil.getString(context, Constants.SP_FIRST_START_TIME,
                     null);
@@ -275,6 +280,7 @@ public class CommonUtils {
      * 获取首次启动时间
      */
     public static String getFirstStartTime(Context context) {
+        context = checkContext(context);
         String firstTime = SharedUtil.getString(context,
                 Constants.SP_FIRST_START_TIME, Constants.EMPTY);
         if (isEmpty(firstTime)) {
@@ -288,6 +294,7 @@ public class CommonUtils {
      * 获取首次启动时间
      */
     public static long getFirstStartTimeStamp(Context context) {
+        context = checkContext(context);
         String firstTime = getFirstStartTime(context);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -304,6 +311,7 @@ public class CommonUtils {
      * 获取当前日期,格式 yyyy/MM/dd
      */
     public static String getDay(Context context) {
+        context = checkContext(context);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd", Locale.getDefault());
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08:00"));
@@ -383,6 +391,7 @@ public class CommonUtils {
      * 获取网络类型
      */
     public static String networkType(Context context) {
+        context = checkContext(context);
         String netType = "";
         // 检测权限
         if (!checkPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
@@ -416,6 +425,7 @@ public class CommonUtils {
      * @return true:已允许该权限; false:没有允许该权限
      */
     public static boolean checkPermission(Context context, String permission) {
+        context = checkContext(context);
         boolean result = false;
         if (Build.VERSION.SDK_INT >= 23) {
             try {
@@ -440,6 +450,7 @@ public class CommonUtils {
      * 获取 AppKey
      */
     public static String getAppKey(Context context) {
+        context = checkContext(context);
         try {
             return SharedUtil.getString(context, Constants.SP_APP_KEY, null);
         } catch (Throwable throwable) {
@@ -454,6 +465,7 @@ public class CommonUtils {
      * @return true 表示网络可用
      */
     public static boolean isNetworkAvailable(Context context) {
+        context = checkContext(context);
         if (!checkPermission(context, Manifest.permission.ACCESS_NETWORK_STATE)) {
             return false;
         }
@@ -546,6 +558,7 @@ public class CommonUtils {
      * 获取 originalId，优先取distinctId,无值，取UUID
      */
     public static String getDistinctId(Context context) {
+        context = checkContext(context);
         String id = getIdFile(context, Constants.SP_DISTINCT_ID);
         if (isEmpty(id)) {
             id = getIdFile(context, Constants.SP_UUID);
@@ -580,6 +593,7 @@ public class CommonUtils {
      * 服务器下发 > 用户设置 > 默认设置
      */
     public static String getUrl(Context context) {
+        context = checkContext(context);
         String url = SharedUtil.getString(context, Constants.SP_SERVICE_URL, null);
         if (!isEmpty(url)) {
             return url;
@@ -595,6 +609,7 @@ public class CommonUtils {
      * 读取模板
      */
     public static String getMould(Context context, String fileName) {
+        context = checkContext(context);
         if (!TextUtils.isEmpty(fileName)) {
             InputStream inputStream = null;
             try {
@@ -625,6 +640,7 @@ public class CommonUtils {
     }
 
     public static void setIdFile(Context context, String key, String value) {
+        context = checkContext(context);
         try {
             if (context != null && !TextUtils.isEmpty(key)) {
                 String filePath = context.getFilesDir().getPath() + Constants.FILE_NAME;
@@ -651,6 +667,7 @@ public class CommonUtils {
      * 获取 id 信息
      */
     public static String getIdFile(Context context, String key) {
+        context = checkContext(context);
         String filePath = context.getFilesDir().getPath() + Constants.FILE_NAME;
         try {
             String info = readFile(filePath);
@@ -802,6 +819,7 @@ public class CommonUtils {
      * 获取 Channel
      */
     public static String getChannel(Context context) {
+        context = checkContext(context);
         String channel = "";
         try {
             channel = SharedUtil.getString(context, Constants.SP_CHANNEL, null);
@@ -820,6 +838,7 @@ public class CommonUtils {
      * 获取 c_agent
      */
     public static String getCAgent(Context context) {
+        context = checkContext(context);
         String channel = "";
         channel = SharedUtil.getString(context, Constants.SP_C_AGENT, "");
         return channel;
@@ -829,38 +848,47 @@ public class CommonUtils {
      * 获取 商户号
      */
     public static String getPartnerCode(Context context) {
+        context = checkContext(context);
         return SharedUtil.getString(context, Constants.SP_PARTNER_CODE, "");
     }
 
     public static void setCId(Context context, String cId) {
+        context = checkContext(context);
         SharedUtil.setString(context, Constants.SP_C_ID, cId);
     }
 
     public static String getCId(Context context) {
+        context = checkContext(context);
         return SharedUtil.getString(context, Constants.SP_C_ID, "");
     }
 
     public static void setVipGrade(Context context, String cId) {
+        context = checkContext(context);
         SharedUtil.setString(context, Constants.SP_VIP_GRADE, cId);
     }
 
     public static String getVipGrade(Context context) {
+        context = checkContext(context);
         return SharedUtil.getString(context, Constants.SP_VIP_GRADE, "");
     }
 
     public static String getUserId(Context context) {
+        context = checkContext(context);
         return getIdFile(context, Constants.SP_USER_ID);
     }
 
     public static void setUserId(Context context, String userId) {
+        context = checkContext(context);
         setIdFile(context, Constants.SP_USER_ID, userId);
     }
 
     public static String getClientAccount(Context context) {
+        context = checkContext(context);
         return getIdFile(context, Constants.SP_CLIENT_ACCOUNT);
     }
 
     public static void setClientAccount(Context context, String clientAccount) {
+        context = checkContext(context);
         setIdFile(context, Constants.SP_CLIENT_ACCOUNT, clientAccount);
     }
 
@@ -868,6 +896,7 @@ public class CommonUtils {
      * 获取应用版本名称
      */
     public static String getVersionName(Context context) {
+        context = checkContext(context);
         try {
             final PackageManager packageManager = context.getPackageManager();
             final PackageInfo packageInfo = packageManager.
@@ -882,6 +911,7 @@ public class CommonUtils {
      * 获取当前的运营商
      */
     public static String getCarrierName(Context context) {
+        context = checkContext(context);
         if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
             TelephonyManager mTelephonyMgr = (TelephonyManager)
                     context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -903,6 +933,7 @@ public class CommonUtils {
      * 获取屏幕宽度
      */
     public static Object getScreenWidth(Context context) {
+        context = checkContext(context);
         int width;
         if (context instanceof Activity) {
             Activity activity = (Activity) context;
@@ -927,6 +958,7 @@ public class CommonUtils {
      * 如果context是Activity获取的是物理的屏幕尺寸 如果不是获取的是Activity的尺寸
      */
     public static Object getScreenHeight(Context context) {
+        context = checkContext(context);
         int height;
         if (context instanceof Activity) {
             Activity activity = (Activity) context;
@@ -950,6 +982,7 @@ public class CommonUtils {
      * 是否首日访问
      */
     public static Object isFirstDay(Context context) {
+        context = checkContext(context);
         String nowTime = getDay(context);
         String firstDay = SharedUtil.getString(context, Constants.DEV_IS_FIRST_DAY, null);
         if (isEmpty(firstDay)) {
@@ -964,6 +997,7 @@ public class CommonUtils {
      * 获取debug状态 服务器设置 > 用户设置 > 默认设置
      */
     public static Object getDebugMode(Context context) {
+        context = checkContext(context);
         int debug = SharedUtil.getInt(context, Constants.SP_SERVICE_DEBUG, -1);
         if (debug != -1) {
             return debug;
@@ -979,6 +1013,7 @@ public class CommonUtils {
      * 是否登录
      */
     public static int getLogin(Context context) {
+        context = checkContext(context);
         return SharedUtil.getInt(context, Constants.SP_IS_LOGIN, 0);
     }
 
@@ -986,6 +1021,7 @@ public class CommonUtils {
      * 获取 IMEI
      */
     public static String getIMEI(Context context) {
+        context = checkContext(context);
         try {
             if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
                 TelephonyManager telephonyMgr =
@@ -1001,6 +1037,7 @@ public class CommonUtils {
      * 获取mac地址
      */
     public static String getMac(Context context) {
+        context = checkContext(context);
         try {
             if (Build.VERSION.SDK_INT < 23) {
                 return getMacBySystemInterface(context);
@@ -1014,9 +1051,10 @@ public class CommonUtils {
         return Constants.EMPTY;
     }
 
-    public static String getDeviceId(Context var0) {
+    public static String getDeviceId(Context context) {
+        context = checkContext(context);
         try {
-            String var1 = Settings.Secure.getString(var0.getContentResolver(), "android_id");
+            String var1 = Settings.Secure.getString(context.getContentResolver(), "android_id");
             String var2 = Build.SERIAL;
             return MD5Util.md5ToStr(var1 + var2);
         } catch (Exception var3) {
@@ -1025,6 +1063,7 @@ public class CommonUtils {
     }
 
     private static String getMacBySystemInterface(Context context) {
+        context = checkContext(context);
         if (context != null) {
             WifiManager wifi = (WifiManager) context.getApplicationContext()
                     .getSystemService(Context.WIFI_SERVICE);
@@ -1037,6 +1076,7 @@ public class CommonUtils {
     }
 
     private static String getMacByFileAndJavaAPI(Context context) throws Exception {
+        context = checkContext(context);
         String mac = getMacShell();
         return !isEmpty(mac) ? mac : getMacByJavaAPI();
     }
@@ -1097,6 +1137,7 @@ public class CommonUtils {
      * 获取original id
      */
     public static Object getOriginalId(Context context) {
+        context = checkContext(context);
         String originalId = SharedUtil.getString(context, Constants.SP_ORIGINAL_ID, null);
         if (!isEmpty(originalId)) {
             return originalId;
@@ -1153,6 +1194,7 @@ public class CommonUtils {
      */
     public static Application getApplication() {
         try {
+            @SuppressLint("PrivateApi")
             Class<?> activityThread = Class.forName("android.app.ActivityThread");
             Object at = activityThread.getMethod("currentActivityThread").invoke(null);
             Object app = activityThread.getMethod("getApplication").invoke(at);
@@ -1212,6 +1254,7 @@ public class CommonUtils {
     private static String certName = null;
 
     public static SSLSocketFactory getSSLSocketFactory(Context context) {
+        context = checkContext(context);
         if (TextUtils.isEmpty(certName)) {
             certName = getManifestData(context, Constants.DEV_KEYSTONE);
         }
@@ -1256,6 +1299,7 @@ public class CommonUtils {
      * 需要配置证书
      */
     private static SSLSocketFactory getUserSSLSocketFactory(Context context, String certName) {
+        context = checkContext(context);
         try {
             //读取证书
             AssetManager am = context.getAssets();
@@ -1290,6 +1334,7 @@ public class CommonUtils {
      * 获取时间校准后的时间
      */
     public static long getCalibrationTimeMillis(Context context) {
+        context = checkContext(context);
         if (Constants.isTimeCheck) {
             if (!CommonUtils.isMainProcess(context)) {
                 String diff = CommonUtils.getIdFile(context, Constants.SP_DIFF_TIME);
@@ -1300,5 +1345,14 @@ public class CommonUtils {
             return System.currentTimeMillis() + Constants.diffTime;
         }
         return System.currentTimeMillis();
+    }
+
+    public static Context checkContext(Context context) {
+        if (context != null) {
+            return context;
+        } else {
+            LogUtil.d("parameter context is null");
+        }
+        return getApplication();
     }
 }

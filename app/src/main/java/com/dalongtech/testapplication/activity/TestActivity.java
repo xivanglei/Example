@@ -3,13 +3,10 @@ package com.dalongtech.testapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.dalongtech.analysis.utils.WebSocketAESUtil;
+import com.dalongtech.magicmirror.utils.CommonUtils;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.utils.LogUtil;
-
-import java.nio.ByteBuffer;
-import java.util.Arrays;
 
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
@@ -49,17 +46,7 @@ public class TestActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
-        String text = "{\"cmd\":\"heart\",\"data\":{},\"ext\":{}}";
-        String encryptData = WebSocketAESUtil.encryptAES(text);
-        ByteBuffer byteBuffer = ByteBuffer.allocate(4 + encryptData.length());
-        byteBuffer.putInt(encryptData.length());
-        byteBuffer.put(encryptData.getBytes());
-        byte[] enBytes = byteBuffer.array();
-        String enText = new String(enBytes);
-        LogUtil.d(encryptData);
-        byte[] bytes = "U2FsdGVkX1+VqAAAAAAAAGgA+1QC4HKqxKtCTmyq9toC2Nnma2UmZqSuNEQE2/FLgXPH/d5arjpumxMZDLAewOWbXohGUD/eUnLkh0AQtrvCvCMauBiOzA==".getBytes();
-        String data = WebSocketAESUtil.decryptAES(new String(Arrays.copyOfRange(bytes, 0, bytes.length)));
-        LogUtil.d(data);
+        CommonUtils.getIdFile(null, "dd");
     }
 
     @OnClick(R.id.btn_test2)

@@ -24,7 +24,7 @@ public class MainActivity extends SimpleActivity {
     @BindView(R.id.iv_test_transform_animator)
     RoundedImageView iv_test_transform_animator;
 
-    boolean isTest = false;
+    boolean isTest = true;
 
     private String mImageUrl = "https://rongcloud-file.cn.ronghub.com/application_octet-stream__RC-2019-10-21_8228_1571652938959.mp4?attname=40dfc95cc9fb4ba497b445d10441782f.mp4&e=2147483647&token=CddrKW5AbOMQaDRwc3ReDNvo3-sL_SO1fSUBKV3H:YV8sUH1aAnYaVrh-7iJx0iB31N0=";
     private String srcFile = "/storage/emulated/0/DCIM/Camera/IMG_20191004_150413.jpg";
@@ -40,7 +40,7 @@ public class MainActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
         if(isTest) startActivity(TestActivity.class);
-        startDisplayCutoutActivity();
+//        startDisplayCutoutActivity();
     }
 
     @Override
