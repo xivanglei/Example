@@ -24,7 +24,8 @@ public class MainActivity extends SimpleActivity {
     @BindView(R.id.iv_test_transform_animator)
     RoundedImageView iv_test_transform_animator;
 
-    boolean isTest = true;
+
+    boolean isTest = false;
 
     private String mImageUrl = "https://rongcloud-file.cn.ronghub.com/application_octet-stream__RC-2019-10-21_8228_1571652938959.mp4?attname=40dfc95cc9fb4ba497b445d10441782f.mp4&e=2147483647&token=CddrKW5AbOMQaDRwc3ReDNvo3-sL_SO1fSUBKV3H:YV8sUH1aAnYaVrh-7iJx0iB31N0=";
     private String srcFile = "/storage/emulated/0/DCIM/Camera/IMG_20191004_150413.jpg";
@@ -40,7 +41,6 @@ public class MainActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
         if(isTest) startActivity(TestActivity.class);
-        startCustomKeyboard();
     }
 
     @Override
@@ -146,5 +146,11 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_display_cutout)
     public void startDisplayCutoutActivity() {
         startActivity(DisplayCutoutActivity.class);
+    }
+
+    @OnClick(R.id.btn_data_start)
+    public void dataStartActivity() {
+        //根据这个地址，无论在这里启动或在浏览器中的链接，都会启动到UrlStartActivity里，具体看日志
+        StartActivityUtils.startActivity(this, "test://xianglei/mypath?key=mykey&aaa=bbb");
     }
 }

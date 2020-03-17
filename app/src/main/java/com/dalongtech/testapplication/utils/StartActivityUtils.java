@@ -15,17 +15,21 @@ public class StartActivityUtils {
 
     public static void startActivity(Context context, String url) {
         if (StringUtil.isNotBlank(url)) {
-            Intent action;
-            if (url.contains(":")) {
-                action = new Intent("android.intent.action.VIEW");
-                StringBuilder builder = new StringBuilder();
-                builder.append(url);
-                action.setData(Uri.parse(builder.toString()));
-                context.startActivity(action);
-            } else {
-                action = new Intent();
-                action.setClassName(context.getPackageName(), url);
-                context.startActivity(action);
+            try {
+                Intent action;
+                if (url.contains(":")) {
+                    action = new Intent("android.intent.action.VIEW");
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(url);
+                    action.setData(Uri.parse(builder.toString()));
+                    context.startActivity(action);
+                } else {
+                    action = new Intent();
+                    action.setClassName(context.getPackageName(), url);
+                    context.startActivity(action);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }

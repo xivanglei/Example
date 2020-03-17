@@ -2,11 +2,11 @@ package com.dalongtech.testapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.dalongtech.magicmirror.utils.CommonUtils;
+
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.utils.LogUtil;
-import com.dalongtech.testapplication.utils.WebSocketAESUtil;
+import com.dalongtech.testapplication.utils.StartActivityUtils;
 
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
@@ -46,7 +46,7 @@ public class TestActivity extends SimpleActivity {
 
     @OnClick(R.id.btn_test)
     public void test() {
-        CommonUtils.getIdFile(null, "dd");
+        StartActivityUtils.startActivity(this, "test://xianglei/mypath?key=mykey&aaa=bbb");
     }
 
     @OnClick(R.id.btn_test2)

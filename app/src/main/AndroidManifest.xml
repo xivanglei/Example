@@ -21,7 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DisplayCutoutActivity"></activity>
+        <activity android:name=".activity.UrlStartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="test"
+                    android:host="xianglei" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.DisplayCutoutActivity" />
         <activity android:name=".activity.ReflectDemoActivity" />
         <activity android:name=".activity.QRCodeActivity" />
         <activity android:name=".activity.DisputeMachineActivity" />
