@@ -23,6 +23,7 @@ public class UrlStartActivity extends SimpleActivity {
         Intent intent = getIntent();
         if(intent != null && intent.getData() != null) {
             log(intent.getData());
+            setIntentFromUri(intent.getData());
         }
 
     }
@@ -43,5 +44,16 @@ public class UrlStartActivity extends SimpleActivity {
         LogUtil.d(JsonUtil.toJson(queryNames));
         // bbb
         LogUtil.d(uri.getQueryParameter("aaa"));
+    }
+
+    private void setIntentFromUri(Uri uri) {
+        Intent intent = getIntent();
+        LogUtil.d(intent.getStringExtra("aaa"));
+        LogUtil.d(intent.getStringExtra("key"));
+        for(String name : uri.getQueryParameterNames()) {
+            intent.putExtra(name, uri.getQueryParameter(name));
+        }
+        LogUtil.d(intent.getStringExtra("aaa"));
+        LogUtil.d(intent.getStringExtra("key"));
     }
 }

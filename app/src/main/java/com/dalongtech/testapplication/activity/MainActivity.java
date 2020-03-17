@@ -151,6 +151,6 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_data_start)
     public void dataStartActivity() {
         //根据这个地址，无论在这里启动或在浏览器中的链接，都会启动到UrlStartActivity里，具体看日志
-        StartActivityUtils.startActivity(this, "test://xianglei/mypath?key=mykey&aaa=bbb");
+        StartActivityUtils.startActivity(this, "test://xianglei?key=mykey&aaa=bbb");
     }
 }
