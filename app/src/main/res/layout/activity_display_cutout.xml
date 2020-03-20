@@ -25,6 +25,30 @@
         android:layout_height="wrap_content"
         android:text="适配模式"/>
 
+    <Button
+        android:id="@+id/btn_safety_zone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="安全区域"/>
+
+    <Button
+        android:id="@+id/btn_show_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示statusBar"/>
+
+    <Button
+        android:id="@+id/btn_hide_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐藏statusBar"/>
+
+    <Button
+        android:id="@+id/btn_add_window"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加窗口"/>
+
 
 
 </LinearLayout>
