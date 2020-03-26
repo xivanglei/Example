@@ -777,8 +777,7 @@ public class AgentProcess {
                     Map<String, Object> property = new HashMap<>();
                     property.put(key, value);
 
-                    if (CheckUtils.checkParameter(Constants.API_REGISTER_SUPER_PROPERTY,
-                            property)) {
+                    if (CheckUtils.checkParameter(Constants.API_REGISTER_SUPER_PROPERTY, property)) {
                         if (LogBean.getCode() == Constants.CODE_SUCCESS) {
                             LogPrompt.showLog(Constants.API_REGISTER_SUPER_PROPERTY, true);
                         }
@@ -808,11 +807,9 @@ public class AgentProcess {
                         return;
                     }
                     Map<String, Object> propertyInfo = CommonUtils.deepCopy(propertyDetail);
-                    if (CheckUtils.checkParameter(
-                            Constants.API_REGISTER_SUPER_PROPERTIES, propertyInfo)) {
+                    if (CheckUtils.checkParameter(Constants.API_REGISTER_SUPER_PROPERTIES, propertyInfo)) {
                         if (LogBean.getCode() == Constants.CODE_SUCCESS) {
-                            LogPrompt.showLog(
-                                    Constants.API_REGISTER_SUPER_PROPERTIES, true);
+                            LogPrompt.showLog(Constants.API_REGISTER_SUPER_PROPERTIES, true);
                         }
                         saveSuperProperty(context, propertyInfo);
                     }
