@@ -1,0 +1,4 @@
+1.0.2
+在没有cid时先缓存
+完善日志文件
+AutomaticAcquisition里，修正第一个页面context为null
