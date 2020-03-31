@@ -13,9 +13,10 @@ import android.util.Base64;
 
 import com.dalongtech.magicmirror.constants.Constants;
 import com.dalongtech.magicmirror.process.AgentProcess;
+import com.dalongtech.magicmirror.process.ContextManager;
+import com.dalongtech.magicmirror.utils.CommonUtils;
 import com.dalongtech.magicmirror.utils.MMLog;
 import com.dalongtech.magicmirror.utils.MMThreadPool;
-import com.dalongtech.magicmirror.utils.CommonUtils;
 import com.dalongtech.magicmirror.utils.NumberFormat;
 import com.dalongtech.magicmirror.utils.ParseUtil;
 import com.dalongtech.magicmirror.utils.SharedUtil;
@@ -73,13 +74,13 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
                 }
             }
         };
+        if (context == null) {
+            context = ContextManager.getContext();
+        }
     }
 
     @Override
     public void onActivityCreated(@NonNull final Activity activity, Bundle savedInstanceState) {
-        if (context == null) {
-            context = activity.getApplicationContext();
-        }
     }
 
     @Override

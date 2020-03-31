@@ -492,7 +492,7 @@ public class AgentProcess {
                     Log.w("analysys", Constants.API_SET_DEBUG_MODE + ": set failed!");
                     return;
                 }
-                LogUtil.DEBUG = (debug != 0);
+                LogUtil.setDebugMode(debug != 0);
                 debugResetUserInfo(context, debug);
                 SharedUtil.setInt(context, Constants.SP_USER_DEBUG, debug);
                 if (debug != 0) {
