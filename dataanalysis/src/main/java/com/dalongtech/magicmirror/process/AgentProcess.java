@@ -49,6 +49,7 @@ public class AgentProcess {
     private static long cacheMaxCount = 0;
     private String mTitle = "", mUrl = "";
     private Map<String, Object> properties;
+    private boolean mHasCid;
 
     public static AgentProcess getInstance(Context context) {
         ContextManager.setContext(context);
@@ -255,6 +256,14 @@ public class AgentProcess {
         }
     }
 
+    public boolean getHasCid() {
+        if(!mHasCid) {
+            mHasCid = !CommonUtils.isEmpty(CommonUtils.getCId(ContextManager.getContext()));
+        }
+        if(!mHasCid) LogUtil.d("cid is null");
+        return mHasCid;
+    }
+
     /**
      * 获取最大缓存条数
      */
@@ -329,6 +338,7 @@ public class AgentProcess {
                 try {
                     JSONObject json = new JSONObject(data);
                     CommonUtils.setCId(context, json.optString(Constants.SERVICE_CID));
+                    bindCidAndUserId(context);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -338,7 +348,12 @@ public class AgentProcess {
         });
     }
 
-    private void bindCidAndUserId(Context context) throws Exception{
+    private void bindCidAndUserId(Context context) throws Exception {
+        if(CommonUtils.isEmpty(CommonUtils.getCId(context))) {
+            LogUtil.d("cid is null");
+            return;
+        }
+        LogUtil.d("bind cid = " + CommonUtils.getCId(context) + "---userId = " + CommonUtils.getUserId(context));
         String url = CommonUtils.getUrl(context) + ExtraConst.URL_LOGIN;
         JSONObject allJob = new JSONObject();
         CommonUtils.pushToJSON(allJob, Constants.USER, CommonUtils.getUserId(context));

@@ -50,6 +50,8 @@ public class UploadManager {
     private int updateTime = 0x03;
     private String spv = "";
     private static final int LENGTH_COUNT = 4;
+    private static final int NO_CID_MAX_CACHE_COUNT = 30;       //没有cid最大缓存数量
+    private boolean mNeedCheckCid = true;
 
     private UploadManager() {
         HandlerThread thread = new HandlerThread(Constants.THREAD_NAME, Thread.MIN_PRIORITY);
@@ -91,7 +93,7 @@ public class UploadManager {
         LogUtil.d(TableAllInfo.getInstance(mContext).selectCount());
         if (CommonUtils.isMainProcess(mContext)) {
             BaseSendStatus sendStatus = PolicyManager.getPolicyType(mContext);
-            if (sendStatus.isSend(mContext)) {
+            if (sendStatus.isSend(mContext) && needSendByCid()) {
                 sendUploadMessage();
                 LogUtil.d("开始发送");
             }
@@ -106,6 +108,18 @@ public class UploadManager {
         LogUtil.d(count + "--最大缓存--" + maxCount);
         if (maxCount <= count) {
             TableAllInfo.getInstance(mContext).delete(Constants.DELETE_COUNT);
+        }
+    }
+
+    //根据cid判断是否发送
+    private boolean needSendByCid() {
+        if(!mNeedCheckCid) return true;
+        if(AgentProcess.getInstance(mContext).getHasCid() ||
+                TableAllInfo.getInstance(mContext).selectCount() > NO_CID_MAX_CACHE_COUNT) {
+            mNeedCheckCid = false;
+            return true;
+        } else {
+            return false;
         }
     }
 
