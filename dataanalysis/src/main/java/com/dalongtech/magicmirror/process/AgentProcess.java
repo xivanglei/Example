@@ -350,7 +350,11 @@ public class AgentProcess {
 
     private void bindCidAndUserId(Context context) throws Exception {
         if(CommonUtils.isEmpty(CommonUtils.getCId(context))) {
-            LogUtil.d("cid is null");
+            LogUtil.d("bind cid: cid is null");
+            return;
+        }
+        if(CommonUtils.isEmpty(CommonUtils.getUserId(context))) {
+            LogUtil.d("bind cid: userId is null");
             return;
         }
         LogUtil.d("bind cid = " + CommonUtils.getCId(context) + "---userId = " + CommonUtils.getUserId(context));
