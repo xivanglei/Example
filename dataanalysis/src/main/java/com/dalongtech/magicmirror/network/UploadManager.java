@@ -84,7 +84,16 @@ public class UploadManager {
     /**
      * 判断 发送数据
      */
-    public void sendManager(String type, JSONObject sendData) {
+    public void sendManager(final String type, final JSONObject sendData) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                insertDBAndSendData(type, sendData);
+            }
+        });
+    }
+
+    private void insertDBAndSendData(String type, JSONObject sendData) {
         if (CommonUtils.isEmpty(sendData)) {
             return;
         }

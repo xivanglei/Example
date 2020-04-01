@@ -15,6 +15,7 @@ import com.dalongtech.magicmirror.constants.Constants;
 import com.dalongtech.magicmirror.process.AgentProcess;
 import com.dalongtech.magicmirror.process.ContextManager;
 import com.dalongtech.magicmirror.utils.CommonUtils;
+import com.dalongtech.magicmirror.utils.LogUtil;
 import com.dalongtech.magicmirror.utils.MMLog;
 import com.dalongtech.magicmirror.utils.MMThreadPool;
 import com.dalongtech.magicmirror.utils.NumberFormat;
@@ -39,7 +40,9 @@ import java.util.Map;
 public class AutomaticAcquisition implements Application.ActivityLifecycleCallbacks {
 
     private static final int TRACK_APP_END = 0x01;
-    private static final int SAVE_END_INFO = TRACK_APP_END + 1;
+    private static final int SAVE_END_INFO = 0x02;
+    private static final int APP_START = 0x03;
+    private static final int APP_END = 0x04;
     private String filePath = null;
     private Context context = null;
     /**
@@ -69,6 +72,17 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
                             sendEmptyMessageDelayed(SAVE_END_INFO, Constants.TRACK_END_INVALID);
                         }
                         break;
+                    case APP_START:
+                        if(msg.obj instanceof WeakReference) {
+                            WeakReference wr = (WeakReference) msg.obj;
+                            if(wr.get() instanceof Activity) {
+                                appStart((Activity) wr.get());
+                            }
+                        }
+                        break;
+                    case APP_END:
+                        appEnd();
+                        break;
                     default:
                         break;
                 }
@@ -86,7 +100,10 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
     @Override
     public void onActivityStarted(@NonNull final Activity activity) {
         MMLog.e("");
-        appStart(new WeakReference<>(activity));
+        Message msg = Message.obtain();
+        msg.what = APP_START;
+        msg.obj = new WeakReference<>(activity);
+        mHandler.sendMessage(msg);
     }
 
     @Override
@@ -107,7 +124,7 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityStopped(@NonNull Activity activity) {
-        activityStop(new WeakReference<>(activity));
+        mHandler.sendEmptyMessage(APP_END);
     }
 
     @Override
@@ -118,30 +135,20 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
     public void onActivityDestroyed(@NonNull Activity activity) {
     }
 
-    private void appStart(final WeakReference<Activity> wr) {
-        MMThreadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (wr != null) {
-                        Activity activity = wr.get();
-                        if (activity != null) {
-                            Context context = activity.getApplicationContext();
-                            filePath = activity.getFilesDir().getAbsolutePath();
-
-                           String changeTime = String.valueOf(System.currentTimeMillis());
-                            // 2.存lastPageChange
-                            CommonUtils.setIdFile(activity.getApplicationContext(),
-                                    Constants.SP_LAST_PAGE_CHANGE, changeTime);
-
-                            activityStart(context);
-                            pageView(activity);
-                        }
-                    }
-                } catch (Throwable ignored) {
-                }
+    private void appStart(final Activity activity) {
+        try {
+            if (activity != null) {
+                LogUtil.d("appStart了");
+                filePath = activity.getFilesDir().getAbsolutePath();
+                String changeTime = String.valueOf(System.currentTimeMillis());
+                // 2.存lastPageChange
+                CommonUtils.setIdFile(activity.getApplicationContext(),
+                        Constants.SP_LAST_PAGE_CHANGE, changeTime);
+                activityStart(context);
+                pageView(activity);
             }
-        });
+        } catch (Throwable ignored) {
+        }
     }
 
     /**
@@ -205,24 +212,6 @@ public class AutomaticAcquisition implements Application.ActivityLifecycleCallba
     private void resetReferrer(Context context) {
         CommonUtils.setIdFile(context, Constants.SP_REFER, "");
     }
-
-
-    private void activityStop(WeakReference<Activity> activity) {
-        if (activity != null) {
-            Context context = activity.get();
-            if (context != null) {
-                // 单队列线程执行
-                MMThreadPool.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        // 调用AppEnd
-                        appEnd();
-                    }
-                });
-            }
-        }
-    }
-
 
     /**
      * 发送应用启动消息
