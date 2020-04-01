@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.dalongtech.testapplication.R;
+import com.dalongtech.testapplication.activity.thread.ThreadActivity;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;

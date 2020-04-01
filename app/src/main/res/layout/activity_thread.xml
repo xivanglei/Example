@@ -5,19 +5,25 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dalongtech.testapplication.activity.ThreadActivity">
+    tools:context="com.dalongtech.testapplication.activity.thread.ThreadActivity">
 
     <Button
-        android:id="@+id/btn_start_thread"
+        android:id="@+id/btn_no_sync_thread"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开启线程"/>
+        android:text="不同步方法，数据错乱示例"/>
 
     <Button
-        android:id="@+id/btn_restart_thread"
+        android:id="@+id/btn_sync_thread"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="子线程再次开线程"/>
+        android:text="同步方法，数据不会错乱"/>
+
+    <Button
+        android:id="@+id/btn_interrupt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="中断介绍"/>
 
     <Button
         android:id="@+id/btn_main_start_thread"
