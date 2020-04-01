@@ -381,8 +381,8 @@ public class AgentProcess {
 
     private JSONObject getIdentities(Context context) {
         JSONObject jsonObject = new JSONObject();
-        CommonUtils.pushToJSON(jsonObject, ExtraConst.MAC_ADDRESS, CommonUtils.getMac(context));
         CommonUtils.pushToJSON(jsonObject, ExtraConst.IMEI, CommonUtils.getIMEI(context));
+        CommonUtils.pushToJSON(jsonObject, ExtraConst.MAC_ADDRESS, CommonUtils.getMac(context));
         CommonUtils.pushToJSON(jsonObject, ExtraConst.DEVICE_ID, CommonUtils.getDeviceId(context));
         return jsonObject;
     }
