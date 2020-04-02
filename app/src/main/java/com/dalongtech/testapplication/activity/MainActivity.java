@@ -42,7 +42,7 @@ public class MainActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
         if(isTest) startActivity(TestActivity.class);
-        enterMaterialDesign();
+        startShortcutBadgeActivity();
     }
 
     @Override

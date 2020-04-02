@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -29,6 +30,7 @@ public class ShortcutBadgeActivity extends SimpleActivity {
     TextView tv_home_package;
 
     private static final String NOTIFICATION_CHANNEL = "net.xianglei.shortcutbadget.ShortcutBadger.example";
+    private static final String KEY_TEST = "key_test";
 
     private NotificationManager mNotificationManager;
     private int notificationId = 0;
@@ -40,6 +42,7 @@ public class ShortcutBadgeActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
+        LogUtil.d(getIntent().getStringExtra(KEY_TEST));
         findHomeLauncherPackage();
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
@@ -68,14 +71,17 @@ public class ShortcutBadgeActivity extends SimpleActivity {
             mNotificationManager.cancel(notificationId);
             notificationId++;
 
+
+
             Notification.Builder builder = new Notification.Builder(getApplicationContext())
                     .setContentTitle("角标测试")
                     .setContentText("角标")
-                    .setSmallIcon(R.mipmap.ic_launcher);
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setAutoCancel(true)
+                    .setContentIntent(getStartPendingIntent());
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setupNotificationChannel();
-
                 builder.setChannelId(NOTIFICATION_CHANNEL);
             }
 
@@ -94,6 +100,12 @@ public class ShortcutBadgeActivity extends SimpleActivity {
     public void removeBadge() {
         boolean success = ShortcutBadger.removeCount(mContext);
         LogUtil.d("移出成功?" + success);
+    }
+
+    private PendingIntent getStartPendingIntent() {
+        Intent intent = new Intent(mContext, ShortcutBadgeActivity.class);
+        intent.putExtra(KEY_TEST, "随便放点东西");
+        return PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void findHomeLauncherPackage() {
