@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.thread.ThreadActivity"></activity>
+        <activity android:name=".activity.material.MaterialActivity"></activity>
+        <activity android:name=".activity.thread.ThreadActivity" />
         <activity android:name=".activity.UrlStartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

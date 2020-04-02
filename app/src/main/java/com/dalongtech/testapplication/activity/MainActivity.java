@@ -6,7 +6,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 import com.dalongtech.testapplication.R;
-import com.dalongtech.testapplication.activity.thread.ThreadActivity;
+import com.dalongtech.testapplication.activity.material.MaterialActivity;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.bean.ContactBean;
 import com.dalongtech.testapplication.component.transformanim.ActivityAnimationHelper;
@@ -42,7 +42,7 @@ public class MainActivity extends SimpleActivity {
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
         if(isTest) startActivity(TestActivity.class);
-        startActivity(ThreadActivity.class);
+        enterMaterialDesign();
     }
 
     @Override
@@ -154,5 +154,10 @@ public class MainActivity extends SimpleActivity {
     public void dataStartActivity() {
         //根据这个地址，无论在这里启动或在浏览器中的链接，都会启动到UrlStartActivity里，具体看日志
         StartActivityUtils.startActivity(this, "test://xianglei?key=mykey&aaa=bbb");
+    }
+
+    @OnClick(R.id.btn_material_design)
+    public void enterMaterialDesign() {
+        startActivity(MaterialActivity.class);
     }
 }
