@@ -2,12 +2,19 @@ package com.dalongtech.testapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.utils.LogUtil;
 
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 
@@ -39,16 +46,63 @@ public class TestActivity extends SimpleActivity {
     }
 
     private void aaa(String... params) {
-        LogUtil.d(params.length);
-        LogUtil.d(-3 % 2);
-        LogUtil.d(0 % 2);
-        LogUtil.d(5 % 2);
+        Observer<Boolean> observer = new Observer<Boolean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Boolean aBoolean) {
+                throw new RuntimeException("我是故意的");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.d(e.getStackTrace());
+                if(e instanceof UndeliverableException) {
+                    RuntimeException custom = (RuntimeException) ((UndeliverableException) e).getCause();
+                    LogUtil.d(Log.getStackTraceString(custom));
+                }
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        Consumer<Throwable> consumer = new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                observer.onError(throwable);
+            }
+        };
+        RxJavaPlugins.setErrorHandler(consumer);
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                emitter.onNext(1);
+                emitter.onComplete();
+            }
+        }).flatMap(i -> {
+                    return Observable.create(new ObservableOnSubscribe<Boolean>() {
+
+                        @Override
+                        public void subscribe(ObservableEmitter<Boolean> emitter) throws Exception {
+                            try {
+                                emitter.onNext(true);
+                            } catch (Exception e) {
+                                RxJavaPlugins.onError(e);
+                            }
+                        }
+                    });
+                }).subscribe(observer);
     }
 
     @OnClick(R.id.btn_test)
     public void test() {
-        interrupt();
-        startThread();
+        aaa();
     }
 
     @OnClick(R.id.btn_test2)

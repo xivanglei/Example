@@ -20,6 +20,12 @@ public class ExampleUnitTest {
 
     @Test
     public void test() {
-
+        int a = 0;
+        int b = 10;
+        int c = 20;
+        a = b = c = 30;
+        int d = (c = 40);
+        System.out.println("d:" + d);
     }
+
 }

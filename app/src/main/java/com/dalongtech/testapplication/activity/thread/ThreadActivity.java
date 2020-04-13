@@ -6,6 +6,9 @@ import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.SimpleActivity;
 import com.dalongtech.testapplication.utils.LogUtil;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import butterknife.OnClick;
 
 public class ThreadActivity extends SimpleActivity {
@@ -17,7 +20,7 @@ public class ThreadActivity extends SimpleActivity {
 
     @Override
     protected void initViewAndData(Bundle savedInstanceState) {
-
+        ExecutorService executor = Executors.newSingleThreadExecutor();
     }
 
     //不同步方法，数据会错乱
@@ -69,5 +72,10 @@ public class ThreadActivity extends SimpleActivity {
                     }
                 }
         });
+    }
+
+    @OnClick(R.id.btn_queue_demo)
+    public void queueDemo() {
+        QueueTest.start();
     }
 }

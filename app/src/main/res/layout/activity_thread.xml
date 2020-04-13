@@ -26,9 +26,9 @@
         android:text="中断介绍"/>
 
     <Button
-        android:id="@+id/btn_main_start_thread"
+        android:id="@+id/btn_queue_demo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="主线程再开线程"/>
+        android:text="消息队列示例"/>
 
 </LinearLayout>
