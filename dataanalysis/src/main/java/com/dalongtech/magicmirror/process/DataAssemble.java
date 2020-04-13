@@ -130,7 +130,6 @@ public class DataAssemble {
     private void putBaseInfo(JSONObject allJob, String eventName) {
         CommonUtils.pushToJSON(allJob, Constants.EVENT, eventName);
         CommonUtils.pushToJSON(allJob, ExtraConst.PLATFORM, ExtraConst.C_V_PLATFORM);
-        CommonUtils.pushToJSON(allJob, ExtraConst.C_CID, CommonUtils.getCId(mContext));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_AGENT, ParameterAddUtil.getAgentInfo());
         CommonUtils.pushToJSON(allJob, ExtraConst.C_APP_VERSION, CommonUtils.getVersionName(mContext));
         CommonUtils.pushToJSON(allJob, ExtraConst.C_PARTNER_CODE, CommonUtils.getPartnerCode(mContext));

@@ -50,6 +50,8 @@ public class UploadManager {
     private int updateTime = 0x03;
     private String spv = "";
     private static final int LENGTH_COUNT = 4;
+    private static final int NO_CID_MAX_CACHE_COUNT = 30;       //没有cid最大缓存数量
+    private boolean mNeedCheckCid = true;
 
     private UploadManager() {
         HandlerThread thread = new HandlerThread(Constants.THREAD_NAME, Thread.MIN_PRIORITY);
@@ -82,18 +84,27 @@ public class UploadManager {
     /**
      * 判断 发送数据
      */
-    public void sendManager(String type, JSONObject sendData) {
+    public void sendManager(final String type, final JSONObject sendData) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                insertDBAndSendData(type, sendData);
+            }
+        });
+    }
+
+    private void insertDBAndSendData(String type, JSONObject sendData) {
         if (CommonUtils.isEmpty(sendData)) {
             return;
         }
         dbCacheCheck();
         TableAllInfo.getInstance(mContext).insert(sendData.toString(), type);
-        LogUtil.d(TableAllInfo.getInstance(mContext).selectCount());
+        LogUtil.d("insert data, all count = " + TableAllInfo.getInstance(mContext).selectCount());
         if (CommonUtils.isMainProcess(mContext)) {
             BaseSendStatus sendStatus = PolicyManager.getPolicyType(mContext);
-            if (sendStatus.isSend(mContext)) {
+            if (sendStatus.isSend(mContext) && needSendByCid()) {
                 sendUploadMessage();
-                LogUtil.d("开始发送");
+                LogUtil.d("start send");
             }
         } else {
             LogPrompt.processFailed();
@@ -106,6 +117,18 @@ public class UploadManager {
         LogUtil.d(count + "--最大缓存--" + maxCount);
         if (maxCount <= count) {
             TableAllInfo.getInstance(mContext).delete(Constants.DELETE_COUNT);
+        }
+    }
+
+    //根据cid判断是否发送
+    private boolean needSendByCid() {
+        if(!mNeedCheckCid) return true;
+        if(AgentProcess.getInstance(mContext).getHasCid() ||
+                TableAllInfo.getInstance(mContext).selectCount() > NO_CID_MAX_CACHE_COUNT) {
+            mNeedCheckCid = false;
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -180,7 +203,6 @@ public class UploadManager {
     private void uploadData(String url) throws IOException, JSONException {
         if (CommonUtils.isNetworkAvailable(mContext)) {
             JSONArray eventArray = TableAllInfo.getInstance(mContext).select();
-            LogUtil.d("uploadData: " + String.valueOf(eventArray));
             // 上传数据检查校验
             eventArray = checkUploadData(eventArray);
             if (!CommonUtils.isEmpty(eventArray)) {
@@ -216,10 +238,15 @@ public class UploadManager {
                         xContext.put(Constants.TIME_CALIBRATED, Constants.isCalibration);
                     }
                 }
+                addCid(eventInfo);
                 newEventArray.put(eventInfo);
             }
         }
         return newEventArray;
+    }
+
+    private void addCid(JSONObject eventInfo) {
+        CommonUtils.pushToJSON(eventInfo, ExtraConst.C_CID, CommonUtils.getCId(mContext));
     }
 
     /**
@@ -348,6 +375,7 @@ public class UploadManager {
      * 返回值解密转json
      */
     private JSONObject analysisStrategy(String policy) {
+        LogUtil.d("response ciphertext: " + policy);
         try {
             if (CommonUtils.isEmpty(policy)) {
                 return null;
@@ -355,6 +383,7 @@ public class UploadManager {
 //            String unzip = CommonUtils.messageUnzip(policy);
             String data = WebSocketAESUtil.decryptAES(policy);
             LogPrompt.showReturnCode(data);
+            LogUtil.d("response data: " + data);
             return new JSONObject(data);
         } catch (Throwable e) {
             try {
@@ -378,6 +407,7 @@ public class UploadManager {
                     SharedUtil.setLong(mContext, Constants.SP_SEND_TIME,
                             System.currentTimeMillis());
                     LogPrompt.showSendResults(true);
+                    LogUtil.d("Data uploaded successfully.");
                 }
             } else {
                 reUpload();

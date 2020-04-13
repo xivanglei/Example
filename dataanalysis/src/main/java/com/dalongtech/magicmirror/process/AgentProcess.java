@@ -49,6 +49,7 @@ public class AgentProcess {
     private static long cacheMaxCount = 0;
     private String mTitle = "", mUrl = "";
     private Map<String, Object> properties;
+    private boolean mHasCid;
 
     public static AgentProcess getInstance(Context context) {
         ContextManager.setContext(context);
@@ -255,6 +256,14 @@ public class AgentProcess {
         }
     }
 
+    public boolean getHasCid() {
+        if(!mHasCid) {
+            mHasCid = !CommonUtils.isEmpty(CommonUtils.getCId(ContextManager.getContext()));
+        }
+        if(!mHasCid) LogUtil.d("cid is null");
+        return mHasCid;
+    }
+
     /**
      * 获取最大缓存条数
      */
@@ -329,6 +338,7 @@ public class AgentProcess {
                 try {
                     JSONObject json = new JSONObject(data);
                     CommonUtils.setCId(context, json.optString(Constants.SERVICE_CID));
+                    bindCidAndUserId(context);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -338,7 +348,16 @@ public class AgentProcess {
         });
     }
 
-    private void bindCidAndUserId(Context context) throws Exception{
+    private void bindCidAndUserId(Context context) throws Exception {
+        if(CommonUtils.isEmpty(CommonUtils.getCId(context))) {
+            LogUtil.d("bind cid: cid is null");
+            return;
+        }
+        if(CommonUtils.isEmpty(CommonUtils.getUserId(context))) {
+            LogUtil.d("bind cid: userId is null");
+            return;
+        }
+        LogUtil.d("bind cid = " + CommonUtils.getCId(context) + "---userId = " + CommonUtils.getUserId(context));
         String url = CommonUtils.getUrl(context) + ExtraConst.URL_LOGIN;
         JSONObject allJob = new JSONObject();
         CommonUtils.pushToJSON(allJob, Constants.USER, CommonUtils.getUserId(context));
@@ -362,8 +381,8 @@ public class AgentProcess {
 
     private JSONObject getIdentities(Context context) {
         JSONObject jsonObject = new JSONObject();
-        CommonUtils.pushToJSON(jsonObject, ExtraConst.MAC_ADDRESS, CommonUtils.getMac(context));
         CommonUtils.pushToJSON(jsonObject, ExtraConst.IMEI, CommonUtils.getIMEI(context));
+        CommonUtils.pushToJSON(jsonObject, ExtraConst.MAC_ADDRESS, CommonUtils.getMac(context));
         CommonUtils.pushToJSON(jsonObject, ExtraConst.DEVICE_ID, CommonUtils.getDeviceId(context));
         return jsonObject;
     }
@@ -473,7 +492,7 @@ public class AgentProcess {
                     Log.w("analysys", Constants.API_SET_DEBUG_MODE + ": set failed!");
                     return;
                 }
-                LogUtil.DEBUG = (debug != 0);
+                LogUtil.setDebugMode(debug != 0);
                 debugResetUserInfo(context, debug);
                 SharedUtil.setInt(context, Constants.SP_USER_DEBUG, debug);
                 if (debug != 0) {
@@ -777,8 +796,7 @@ public class AgentProcess {
                     Map<String, Object> property = new HashMap<>();
                     property.put(key, value);
 
-                    if (CheckUtils.checkParameter(Constants.API_REGISTER_SUPER_PROPERTY,
-                            property)) {
+                    if (CheckUtils.checkParameter(Constants.API_REGISTER_SUPER_PROPERTY, property)) {
                         if (LogBean.getCode() == Constants.CODE_SUCCESS) {
                             LogPrompt.showLog(Constants.API_REGISTER_SUPER_PROPERTY, true);
                         }
@@ -808,11 +826,9 @@ public class AgentProcess {
                         return;
                     }
                     Map<String, Object> propertyInfo = CommonUtils.deepCopy(propertyDetail);
-                    if (CheckUtils.checkParameter(
-                            Constants.API_REGISTER_SUPER_PROPERTIES, propertyInfo)) {
+                    if (CheckUtils.checkParameter(Constants.API_REGISTER_SUPER_PROPERTIES, propertyInfo)) {
                         if (LogBean.getCode() == Constants.CODE_SUCCESS) {
-                            LogPrompt.showLog(
-                                    Constants.API_REGISTER_SUPER_PROPERTIES, true);
+                            LogPrompt.showLog(Constants.API_REGISTER_SUPER_PROPERTIES, true);
                         }
                         saveSuperProperty(context, propertyInfo);
                     }
