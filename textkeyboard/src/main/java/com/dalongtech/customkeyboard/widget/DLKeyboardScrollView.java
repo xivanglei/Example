@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import com.dalongtech.customkeyboard.R;
 import com.dalongtech.customkeyboard.constants.KeyConst;
 
-import java.util.ArrayList;
-
 /**
  * Author:xianglei
  * Date: 2019-12-14 18:05
@@ -48,12 +46,7 @@ public class DLKeyboardScrollView extends DLKeyboardView {
     }
 
     @Override
-    public void initEvent() {
-        if(mAlphaKeys == null) {
-            mAlphaKeys = new ArrayList<>();
-        } else {
-            mAlphaKeys.clear();
-        }
+    protected void initKeyEvent() {
         FrameLayout rootContainer = findViewById(R.id.fl_key_root_container);
         for(int i = 0; i < rootContainer.getChildCount(); i++) {
             LinearLayout singleKeyContainer = (LinearLayout) rootContainer.getChildAt(i);
@@ -69,7 +62,6 @@ public class DLKeyboardScrollView extends DLKeyboardView {
                 }
             }
         }
-        setAutoClickBlankHide(mAutoClickBlankHide);
     }
 
     private void addKeyAndListener(LinearLayout keyContainer) {

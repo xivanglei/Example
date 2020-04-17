@@ -10,4 +10,5 @@ public interface KeyListener {
     void onRelease(int code);
     void onHide(int hideType);
     void onKeyClickEvent(String eventCode);
+    void onClickPaste();
 }

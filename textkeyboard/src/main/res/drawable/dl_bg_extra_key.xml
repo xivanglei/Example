@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp">
+        <selector>
+            <!-- 按压后图层 -->
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/dl_key_press" />
+                    <corners android:radius="5dp" />
+                </shape>
+            </item>
+            <!-- 正常状态图层 -->
+            <item android:state_pressed="false">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/dl_bg_extra_key" />
+                    <corners android:radius="5dp" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</layer-list>

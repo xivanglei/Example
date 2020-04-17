@@ -49,6 +49,11 @@ public class CustomKayboardActivity extends SimpleActivity {
             public void onKeyClickEvent(String eventCode) {
                 LogUtil.d(eventCode);
             }
+
+            @Override
+            public void onClickPaste() {
+                LogUtil.d("clickPaste");
+            }
         });
     }
 

@@ -185,13 +185,18 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         } else {
             mAlphaKeys.clear();
         }
-        FrameLayout rootContainer = findViewById(R.id.fl_key_root_container);
-        rootContainer.setOnTouchListener(new View.OnTouchListener() {
+        setAutoClickBlankHide(mAutoClickBlankHide);
+        findViewById(R.id.ll_paste).setOnClickListener(new OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
+            public void onClick(View v) {
+                if(mListener != null) mListener.onClickPaste();
             }
         });
+        initKeyEvent();
+    }
+
+    protected void initKeyEvent() {
+        FrameLayout rootContainer = findViewById(R.id.fl_key_root_container);
         for(int i = 0; i < rootContainer.getChildCount(); i++) {
             LinearLayout singleKeyContainer = (LinearLayout) rootContainer.getChildAt(i);
             for(int j = 0; j < singleKeyContainer.getChildCount(); j++) {
@@ -208,7 +213,6 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
                 }
             }
         }
-        setAutoClickBlankHide(mAutoClickBlankHide);
     }
 
     private void initCustomEvent() {
