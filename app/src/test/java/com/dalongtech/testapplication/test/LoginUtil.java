@@ -1,4 +1,4 @@
-package com.dalongtech.testapplication;
+package com.dalongtech.testapplication.test;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -40,18 +40,46 @@ public class LoginUtil {
 //        apiUrl = "http://zkwap.dalongyun.com/";
 //    }
 
+
     public static void login(Context context, String userName, String userPsw) {
+        //    基本地址
+//if ("test".equals(BuildConfig.ENVIRONMENT)) {
+//        apiUrl = "http://dltech.test.dalongtech.com/";
+////            apiUrl ="https://dltech.exam.dalongtech.com/";
+//    } else if (("pre").equals(BuildConfig.ENVIRONMENT)) {
+//        apiUrl = "http://dltech.wap.pre.dalongtech.com/";
+//    } else if ("rc".equals(BuildConfig.ENVIRONMENT)) {
+//        apiUrl = "http://zkrc.dalongyun.com/";
+//    } else {
+//        //release线
+//        apiUrl = "http://zkwap.dalongyun.com/";
+//    }
+
+        final String psw = EncryptUtil.encrypt(userPsw);
 //        用户名密码登录
 //        api/index.php/user/login_app
 //        接口文档
 //        http://wiki.dalongyun.com:90/index.php?s=/13&page_id=48
-        Map<String, String> loginParams = getLoginParams(context, userName, userPsw);
+        Map<String, String> loginParams = getLoginParams(context, userName, psw);
         //todo 这里获取到响应数据后解析成LoginBean
         ApiResponse<LoginBean> response = new ApiResponse<>();
         if(!response.isSuccess()) return;
         LoginBean loginBean = response.getData();
-        Map<String, String> checkLoginParams = getCheckLoginParam(context, loginBean, userPsw);
+        Map<String, String> checkLoginParams = getCheckLoginParam(context, loginBean, psw);
 
+
+
+        //        if ("test".equals(BuildConfig.ENVIRONMENT)) {
+//            yunApi = "http://waptest.dalongyun.com/";
+////            yunApi ="https://dlyun.exam.dalongyun.com/";
+//        } else if ("pre".equals(BuildConfig.ENVIRONMENT)) {
+//            yunApi = "http://dlyun.wap.pre.dalongyun.com/";
+////            yunApi ="https://dlyun.exam.dalongyun.com/";
+//        } else if ("rc".equals(BuildConfig.ENVIRONMENT)) {
+//            yunApi = "http://waprc.dalongyun.com/";
+//        } else {
+//            yunApi = "http://dlyun.wap.slb.dalongyun.com/";
+//        }
 
 //        登录成功后调用，后续用来获取token等其它验证
 //        api/apk/client_login.php

@@ -1,4 +1,4 @@
-package com.dalongtech.testapplication;
+package com.dalongtech.testapplication.test;
 
 import org.junit.Test;
 

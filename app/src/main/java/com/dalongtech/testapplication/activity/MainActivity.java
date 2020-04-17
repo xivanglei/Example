@@ -45,7 +45,7 @@ public class MainActivity extends SimpleActivity {
             startActivity(TestActivity.class);
             return;
         }
-        enterThreadDemo();
+        startCustomKeyboard();
     }
 
     @Override

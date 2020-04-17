@@ -1,4 +1,4 @@
-package com.dalongtech.testapplication;
+package com.dalongtech.testapplication.test;
 
 import android.text.TextUtils;
 import android.util.Base64;
