@@ -1,6 +1,11 @@
 package com.dalongtech.testapplication.test;
 
+import com.dalongtech.testapplication.utils.JsonUtil;
+
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,12 +25,17 @@ public class ExampleUnitTest {
 
     @Test
     public void test() {
-        int a = 0;
-        int b = 10;
-        int c = 20;
-        a = b = c = 30;
-        int d = (c = 40);
-        System.out.println("d:" + d);
+        List<Integer> integers = new ArrayList<>();
+        integers.add(0);
+        integers.add(1);
+        integers.add(2);
+        integers.add(3);
+        integers.add(1, 5);
+        println(JsonUtil.toJson(integers));
+    }
+
+    private void println(Object s) {
+        System.out.println(s);
     }
 
 }

@@ -13,6 +13,7 @@ public class ObservableScrollView extends ScrollView {
 
     private static final String TAG = "滑动";
     private ScrollCallback mScrollCallback;
+    private float mOldX, mOldY;
 
     public ObservableScrollView(Context context) {
         super(context);
@@ -28,9 +29,14 @@ public class ObservableScrollView extends ScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(ev.getAction() == MotionEvent.ACTION_MOVE){
+        if(ev.getAction() == MotionEvent.ACTION_DOWN) {
+            mOldX = ev.getRawX();
+            mOldY = ev.getRawY();
+        } else if(ev.getAction() == MotionEvent.ACTION_MOVE){
             Log.d(TAG, "onInterceptTouchEvent: move");
-            if (mScrollCallback != null) mScrollCallback.onScroll();
+            if(Math.abs(ev.getRawX() - mOldX) > 50 || Math.abs(ev.getRawY() - mOldY) > 50) {
+                if (mScrollCallback != null) mScrollCallback.onScroll();
+            }
         }
         return super.onInterceptTouchEvent(ev);
     }
