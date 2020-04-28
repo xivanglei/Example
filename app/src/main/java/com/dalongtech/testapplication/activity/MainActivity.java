@@ -45,7 +45,7 @@ public class MainActivity extends SimpleActivity {
             startActivity(TestActivity.class);
             return;
         }
-        startCustomKeyboard();
+        enterInputMode();
     }
 
     @Override
@@ -109,7 +109,7 @@ public class MainActivity extends SimpleActivity {
     }
 
     @OnClick(R.id.btn_big_image)
-    public void startBigImageActivity(View v) {
+    public void startBigImageActivity() {
         BigImageActivity.start(this, iv_test_transform_animator, mImageUrl);
     }
 
@@ -166,5 +166,10 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_thread_demo)
     public void enterThreadDemo() {
         startActivity(ThreadActivity.class);
+    }
+
+    @OnClick(R.id.btn_input_mode)
+    public void enterInputMode() {
+        startActivity(InputModeActivity.class);
     }
 }
