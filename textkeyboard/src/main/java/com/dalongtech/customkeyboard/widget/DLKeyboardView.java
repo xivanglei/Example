@@ -147,7 +147,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     hideKeyboard(HIDE_TYPE_BLANK);
-                    return false;
+                    return true;
                 }
             });
         } else {
