@@ -11,4 +11,5 @@ public interface KeyListener {
     void onHide(int hideType);
     void onKeyClickEvent(String eventCode);
     void onClickPaste();
+    void onClickAccountAssist();
 }

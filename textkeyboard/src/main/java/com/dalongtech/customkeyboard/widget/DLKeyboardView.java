@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +20,7 @@ import com.dalongtech.customkeyboard.R;
 import com.dalongtech.customkeyboard.constants.KeyConst;
 import com.dalongtech.customkeyboard.listener.KeyListener;
 import com.dalongtech.customkeyboard.util.AnimatorUtil;
+import com.dalongtech.customkeyboard.util.CommonUtils;
 import com.dalongtech.customkeyboard.util.TransformCodeUtil;
 
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     private boolean mAltRIsDown;
     private ObjectAnimator mAnimator;
 
-    private int[] mClickableViews = new int[] {
+    private int[] mClickableViews = new int[]{
             R.id.kb_shift, R.id.kb_cancel, R.id.kb_symbol, R.id.kb_win, R.id.kb_symbol_next,
             R.id.kb_symbol_return, R.id.kb_symbol_2_return, R.id.kb_symbol_2_previous, R.id.kb_win_next,
             R.id.kb_win_return, R.id.kb_win_2_return, R.id.kb_win_2_previous, R.id.kb_ctrl_l, R.id.kb_ctrl_r,
@@ -89,6 +91,8 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     private Keyboard mKbAltR;
     //主键盘上的大小写切换，不算普通的shift按键
     private Keyboard mBaseShiftView;
+
+    private LinearLayout mLLPaste;
 
     public DLKeyboardView(@NonNull Context context) {
         this(context, null);
@@ -125,6 +129,12 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     public void showKeyboard() {
         if(mOpenStatus == STATUS_OPEN && getTranslationY() < dp2px(280)) return;
         mOpenStatus = STATUS_OPEN;
+        if (TextUtils.isEmpty(CommonUtils.getClipboardText(getContext()))) {
+            mLLPaste.setVisibility(GONE);
+        } else {
+            mLLPaste.setVisibility(VISIBLE);
+        }
+
         setVisibilityToView(this, true);
         resetAnimator();
         mAnimator = AnimatorUtil.yScroll(this, 250, dp2px(280), 0, new DecelerateInterpolator());
@@ -186,12 +196,22 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
             mAlphaKeys.clear();
         }
         setAutoClickBlankHide(mAutoClickBlankHide);
-        findViewById(R.id.ll_paste).setOnClickListener(new OnClickListener() {
+        mLLPaste = findViewById(R.id.ll_paste);
+        mLLPaste.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mListener != null) mListener.onClickPaste();
+                if (mListener != null) mListener.onClickPaste();
             }
         });
+        findViewById(R.id.ll_account_assist).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (null != mListener) {
+                    mListener.onClickAccountAssist();
+                }
+            }
+        });
+
         initKeyEvent();
     }
 
@@ -199,14 +219,14 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
         FrameLayout rootContainer = findViewById(R.id.fl_key_root_container);
         for(int i = 0; i < rootContainer.getChildCount(); i++) {
             LinearLayout singleKeyContainer = (LinearLayout) rootContainer.getChildAt(i);
-            for(int j = 0; j < singleKeyContainer.getChildCount(); j++) {
+            for (int j = 0; j < singleKeyContainer.getChildCount(); j++) {
                 LinearLayout rowContainer = (LinearLayout) singleKeyContainer.getChildAt(j);
-                for(int k = 0; k < rowContainer.getChildCount(); k++) {
+                for (int k = 0; k < rowContainer.getChildCount(); k++) {
                     View v = rowContainer.getChildAt(k);
-                    if(v instanceof Keyboard) {
+                    if (v instanceof Keyboard) {
                         Keyboard key = (Keyboard) v;
                         key.setListener(this);
-                        if(key.getCode() >= KeyConst.KEY_a && key.getCode() <= KeyConst.KEY_z) {
+                        if (key.getCode() >= KeyConst.KEY_a && key.getCode() <= KeyConst.KEY_z) {
                             mAlphaKeys.add(key);
                         }
                     }
@@ -216,9 +236,9 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     }
 
     private void initCustomEvent() {
-        for(int id : mClickableViews) {
+        for (int id : mClickableViews) {
             View view = findViewById(id);
-            if(view != null) view.setOnClickListener(this);
+            if (view != null) view.setOnClickListener(this);
         }
         mKbCtrlL = findViewById(R.id.kb_ctrl_l);
         mKbCtrlR = findViewById(R.id.kb_ctrl_r);
@@ -237,7 +257,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
 
     @Override
     public void onClick(View v) {
-        int code = ((Keyboard)v).getCode();
+        int code = ((Keyboard) v).getCode();
         switch (code) {
             case android.inputmethodservice.Keyboard.KEYCODE_CANCEL:
                 hideKeyboard(HIDE_TYPE_KEY);
@@ -266,7 +286,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
             case KeyConst.KEY_ALT_L:
             case KeyConst.KEY_ALT_R:
                 changeHotKeyStatus((Keyboard) v);
-                if(mShiftIsOpen) changeShiftStatus();
+                if (mShiftIsOpen) changeShiftStatus();
                 break;
         }
         backAnalysisCodeIfNeed(code);
@@ -275,16 +295,16 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     protected void handlerPageTurning(int code) {
         switch (code) {
             case KeyConst.KEY_PREVIOUS_PAGE:
-                if(mInputType == INPUT_TYPE_SYMBOL_2) {
+                if (mInputType == INPUT_TYPE_SYMBOL_2) {
                     setInputType(INPUT_TYPE_SYMBOL);
-                } else if(mInputType == INPUT_TYPE_WIN_2) {
+                } else if (mInputType == INPUT_TYPE_WIN_2) {
                     setInputType(INPUT_TYPE_WIN);
                 }
                 break;
             case KeyConst.KEY_NEXT_PAGE:
-                if(mInputType == INPUT_TYPE_SYMBOL) {
+                if (mInputType == INPUT_TYPE_SYMBOL) {
                     setInputType(INPUT_TYPE_SYMBOL_2);
-                } else if(mInputType == INPUT_TYPE_WIN) {
+                } else if (mInputType == INPUT_TYPE_WIN) {
                     setInputType(INPUT_TYPE_WIN_2);
                 }
                 break;
@@ -301,9 +321,9 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     }
 
     private void changeCapitalAlphabet() {
-        for(Keyboard keyboard : mAlphaKeys) {
+        for (Keyboard keyboard : mAlphaKeys) {
             keyboard.setCode(keyboard.getCode() + (mShiftIsOpen ? -32 : 32));
-            keyboard.setText(new String(new byte[] {(byte)keyboard.getCode()}));
+            keyboard.setText(new String(new byte[]{(byte) keyboard.getCode()}));
         }
     }
 
@@ -351,11 +371,11 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
 
     @Override
     public void onPress(Keyboard key, int primaryCode) {
-        if(mCodeUtil.isNeedShift(primaryCode)) {
-            if(mCtrlLIsDown) changeHotKeyStatus(mKbCtrlL);
-            if(mCtrlRIsDown) changeHotKeyStatus(mKbCtrlR);
-            if(mAltLIsDown) changeHotKeyStatus(mKbAltL);
-            if(mAltRIsDown) changeHotKeyStatus(mKbAltR);
+        if (mCodeUtil.isNeedShift(primaryCode)) {
+            if (mCtrlLIsDown) changeHotKeyStatus(mKbCtrlL);
+            if (mCtrlRIsDown) changeHotKeyStatus(mKbCtrlR);
+            if (mAltLIsDown) changeHotKeyStatus(mKbAltL);
+            if (mAltRIsDown) changeHotKeyStatus(mKbAltR);
         }
         showPreviewIfNeed(key, primaryCode);
         callback(mCodeUtil.transformCode(primaryCode, true), true);
@@ -364,12 +384,12 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
     @Override
     public void onRelease(int primaryCode) {
         setVisibilityToView(mPreviewText, false);
-        if(primaryCode == KeyConst.KEY_WWW) {
+        if (primaryCode == KeyConst.KEY_WWW) {
             clickKey(KeyConst.KEY_w);
             clickKey(KeyConst.KEY_w);
             clickKey(KeyConst.KEY_w);
             clickKey(KeyConst.KEY_DOT);
-        } else if(primaryCode == KeyConst.KEY_COM) {
+        } else if (primaryCode == KeyConst.KEY_COM) {
             clickKey(KeyConst.KEY_DOT);
             clickKey(KeyConst.KEY_c);
             clickKey(KeyConst.KEY_o);
@@ -382,7 +402,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
 
     //设置是否预览
     private void showPreviewIfNeed(Keyboard key, int code) {
-        if(mInputType == INPUT_TYPE_WIN || mInputType == INPUT_TYPE_WIN_2) return;
+        if (mInputType == INPUT_TYPE_WIN || mInputType == INPUT_TYPE_WIN_2) return;
         boolean isNeedShow = !Arrays.asList(
                 android.inputmethodservice.Keyboard.KEYCODE_SHIFT,
                 android.inputmethodservice.Keyboard.KEYCODE_DELETE,
@@ -400,7 +420,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
                 KeyConst.KEY_FUNCTION_WIN,
                 KeyConst.KEY_PREVIOUS_PAGE,
                 KeyConst.KEY_NEXT_PAGE).contains(code);
-        if(isNeedShow) {
+        if (isNeedShow) {
             mPreviewText.setText(key.getText().toString());
             showPreview(key);
         }
@@ -408,7 +428,7 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
 
     private void showPreview(Keyboard key) {
         int[] keyLocation = new int[2];
-        if(mPreviewLocation == null) {
+        if (mPreviewLocation == null) {
             mPreviewLocation = new int[2];
             mPreviewText.getLocationOnScreen(mPreviewLocation);
         }
@@ -432,25 +452,25 @@ public class DLKeyboardView extends FrameLayout implements Keyboard.OnKeyActionL
 
     //返回
     private void callback(List<Integer> list, boolean isDown) {
-        for(int i : list) {
-            if(i == KeyConst.NO_FIND_KEY) continue;
-            if(isDown) {
-                if(mListener != null) mListener.onPress(i);
+        for (int i : list) {
+            if (i == KeyConst.NO_FIND_KEY) continue;
+            if (isDown) {
+                if (mListener != null) mListener.onPress(i);
             } else {
-                if(mListener != null) mListener.onRelease(i);
+                if (mListener != null) mListener.onRelease(i);
             }
         }
     }
 
     private void backAnalysisCodeIfNeed(int code) {
         int eventCode = mCodeUtil.analysisEventTransform(code);
-        if(eventCode > 0) {
-            if(mListener != null) mListener.onKeyClickEvent(String.valueOf(eventCode));
+        if (eventCode > 0) {
+            if (mListener != null) mListener.onKeyClickEvent(String.valueOf(eventCode));
         }
     }
 
     private void setVisibilityToView(View v, boolean isShow) {
-        if(v == null) return;
+        if (v == null) return;
         v.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 

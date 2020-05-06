@@ -96,6 +96,13 @@ public class PatternTest {
         println(str.matches(regex));
     }
 
+    @Test
+    public void test() {
+        String regex = "^[\\dabcdef]{4}(.|\\n)*";
+        String str = "123fsdflkjsdlfkj\n";
+        println(str.matches(regex));
+    }
+
 
 
     private void println(Object s) {

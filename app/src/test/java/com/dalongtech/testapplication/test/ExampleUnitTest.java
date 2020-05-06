@@ -1,11 +1,6 @@
 package com.dalongtech.testapplication.test;
 
-import com.dalongtech.testapplication.utils.JsonUtil;
-
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,17 +20,38 @@ public class ExampleUnitTest {
 
     @Test
     public void test() {
-        List<Integer> integers = new ArrayList<>();
-        integers.add(0);
-        integers.add(1);
-        integers.add(2);
-        integers.add(3);
-        integers.add(1, 5);
-        println(JsonUtil.toJson(integers));
+        String code = "{\"success\":false,\"msg\":\"\\u672a\\u767b\\u5f55\"}";
+        try {
+            println(unicodeToCn(code));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void println(Object s) {
         System.out.println(s);
+    }
+
+    private static String unicodeToCn(String unicode) {
+        /** 以 \ u 分割，因为java注释也能识别unicode，因此中间加了一个空格*/
+        String[] strs = unicode.split("\\\\u");
+        StringBuilder builder = new StringBuilder();
+        // 由于unicode字符串以 \ u 开头，因此分割出的第一个字符是""。
+        for (int i = 0; i < strs.length; i++) {
+            String str = strs[i];
+            String regex = "^[\\dabcdef]{4}(.|\\n)*";
+            if(str.matches(regex)) {
+                try {
+                    builder.append((char) Integer.valueOf(str.substring(0, 4), 16).intValue());
+                } catch (Exception e) {
+                    builder.append(str.substring(0, 4));
+                }
+                if(str.length() > 4) builder.append(str.substring(4));
+            } else {
+                builder.append(str);
+            }
+        }
+        return builder.toString();
     }
 
 }
