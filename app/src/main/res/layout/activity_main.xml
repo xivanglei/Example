@@ -180,6 +180,12 @@
             android:layout_height="wrap_content"
             android:text="软键盘遮盖问题"/>
 
+        <Button
+            android:id="@+id/btn_section_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="section列表"/>
+
     </LinearLayout>
 
 </ScrollView>

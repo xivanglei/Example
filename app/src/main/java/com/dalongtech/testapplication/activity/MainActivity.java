@@ -45,7 +45,7 @@ public class MainActivity extends SimpleActivity {
             startActivity(TestActivity.class);
             return;
         }
-        startFlexibleLayoutActivity();
+        enterSectionList();
     }
 
     @Override
@@ -171,5 +171,10 @@ public class MainActivity extends SimpleActivity {
     @OnClick(R.id.btn_input_mode)
     public void enterInputMode() {
         startActivity(InputModeActivity.class);
+    }
+
+    @OnClick(R.id.btn_section_list)
+    public void enterSectionList() {
+        startActivity(SectionListActivity.class);
     }
 }

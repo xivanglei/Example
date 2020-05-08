@@ -1,7 +1,7 @@
 package com.dalongtech.testapplication.base;
 
-
 import android.support.annotation.Nullable;
+import android.util.SparseArray;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -17,11 +17,11 @@ import java.util.List;
  */
 public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
 
+    protected SparseArray<AdapterItemProvider<T>> itemArray = new SparseArray<>();
 
     public BaseAdapter() {
         super(null);
     }
-
     public BaseAdapter(List<T> list) {
         super(list);
     }
@@ -50,5 +50,18 @@ public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder>
 
     public void remove() {
         remove(mData.size() - 1);
+    }
+
+    public void registerItemType(int type, AdapterItemProvider<T> provider) {
+        if(getMultiTypeDelegate() == null) return;
+        itemArray.append(type, provider);
+        getMultiTypeDelegate().registerItemType(type, provider.getLayoutId());
+    }
+
+    @Override
+    protected void convert(BaseViewHolder helper, T item) {
+        if(itemArray.indexOfKey(helper.getItemViewType()) != -1) {
+            itemArray.get(helper.getItemViewType()).convert(mContext, helper, item);
+        }
     }
 }

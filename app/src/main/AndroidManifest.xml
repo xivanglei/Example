@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.InputModeActivity"></activity>
+        <activity android:name=".activity.SectionListActivity"></activity>
+        <activity android:name=".activity.InputModeActivity" />
         <activity android:name=".activity.material.MaterialActivity" />
         <activity android:name=".activity.thread.ThreadActivity" />
         <activity android:name=".activity.UrlStartActivity">
