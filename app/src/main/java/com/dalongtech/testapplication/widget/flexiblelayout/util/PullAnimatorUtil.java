@@ -59,7 +59,7 @@ public class PullAnimatorUtil {
         if (headerView == null) {
             return;
         }
-        ValueAnimator heightAnimator = ValueAnimator.ofInt(headerView.getLayoutParams().height, headerHeight);
+        ValueAnimator heightAnimator = ValueAnimator.ofInt(headerView.getHeight(), headerHeight);
         heightAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -67,7 +67,7 @@ public class PullAnimatorUtil {
                 headerView.getLayoutParams().height = height;
             }
         });
-        ValueAnimator widthAnimator = ValueAnimator.ofInt(headerView.getLayoutParams().width, headerWidth);
+        ValueAnimator widthAnimator = ValueAnimator.ofInt(headerView.getWidth(), headerWidth);
         widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
