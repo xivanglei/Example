@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.dalongtech.testapplication.R;
 import com.dalongtech.testapplication.base.BaseAdapter;
 import com.dalongtech.testapplication.base.SimpleActivity;
+import com.dalongtech.testapplication.utils.LogUtil;
 import com.dalongtech.testapplication.widget.flexiblelayout.FlexibleLayout;
 import com.dalongtech.testapplication.widget.flexiblelayout.callback.OnReadyPullListener;
 
@@ -58,7 +59,8 @@ public class FlexibleLayoutActivity extends SimpleActivity {
         flexible_layout.setHeader(headerImage);
         flexible_layout.setRefreshable(true);
         View refreshView = LayoutInflater.from(this).inflate(R.layout.refresh_layout, null);
-        flexible_layout.setRefreshView(refreshView, () -> {
+        flexible_layout.setRefreshView( () -> {
+            LogUtil.d("刷新了");
             new Thread(new Runnable() {
                 @Override
                 public void run() {

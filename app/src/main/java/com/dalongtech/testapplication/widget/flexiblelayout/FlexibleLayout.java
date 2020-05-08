@@ -177,13 +177,12 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-//        log("onTouchEvent");
         if (isEnable && isHeaderReady() && isReady()) {
             switch (ev.getActionMasked()) {
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    LogUtil.d("其他手指按下了");
+//                    LogUtil.d("其他手指按下了");
                     mActivePointerId = ev.getPointerId(ev.getActionIndex());
-                    LogUtil.d(mActivePointerId);
+//                    LogUtil.d(mActivePointerId);
                     mInitialX = ev.getX(ev.getActionIndex());
                     mInitialY = ev.getY(ev.getActionIndex());
                     break;
@@ -193,7 +192,7 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
                         mDiffY += (ev.getY(pointerIndex) - mInitialY);
                         mInitialY = ev.getY(pointerIndex);
                         changeHeader((int) mDiffY);
-                        changeRefreshView((int) mDiffY);
+                        changeRefreshView(getRefreshViewOffsetY(mDiffY));
                         if (mOnPullListener != null) {
                             mOnPullListener.onPull((int) mDiffY);
                         }
@@ -201,11 +200,8 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
                         //return true;
                     }
                     break;
-                case MotionEvent.ACTION_CANCEL:
-                    LogUtil.d("取消了");
-                    break;
                 case MotionEvent.ACTION_POINTER_UP:
-                    LogUtil.d("其他手指抬起了");
+//                    LogUtil.d("其他手指抬起了");
                     if(mActivePointerId == ev.getPointerId(ev.getActionIndex())) {
                         final int newPointerIndex = ev.getActionIndex() == 0 ? 1 : 0;
                         mActivePointerId = ev.getPointerId(newPointerIndex);
@@ -214,7 +210,8 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
                     }
                     break;
                 case MotionEvent.ACTION_UP:
-                    LogUtil.d("抬起了");
+                case MotionEvent.ACTION_CANCEL:
+//                    LogUtil.d("抬起了");
                     if (mIsBeingDragged) {
                         mIsBeingDragged = false;
                         resetHeader();
@@ -222,8 +219,8 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
                             mOnPullListener.onRelease();
                         }
                         //刷新操作
-                        float diffY = ev.getY() - mInitialY;
-                        changeRefreshViewOnActionUp((int) diffY);
+//                        float diffY = ev.getY() - mInitialY;
+                        changeRefreshViewOnActionUp(getRefreshViewOffsetY(mDiffY));
                         return true;
                     }
                     break;
@@ -368,6 +365,10 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
         return this;
     }
 
+    public int getRefreshViewOffsetY(int offsetY) {
+        return (int) Math.min(mHeaderHeight * 0.7, offsetY);
+    }
+
     /**
      * 设置刷新View
      *
@@ -395,7 +396,7 @@ public class FlexibleLayout extends FrameLayout implements IFlexible {
      * @param listener
      * @return
      */
-    public FlexibleLayout setDefaultRefreshView(OnRefreshListener listener) {
+    public FlexibleLayout setRefreshView(OnRefreshListener listener) {
         ImageView refreshView = new ImageView(getContext());
         refreshView.setImageResource(R.mipmap.flexible_loading);
         return setRefreshView(refreshView, listener);

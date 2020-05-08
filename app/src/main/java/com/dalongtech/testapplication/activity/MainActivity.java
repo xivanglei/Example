@@ -45,7 +45,7 @@ public class MainActivity extends SimpleActivity {
             startActivity(TestActivity.class);
             return;
         }
-//        startCustomKeyboard();
+        startFlexibleLayoutActivity();
     }
 
     @Override
