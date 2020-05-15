@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/press_99_ff"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone"
+            android:layout_marginStart="12dp"/>
+        <TextView
+            android:id="@+id/simple_item_content_text"
+            android:textSize="14sp"
+            android:textColor="@color/color_999999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/simple_item_tip_text"
+            android:textSize="14sp"
+            android:textColor="@color/color_999999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="7dp" />
+
+        <ImageView
+            android:id="@+id/simple_item_open_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:maxWidth="14dp"
+            android:maxHeight="14dp"
+            android:src="@mipmap/item_file_btn_open"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/simple_item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_999999"/>
+
+</merge>

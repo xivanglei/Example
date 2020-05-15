@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:id="@+id/sv_content"
+<com.dalongtech.testapplication.widget.BounceScrollView android:id="@+id/sv_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:overScrollMode="never"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -188,4 +189,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</com.dalongtech.testapplication.widget.BounceScrollView>

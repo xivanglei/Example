@@ -28,4 +28,14 @@
             <enum name="mirror" value="2"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="cloud_simple_item_view">
+        <attr name="simple_content_text" format="string"/>
+        <attr name="simple_tip_text" format="string"/>
+        <attr name="simple_divider_color" format="color|reference"/>
+        <attr name="simple_divider_visibility" format="integer"/>
+        <attr name="simple_tip_text_visibility" format="integer"/>
+        <attr name="simple_open_img_visibility" format="integer"/>
+        <attr name="simple_icon_res" format="reference"/>
+    </declare-styleable>
 </resources>
