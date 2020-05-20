@@ -50,6 +50,7 @@ public class ParameterAddUtil {
         Context context = ContextManager.getContext();
         Map<String, Object> map = new HashMap<>();
         map.put(ExtraConst.IMEI, CommonUtils.getIMEI(context));
+        map.put(ExtraConst.OAID, CommonUtils.getOAID(context));
         map.put(ExtraConst.DEVICE_ID, CommonUtils.getDeviceId(context));
         map.put(ExtraConst.MAC_ADDRESS, CommonUtils.getMac(context));
         map.put(ExtraConst.C_PLATFORM, ExtraConst.C_V_PLATFORM);

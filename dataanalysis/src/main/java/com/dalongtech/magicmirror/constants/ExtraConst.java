@@ -53,6 +53,7 @@ public interface ExtraConst {
     String IDENTITIES = "idents";
     String MAC_ADDRESS = "mac";
     String IMEI = "imei";
+    String OAID = "oaid";
     String DEVICE_ID = "android_id";
 
     String URL_EVENT = "/report";       //用户事件上报

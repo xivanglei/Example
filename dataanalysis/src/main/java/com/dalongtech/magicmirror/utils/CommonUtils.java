@@ -852,6 +852,11 @@ public class CommonUtils {
         return SharedUtil.getString(context, Constants.SP_PARTNER_CODE, "");
     }
 
+    public static String getOAID(Context context) {
+        context = checkContext(context);
+        return SharedUtil.getString(context, Constants.SP_OAID, "");
+    }
+
     public static void setCId(Context context, String cId) {
         context = checkContext(context);
         SharedUtil.setString(context, Constants.SP_C_ID, cId);

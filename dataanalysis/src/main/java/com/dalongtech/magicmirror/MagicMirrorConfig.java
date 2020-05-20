@@ -17,6 +17,7 @@ public class MagicMirrorConfig {
     private String appKey;
     private String cAgent;
     private String partnerCode;
+    private String oaid;
     private boolean autoInstallation = false;
     private boolean calibration = Constants.isTimeCheck;
     private long diffTime = Constants.ignoreDiffTime;
@@ -110,6 +111,14 @@ public class MagicMirrorConfig {
 
     public void setPartnerCode(String partnerCode) {
         this.partnerCode = partnerCode;
+    }
+
+    public String getOaid() {
+        return oaid;
+    }
+
+    public void setOaid(String oaid) {
+        this.oaid = oaid;
     }
 }
 

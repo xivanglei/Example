@@ -4,3 +4,5 @@
 AutomaticAcquisition里，修正第一个页面context为null
 修复数据重复上传问题（需测试）
 变更注册cid的传参顺序
+1.0.3
+增加oaid

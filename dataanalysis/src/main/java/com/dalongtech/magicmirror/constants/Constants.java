@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class Constants {
 
-    public static final String DEV_SDK_VERSION = "1.0.2";
+    public static final String DEV_SDK_VERSION = "1.0.3";
 
     public static final String PAGE_VIEW = "pageview";
     public static final String STARTUP = "startup";
@@ -71,6 +71,7 @@ public class Constants {
 
     public static final String SP_C_AGENT = "c_agent";
     public static final String SP_PARTNER_CODE = "partner_code";
+    public static final String SP_OAID = "oaid";
     public static final String SP_C_ID = "c_id";
     public static final String SP_VIP_GRADE = "vip_grade";
     public static final String SP_CHANNEL = "appChannel";

@@ -139,6 +139,10 @@ public class LogPrompt {
         }
     }
 
+    public static void showSetParamLog(boolean success, String paramName, String value) {
+        MMLog.d(Constants.API_INIT + (success ? SUCCESS : FAILED) + " Current " + paramName + ": " + value);
+    }
+
     public static void showKeyLog(boolean success, String key) {
         if (success) {
             MMLog.d(Constants.API_INIT + KEY_SUCCESS + key);

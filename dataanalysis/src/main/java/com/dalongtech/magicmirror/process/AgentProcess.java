@@ -75,6 +75,7 @@ public class AgentProcess {
                         saveChannel(context, config.getChannel());
                         saveCAgent(context, config.getcAgent());
                         savePartnerCode(context, config.getPartnerCode());
+                        saveOAID(context, config.getOaid());
                         if (CommonUtils.isMainProcess(context)) {
                             // 设置首次启动是否发送
                             Constants.isAutoProfile = config.isAutoProfile();
@@ -170,6 +171,13 @@ public class AgentProcess {
             LogPrompt.showPartnerCodeLog(true, partnerCode);
         } else {
             LogPrompt.showPartnerCodeLog(false, partnerCode);
+        }
+    }
+
+    private void saveOAID(Context context, String oaid) {
+        LogPrompt.showSetParamLog(!CommonUtils.isEmpty(oaid), "OAID", oaid);
+        if (!CommonUtils.isEmpty(oaid)) {
+            SharedUtil.setString(context, Constants.SP_OAID, oaid);
         }
     }
 
@@ -382,6 +390,7 @@ public class AgentProcess {
     private JSONObject getIdentities(Context context) {
         JSONObject jsonObject = new JSONObject();
         CommonUtils.pushToJSON(jsonObject, ExtraConst.IMEI, CommonUtils.getIMEI(context));
+        CommonUtils.pushToJSON(jsonObject, ExtraConst.OAID, CommonUtils.getOAID(context));
         CommonUtils.pushToJSON(jsonObject, ExtraConst.MAC_ADDRESS, CommonUtils.getMac(context));
         CommonUtils.pushToJSON(jsonObject, ExtraConst.DEVICE_ID, CommonUtils.getDeviceId(context));
         return jsonObject;
